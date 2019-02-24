@@ -1,0 +1,55 @@
+{
+	"name": "framework/cli",
+	"type": "library",
+	"description": "The CLI package",
+	"keywords": [
+		"cli"
+	],
+	"homepage": "https://gitlab.com/the-framework/cli",
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "Natan Felles",
+			"email": "natanfelles@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=7.3"
+	},
+	"require-dev": {
+		"ext-xdebug": "*",
+		"apigen/apigen": "dev-master#85290e8",
+		"framework/coding-standard": "dev-master",
+		"localheinz/composer-normalize": "^1.1",
+		"phpmd/phpmd": "^2.6",
+		"phpstan/phpstan": "^0.11",
+		"phpunit/phpunit": "^7.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"Framework\\CLI\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\CLI\\": "tests/"
+		}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"scripts": {
+		"post-install-cmd": [
+			".hooks/init"
+		],
+		"post-update-cmd": [
+			"composer dump-autoload"
+		]
+	},
+	"support": {
+		"email": "natanfelles@gmail.com",
+		"issues": "https://gitlab.com/the-framework/cli/issues",
+		"wiki": "https://gitlab.com/the-framework/packages/cli",
+		"source": "https://gitlab.com/the-framework/cli",
+		"docs": "https://the-framework.gitlab.io/packages/cli/api"
+	}
+}
