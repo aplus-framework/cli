@@ -141,9 +141,6 @@ class ConsoleTest extends TestCase
 		$this->console->addCommand(new CommandMock());
 		$this->assertNotEmpty($this->console->getCommands());
 		$this->assertInstanceOf(Command::class, $this->console->getCommand('test'));
-		$this->expectException(\InvalidArgumentException::class);
-		$this->expectExceptionMessage('Command not found: foo');
-		$this->console->getCommand('foo');
 	}
 
 	public function testRun()

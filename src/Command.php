@@ -3,6 +3,8 @@
 abstract class Command
 {
 	protected $name;
+	protected $description;
+	protected $usage = 'command [options] -- [arguments]';
 	protected $options = [];
 
 	public function __get($property)

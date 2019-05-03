@@ -1,5 +1,8 @@
 <?php namespace Framework\CLI;
 
+use Framework\CLI\Commands\Help;
+use Framework\CLI\Commands\Index;
+
 class Console
 {
 	/**
@@ -26,7 +29,7 @@ class Console
 		if (isset($this->commands[$name])) {
 			return $this->commands[$name];
 		}
-		throw new \InvalidArgumentException("Command not found: {$name}");
+		CLI::error("Command not found: {$name}");
 	}
 
 	public function getCommands() : array
@@ -36,6 +39,11 @@ class Console
 
 	public function run() : void
 	{
+		$this->addCommand(new Index($this));
+		$this->addCommand(new Help($this));
+		if ($this->command === '') {
+			$this->command = 'index';
+		}
 		$command = $this->getCommand($this->command);
 		$command->run($this->options, $this->arguments);
 	}
