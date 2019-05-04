@@ -2,6 +2,37 @@
 
 class CLI
 {
+	public const BG_BLACK = 'black';
+	public const BG_RED = 'red';
+	public const BG_GREEN = 'green';
+	public const BG_YELLOW = 'yellow';
+	public const BG_BLUE = 'blue';
+	public const BG_MAGENTA = 'magenta';
+	public const BG_CYAN = 'cyan';
+	public const BG_WHITE = 'white';
+	public const BG_BRIGHT_BLACK = 'bright_black';
+	public const BG_BRIGHT_RED = 'bright_red';
+	public const BG_BRIGHT_GREEN = 'bright_green';
+	public const BG_BRIGHT_YELLOW = 'bright_yellow';
+	public const BG_BRIGHT_BLUE = 'bright_blue';
+	public const BG_BRIGHT_MAGENTA = 'bright_magenta';
+	public const BG_BRIGHT_CYAN = 'bright_cyan';
+	public const FG_BLACK = 'black';
+	public const FG_RED = 'red';
+	public const FG_GREEN = 'green';
+	public const FG_YELLOW = 'yellow';
+	public const FG_BLUE = 'blue';
+	public const FG_MAGENTA = 'magenta';
+	public const FG_CYAN = 'cyan';
+	public const FG_WHITE = 'white';
+	public const FG_BRIGHT_BLACK = 'bright_black';
+	public const FG_BRIGHT_RED = 'bright_red';
+	public const FG_BRIGHT_GREEN = 'bright_green';
+	public const FG_BRIGHT_YELLOW = 'bright_yellow';
+	public const FG_BRIGHT_BLUE = 'bright_blue';
+	public const FG_BRIGHT_MAGENTA = 'bright_magenta';
+	public const FG_BRIGHT_CYAN = 'bright_cyan';
+	public const FG_BRIGHT_WHITE = 'bright_white';
 	protected static $background_colors = [
 		'black' => "\033[40m",
 		'red' => "\033[41m",
@@ -75,7 +106,7 @@ class CLI
 		return $text;
 	}
 
-	public static function strlen($text) : int
+	public static function strlen(string $text) : int
 	{
 		$codes = [];
 		foreach (static::$foreground_colors as $color) {
@@ -149,8 +180,54 @@ class CLI
 	{
 		for ($i = 0; $i < $times; $i++) {
 			\fwrite(\STDOUT, "\x07");
-			\sleep($sleep);
+			//\sleep($sleep);
 		}
+	}
+
+	/**
+	 * Writes a message box.
+	 *
+	 * @param array|string $lines      one line as string or multi-lines as array
+	 * @param string       $background background color
+	 * @param int          $width
+	 */
+	public static function box($lines, string $background = 'blue', int $width = null) //: void
+	{
+		$width = $width ?? static::getWidth();
+		$width -= 2;
+		if ( ! \is_array($lines)) {
+			$lines = [
+				$lines,
+			];
+		}
+		$all_lines = [];
+		foreach ($lines as $key => &$line) {
+			$length = static::strlen($line);
+			if ($length > $width) {
+				$line = static::wrap($line, $width);
+			}
+			foreach (\explode(\PHP_EOL, $line) as $sub_line) {
+				$all_lines[] = $sub_line;
+			}
+		}
+		unset($line);
+		$color = static::FG_BRIGHT_WHITE;
+		if ($background === $color) {
+			$color = static::FG_BLACK;
+		}
+		$blank_line = \str_repeat(' ', $width + 2);
+		$text = static::style($blank_line, $color, $background);
+		//static::write($blank_line, $color, $background);
+		foreach ($all_lines as $key => $line) {
+			$end = \str_repeat(' ', $width - static::strlen($line)) . ' ';
+			$end = static::style($end, $color, $background);
+			//static::write(' ' . $line . $end, $color, $background);
+			$text .= static::style(' ' . $line . $end, $color, $background);
+		}
+		$text .= static::style($blank_line, $color, $background);
+		//static::write($blank_line, $color, $background);
+		//static::write($blank_line, $color, $background);
+		return $text;
 	}
 
 	public static function error(string $content) : void

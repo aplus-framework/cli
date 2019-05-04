@@ -14,7 +14,8 @@
 		}
 	],
 	"require": {
-		"php": ">=7.3"
+		"php": ">=7.3",
+		"framework/language": "dev-master"
 	},
 	"require-dev": {
 		"ext-xdebug": "*",

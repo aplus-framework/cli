@@ -138,7 +138,7 @@ class ConsoleTest extends TestCase
 	public function testCommands()
 	{
 		$this->assertEmpty($this->console->getCommands());
-		$this->console->addCommand(new CommandMock());
+		$this->console->addCommand(new CommandMock($this->console));
 		$this->assertNotEmpty($this->console->getCommands());
 		$this->assertInstanceOf(Command::class, $this->console->getCommand('test'));
 	}
@@ -152,7 +152,7 @@ class ConsoleTest extends TestCase
 			'argument',
 			'argument',
 		]);
-		$this->console->addCommand(new CommandMock());
+		$this->console->addCommand(new CommandMock($this->console));
 		$this->console->run();
 		$this->assertEquals(
 			Stream::$output,

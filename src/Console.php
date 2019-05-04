@@ -2,6 +2,7 @@
 
 use Framework\CLI\Commands\Help;
 use Framework\CLI\Commands\Index;
+use Framework\Language\Language;
 
 class Console
 {
@@ -12,10 +13,26 @@ class Console
 	protected $command = '';
 	protected $options = [];
 	protected $arguments = [];
+	/**
+	 * @var Language
+	 */
+	protected $language;
 
-	public function __construct()
+	public function __construct(Language $language = null)
 	{
+		if ($language === null) {
+			$language = new Language('en');
+		}
+		$language->setDirectories(\array_merge([
+			__DIR__ . '/Languages',
+		], $language->getDirectories()));
+		$this->language = $language;
 		$this->prepare();
+	}
+
+	public function getLanguage() : Language
+	{
+		return $this->language;
 	}
 
 	public function addCommand(Command $command)
@@ -24,27 +41,35 @@ class Console
 		return $this;
 	}
 
-	public function getCommand(string $name) : Command
+	public function getCommand(string $name) : ?Command
 	{
-		if (isset($this->commands[$name])) {
-			return $this->commands[$name];
-		}
-		CLI::error("Command not found: {$name}");
+		return $this->commands[$name] ?? null;
 	}
 
 	public function getCommands() : array
 	{
+		\ksort($this->commands);
 		return $this->commands;
 	}
 
 	public function run() : void
 	{
-		$this->addCommand(new Index($this));
-		$this->addCommand(new Help($this));
+		if ($this->getCommand('index') === null) {
+			$this->addCommand(new Index($this));
+		}
+		if ($this->getCommand('help') === null) {
+			$this->addCommand(new Help($this));
+		}
 		if ($this->command === '') {
 			$this->command = 'index';
 		}
 		$command = $this->getCommand($this->command);
+		if ($command === null) {
+			CLI::error(CLI::style(
+				$this->getLanguage()->render('cli', 'commandNotFound', [$this->command]),
+				CLI::FG_BRIGHT_RED
+			));
+		}
 		$command->run($this->options, $this->arguments);
 	}
 

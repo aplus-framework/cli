@@ -2,22 +2,12 @@
 
 use Framework\CLI\CLI;
 use Framework\CLI\Command;
-use Framework\CLI\Console;
 
 class Help extends Command
 {
-	/**
-	 * @var Console
-	 */
-	protected $console;
 	protected $name = 'help';
 	protected $description = 'Show command usage help';
 	protected $usage = 'help [command_name]';
-
-	public function __construct(Console $console)
-	{
-		$this->console = $console;
-	}
 
 	public function run(array $options = [], array $arguments = []) : void
 	{

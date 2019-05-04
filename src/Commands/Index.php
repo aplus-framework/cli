@@ -2,26 +2,17 @@
 
 use Framework\CLI\CLI;
 use Framework\CLI\Command;
-use Framework\CLI\Console;
 
 class Index extends Command
 {
-	/**
-	 * @var Console
-	 */
-	protected $console;
 	protected $name = 'index';
 	protected $description = 'Show commands list';
 	protected $usage = 'index';
 
-	public function __construct(Console $console)
-	{
-		$this->console = $console;
-	}
-
 	public function run(array $options = [], array $arguments = []) : void
 	{
 		$this->showHeader();
+		$this->showDate();
 		$this->listCommands();
 	}
 
@@ -35,7 +26,7 @@ class Index extends Command
 				$width = $lengths[$name];
 			}
 		}
-		CLI::write('Commands:', 'yellow');
+		CLI::write($this->console->getLanguage()->render('cli', 'commands') . ':', 'yellow');
 		foreach ($this->console->getCommands() as $name => $command) {
 			CLI::write(
 				'  ' . CLI::style($name, 'green') . '  '
@@ -56,7 +47,14 @@ class Index extends Command
 
 EOL;
 		CLI::write($text, 'green');
-		$text = \date('Y-m-d H:i:s') . ' - ' . \date_default_timezone_get() . \PHP_EOL;
+	}
+
+	protected function showDate()
+	{
+		$text = $this->console->getLanguage()->date(\time(), 'full');
+		$text = \ucfirst($text) . ' - '
+			. \date('H:i:s') . ' - '
+			. \date_default_timezone_get() . \PHP_EOL;
 		CLI::write($text);
 	}
 }
