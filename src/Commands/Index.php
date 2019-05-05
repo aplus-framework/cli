@@ -16,7 +16,12 @@ class Index extends Command
 		$this->listCommands();
 	}
 
-	public function listCommands()
+	public function getDescription() : string
+	{
+		return $this->console->getLanguage()->render('cli', 'index.description');
+	}
+
+	protected function listCommands()
 	{
 		$width = 0;
 		$lengths = [];
@@ -31,7 +36,7 @@ class Index extends Command
 			CLI::write(
 				'  ' . CLI::style($name, 'green') . '  '
 				. \str_repeat(' ', $width - $lengths[$name])
-				. $command->description
+				. $command->getDescription()
 			);
 		}
 	}

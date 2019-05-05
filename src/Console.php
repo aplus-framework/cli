@@ -37,7 +37,7 @@ class Console
 
 	public function addCommand(Command $command)
 	{
-		$this->commands[$command->name] = $command;
+		$this->commands[$command->getName()] = $command;
 		return $this;
 	}
 
@@ -46,6 +46,9 @@ class Console
 		return $this->commands[$name] ?? null;
 	}
 
+	/**
+	 * @return array|Command[]
+	 */
 	public function getCommands() : array
 	{
 		\ksort($this->commands);

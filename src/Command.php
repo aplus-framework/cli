@@ -16,10 +16,25 @@ abstract class Command
 		$this->console = $console;
 	}
 
-	public function __get($property)
+	abstract public function run(array $options = [], array $arguments = []) : void;
+
+	public function getName() : string
 	{
-		return $this->{$property};
+		return $this->name;
 	}
 
-	abstract public function run(array $options = [], array $arguments = []) : void;
+	public function getDescription() : string
+	{
+		return $this->description;
+	}
+
+	public function getUsage() : string
+	{
+		return $this->usage;
+	}
+
+	public function getOptions() : array
+	{
+		return $this->options;
+	}
 }
