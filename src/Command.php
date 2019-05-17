@@ -10,6 +10,7 @@ abstract class Command
 	protected $description;
 	protected $usage = 'command [options] -- [arguments]';
 	protected $options = [];
+	protected $active = true;
 
 	public function __construct(Console $console)
 	{
@@ -36,5 +37,10 @@ abstract class Command
 	public function getOptions() : array
 	{
 		return $this->options;
+	}
+
+	public function isActive() : bool
+	{
+		return $this->active;
 	}
 }

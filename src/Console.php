@@ -43,7 +43,10 @@ class Console
 
 	public function getCommand(string $name) : ?Command
 	{
-		return $this->commands[$name] ?? null;
+		if (isset($this->commands[$name]) && $this->commands[$name]->isActive()) {
+			return $this->commands[$name];
+		}
+		return null;
 	}
 
 	/**
@@ -51,8 +54,14 @@ class Console
 	 */
 	public function getCommands() : array
 	{
-		\ksort($this->commands);
-		return $this->commands;
+		$commands = $this->commands;
+		foreach ($commands as $name => $command) {
+			if ( ! $command->isActive()) {
+				unset($commands[$name]);
+			}
+		}
+		\ksort($commands);
+		return $commands;
 	}
 
 	public function run() : void
