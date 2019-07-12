@@ -5,12 +5,12 @@ use PHPUnit\Framework\TestCase;
 
 class CLITest extends TestCase
 {
-	protected function setUp()
+	protected function setUp() : void
 	{
 		Stream::init();
 	}
 
-	protected function tearDown()
+	protected function tearDown() : void
 	{
 		Stream::reset();
 	}

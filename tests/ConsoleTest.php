@@ -10,7 +10,7 @@ class ConsoleTest extends TestCase
 	 */
 	protected $console;
 
-	protected function setUp()
+	protected function setUp() : void
 	{
 		Stream::init();
 		global $argv;
@@ -18,7 +18,7 @@ class ConsoleTest extends TestCase
 		$this->console = new ConsoleMock();
 	}
 
-	protected function tearDown()
+	protected function tearDown() : void
 	{
 		Stream::reset();
 	}
