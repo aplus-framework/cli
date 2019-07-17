@@ -1,11 +1,11 @@
 {
 	"name": "framework/cli",
 	"type": "library",
-	"description": "The CLI package",
+	"description": "The Framework CLI Library",
 	"keywords": [
 		"cli"
 	],
-	"homepage": "https://gitlab.com/the-framework/cli",
+	"homepage": "https://the-framework.gitlab.io/libraries/cli.html",
 	"license": "proprietary",
 	"authors": [
 		{
@@ -53,9 +53,9 @@
 	},
 	"support": {
 		"email": "natanfelles@gmail.com",
-		"issues": "https://gitlab.com/the-framework/cli/issues",
-		"wiki": "https://gitlab.com/the-framework/packages/cli",
-		"source": "https://gitlab.com/the-framework/cli",
-		"docs": "https://the-framework.gitlab.io/packages/cli/api"
+		"issues": "https://gitlab.com/the-framework/libraries/cli/issues",
+		"wiki": "https://gitlab.com/the-framework/libraries/cli/wikis/home",
+		"source": "https://gitlab.com/the-framework/libraries/cli",
+		"docs": "https://the-framework.gitlab.io/libraries/cli/docs/"
 	}
 }
