@@ -22,18 +22,18 @@ class Help extends Command
 		CLI::write(CLI::style(
 			$this->console->getLanguage()->render('cli', 'command') . ': ',
 			'green'
-			) . $command->getName());
+		) . $command->getName());
 		if ($value = $command->getDescription()) {
 			CLI::write(CLI::style(
 				$this->console->getLanguage()->render('cli', 'description') . ': ',
 				'green'
-				) . $value);
+			) . $value);
 		}
 		if ($value = $command->getUsage()) {
 			CLI::write(CLI::style(
 				$this->console->getLanguage()->render('cli', 'usage') . ': ',
 				'green'
-				) . $value);
+			) . $value);
 		}
 		if ($value = $command->getOptions()) {
 			CLI::write($this->console->getLanguage()->render('cli', 'options') . ': ', 'green');
