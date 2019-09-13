@@ -23,10 +23,7 @@ class Console
 		if ($language === null) {
 			$language = new Language('en');
 		}
-		$language->setDirectories(\array_merge([
-			__DIR__ . '/Languages',
-		], $language->getDirectories()));
-		$this->language = $language;
+		$this->language = $language->addDirectory(__DIR__ . '/Languages');
 		$this->prepare();
 	}
 
