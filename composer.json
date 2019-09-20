@@ -6,7 +6,7 @@
 		"cli"
 	],
 	"homepage": "https://the-framework.gitlab.io/libraries/cli.html",
-	"license": "proprietary",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Natan Felles",
