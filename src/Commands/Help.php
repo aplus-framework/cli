@@ -16,9 +16,15 @@ class Help extends Command
 		$this->showCommand($arguments[0]);
 	}
 
-	protected function showCommand(string $command)
+	protected function showCommand(string $command_name)
 	{
-		$command = $this->console->getCommand($command);
+		$command = $this->console->getCommand($command_name);
+		if ($command === null) {
+			CLI::error(CLI::style(
+				$this->console->getLanguage()->render('cli', 'commandNotFound', [$command_name]),
+				CLI::FG_BRIGHT_RED
+			));
+		}
 		CLI::write(CLI::style(
 			$this->console->getLanguage()->render('cli', 'command') . ': ',
 			'green'
