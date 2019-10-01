@@ -4,20 +4,47 @@ use Framework\CLI\Commands\Help;
 use Framework\CLI\Commands\Index;
 use Framework\Language\Language;
 
+/**
+ * Class Console.
+ */
 class Console
 {
 	/**
+	 * List of commands.
+	 *
 	 * @var array|Command[]
 	 */
 	protected $commands = [];
+	/**
+	 * The current command name.
+	 *
+	 * @var string
+	 */
 	protected $command = '';
+	/**
+	 * Input options.
+	 *
+	 * @var array
+	 */
 	protected $options = [];
+	/**
+	 * Input arguments.
+	 *
+	 * @var array
+	 */
 	protected $arguments = [];
 	/**
+	 * The Language instance.
+	 *
 	 * @var Language
 	 */
 	protected $language;
 
+	/**
+	 * Console constructor.
+	 *
+	 * @param Language|null $language
+	 */
 	public function __construct(Language $language = null)
 	{
 		if ($language === null) {
@@ -27,17 +54,36 @@ class Console
 		$this->prepare();
 	}
 
+	/**
+	 * Get the Language instance.
+	 *
+	 * @return Language
+	 */
 	public function getLanguage() : Language
 	{
 		return $this->language;
 	}
 
+	/**
+	 * Add a command to the console.
+	 *
+	 * @param Command $command
+	 *
+	 * @return $this
+	 */
 	public function addCommand(Command $command)
 	{
 		$this->commands[$command->getName()] = $command;
 		return $this;
 	}
 
+	/**
+	 * Get a command.
+	 *
+	 * @param string $name Command name
+	 *
+	 * @return Command|null The command on success or null if not ound
+	 */
 	public function getCommand(string $name) : ?Command
 	{
 		if (isset($this->commands[$name]) && $this->commands[$name]->isActive()) {
@@ -47,6 +93,8 @@ class Console
 	}
 
 	/**
+	 * Get a list of active commands.
+	 *
 	 * @return array|Command[]
 	 */
 	public function getCommands() : array
@@ -61,6 +109,9 @@ class Console
 		return $commands;
 	}
 
+	/**
+	 * Run the Console.
+	 */
 	public function run() : void
 	{
 		if ($this->getCommand('index') === null) {
@@ -79,10 +130,49 @@ class Console
 				CLI::FG_BRIGHT_RED
 			));
 		}
+		//$op = $this->filterCommandOptions($command);
 		$command->run($this->options, $this->arguments);
 	}
 
+	/*protected function filterCommandOptions(Command $command) : array
+	{
+		$options = $command->getOptions();
+		$options = \array_keys($options);
+		foreach ($options as &$option) {
+			$option = \trim(\preg_replace('/\s+/', '', $option));
+			$option = \explode(',', $option);
+			$option = \array_map(static function ($item) {
+				return \ltrim($item, '-');
+			}, $option);
+			\sort($option);
+		}
+		unset($option);
+		$result = [];
+		foreach ($options as $option) {
+			$key = null;
+			foreach ($option as $item) {
+				$result[$item] = null;
+				//$result[$item] =& $this->options[$key];
+				if (\array_key_exists($item, $this->options)) {
+					//$value = $this->options[$item];
+					$key = $item;
+					break;
+				}
+			}
+			//\var_dump($key);
+			if ($key) {
+				foreach ($option as $item) {
+					$result[$item] = &$this->options[$key];
+				}
+				break;
+			}
+		}
+		return $result;
+	}*/
+
 	/**
+	 * Prepare informations of the command line.
+	 *
 	 * [options] [arguments] [options]
 	 * [options] -- [arguments]
 	 * [command]

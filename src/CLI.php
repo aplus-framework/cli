@@ -1,5 +1,8 @@
 <?php namespace Framework\CLI;
 
+/**
+ * Class CLI.
+ */
 class CLI
 {
 	public const BG_BLACK = 'black';
@@ -86,11 +89,23 @@ class CLI
 	];
 	protected static $reset = "\033[0m";
 
+	/**
+	 * Tell if is running on a Windows OS.
+	 *
+	 * @return bool
+	 */
 	public static function isWindows() : bool
 	{
 		return \PHP_OS_FAMILY === 'Windows';
 	}
 
+	/**
+	 * Get the width of the screen.
+	 *
+	 * @param int $default
+	 *
+	 * @return int
+	 */
 	public static function getWidth(int $default = 80) : int
 	{
 		if (static::isWindows() || ! $width = (int) \shell_exec('tput cols')) {
@@ -99,6 +114,14 @@ class CLI
 		return $width;
 	}
 
+	/**
+	 * Display a text wrapped in a given width.
+	 *
+	 * @param string   $text
+	 * @param int|null $width
+	 *
+	 * @return string
+	 */
 	public static function wrap(string $text, int $width = null) : string
 	{
 		$width = $width ?? static::getWidth();
@@ -106,6 +129,13 @@ class CLI
 		return $text;
 	}
 
+	/**
+	 * Calculate the multibyte length of a text without format characters.
+	 *
+	 * @param string $text
+	 *
+	 * @return int
+	 */
 	public static function strlen(string $text) : int
 	{
 		$codes = [];
@@ -123,6 +153,16 @@ class CLI
 		return \mb_strlen($text);
 	}
 
+	/**
+	 * @param string      $text
+	 * @param string      $color
+	 * @param string|null $background
+	 * @param array       $formats
+	 *
+	 * @throws \InvalidArgumentException for invalid color, background or format
+	 *
+	 * @return string
+	 */
 	public static function style(
 		string $text,
 		string $color,
@@ -132,20 +172,20 @@ class CLI
 		$string = '';
 		if ($color) {
 			if (empty(static::$foreground_colors[$color])) {
-				throw new \Exception('Invalid color: ' . $color);
+				throw new \InvalidArgumentException('Invalid color: ' . $color);
 			}
 			$string = static::$foreground_colors[$color];
 		}
 		if ($background) {
 			if (empty(static::$background_colors[$background])) {
-				throw new \Exception('Invalid background color: ' . $background);
+				throw new \InvalidArgumentException('Invalid background color: ' . $background);
 			}
 			$string .= static::$background_colors[$background];
 		}
 		if ($formats) {
 			foreach ($formats as $format) {
 				if (empty(static::$formats[$format])) {
-					throw new \Exception('Invalid format: ' . $format);
+					throw new \InvalidArgumentException('Invalid format: ' . $format);
 				}
 				$string .= static::$formats[$format];
 			}
@@ -154,6 +194,14 @@ class CLI
 		return $string;
 	}
 
+	/**
+	 * Write a text in the output.
+	 *
+	 * @param string      $text
+	 * @param string|null $color
+	 * @param string|null $background
+	 * @param int|null    $width
+	 */
 	public static function write(
 		string $text,
 		string $color = null,
@@ -169,6 +217,11 @@ class CLI
 		\fwrite(\STDOUT, $text . \PHP_EOL);
 	}
 
+	/**
+	 * Prints a new line in the output.
+	 *
+	 * @param int $lines
+	 */
 	public static function newLine(int $lines = 1) : void
 	{
 		for ($i = 0; $i < $lines; $i++) {
@@ -176,11 +229,17 @@ class CLI
 		}
 	}
 
-	public static function beep(int $times = 1, int $sleep = 1) : void
+	/**
+	 * Performs audible beep alarms.
+	 *
+	 * @param int $times
+	 * @param int $usleep Interval in microseconds
+	 */
+	public static function beep(int $times = 1, int $usleep = 0) : void
 	{
 		for ($i = 0; $i < $times; $i++) {
 			\fwrite(\STDOUT, "\x07");
-			//\sleep($sleep);
+			\usleep($usleep);
 		}
 	}
 
