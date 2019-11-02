@@ -36,6 +36,19 @@ class CLI
 	public const FG_BRIGHT_MAGENTA = 'bright_magenta';
 	public const FG_BRIGHT_CYAN = 'bright_cyan';
 	public const FG_BRIGHT_WHITE = 'bright_white';
+	public const FM_BOLD = 'bold';
+	public const FM_FAINT = 'faint';
+	public const FM_ITALIC = 'italic';
+	public const FM_UNDERLINE = 'underline';
+	public const FM_SLOW_BLINK = 'slow_blink';
+	public const FM_RAPID_BLINK = 'rapid_blink';
+	public const FM_REVERSE_VIDEO = 'reverse_video';
+	public const FM_CONCEAL = 'conceal';
+	public const FM_CROSSED_OUT = 'crossed_out';
+	public const FM_PRIMARY_FONT = 'primary_font';
+	public const FM_FRANKTUR = 'fraktur';
+	public const FM_DOUBLY_UNDERLINE = 'doubly_underline';
+	public const FM_ENCIRCLED = 'encircled';
 	protected static $background_colors = [
 		'black' => "\033[40m",
 		'red' => "\033[41m",
@@ -80,7 +93,7 @@ class CLI
 		'slow_blink' => "\033[5m",
 		'rapid_blink' => "\033[6m",
 		'reverse_video' => "\033[7m",
-		'Conceal' => "\033[8m",
+		'conceal' => "\033[8m",
 		'crossed_out' => "\033[9m",
 		'primary_font' => "\033[10m",
 		'fraktur' => "\033[20m",
@@ -155,9 +168,9 @@ class CLI
 
 	/**
 	 * @param string      $text
-	 * @param string      $color
-	 * @param string|null $background
-	 * @param array       $formats
+	 * @param string      $color      One of the FG_* constants
+	 * @param string|null $background One of the BG_* constants
+	 * @param array       $formats    List of the FM_* constants
 	 *
 	 * @throws \InvalidArgumentException for invalid color, background or format
 	 *
