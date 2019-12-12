@@ -138,9 +138,28 @@ class ConsoleTest extends TestCase
 	public function testCommands()
 	{
 		$this->assertEmpty($this->console->getCommands());
-		$this->console->addCommand(new CommandMock($this->console));
+		$command = new class($this->console) extends CommandMock {
+			protected $active = false;
+		};
+		$this->console->addCommand($command);
+		$this->assertEmpty($this->console->getCommands());
+		$command = new CommandMock($this->console);
+		$this->console->addCommand($command);
 		$this->assertNotEmpty($this->console->getCommands());
 		$this->assertInstanceOf(Command::class, $this->console->getCommand('test'));
+	}
+
+	public function testCommandIndex()
+	{
+		$this->console->run();
+		$this->assertStringContainsString('index', Stream::$output);
+	}
+
+	public function _testCommandNotFound()
+	{
+		// TODO: Exit breaks the test
+		$this->setArgv(['file.php', 'unknown']);
+		$this->console->run();
 	}
 
 	public function testRun()
