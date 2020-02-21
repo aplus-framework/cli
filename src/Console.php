@@ -14,31 +14,23 @@ class Console
 	 *
 	 * @var array|Command[]
 	 */
-	protected $commands = [];
+	protected array $commands = [];
 	/**
 	 * The current command name.
-	 *
-	 * @var string
 	 */
-	protected $command = '';
+	protected string $command = '';
 	/**
 	 * Input options.
-	 *
-	 * @var array
 	 */
-	protected $options = [];
+	protected array $options = [];
 	/**
 	 * Input arguments.
-	 *
-	 * @var array
 	 */
-	protected $arguments = [];
+	protected array $arguments = [];
 	/**
 	 * The Language instance.
-	 *
-	 * @var Language
 	 */
-	protected $language;
+	protected Language $language;
 
 	/**
 	 * Console constructor.

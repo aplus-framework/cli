@@ -5,10 +5,10 @@ use Framework\CLI\Command;
 
 class CommandMock extends Command
 {
-	protected $name = 'test';
-	protected $description = 'Lorem ipsum';
-	protected $usage = 'test';
-	protected $options = [
+	protected string $name = 'test';
+	protected string $description = 'Lorem ipsum';
+	protected string $usage = 'test';
+	protected array $options = [
 		'-b' => 'foo bar',
 	];
 

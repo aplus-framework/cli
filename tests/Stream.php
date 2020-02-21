@@ -2,7 +2,7 @@
 
 class Stream extends \php_user_filter
 {
-	public static $output = '';
+	public static string $output = '';
 
 	public function filter($in, $out, &$consumed, $closing)
 	{

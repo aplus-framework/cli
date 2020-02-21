@@ -5,9 +5,9 @@ use Framework\CLI\Command;
 
 class Index extends Command
 {
-	protected $name = 'index';
-	protected $description = 'Show commands list';
-	protected $usage = 'index';
+	protected string $name = 'index';
+	protected string $description = 'Show commands list';
+	protected string $usage = 'index';
 
 	public function run(array $options = [], array $arguments = []) : void
 	{

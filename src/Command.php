@@ -7,40 +7,28 @@ abstract class Command
 {
 	/**
 	 * Console instance of the current command.
-	 *
-	 * @var Console
 	 */
-	protected $console;
+	protected Console $console;
 	/**
 	 * Command name.
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 	/**
 	 * Command description.
-	 *
-	 * @var string
 	 */
-	protected $description;
+	protected string $description;
 	/**
 	 * Command usage.
-	 *
-	 * @var string
 	 */
-	protected $usage = 'command [options] -- [arguments]';
+	protected string $usage = 'command [options] -- [arguments]';
 	/**
 	 * Command options.
-	 *
-	 * @var array
 	 */
-	protected $options = [];
+	protected array $options = [];
 	/**
 	 * Tells if command is active.
-	 *
-	 * @var bool
 	 */
-	protected $active = true;
+	protected bool $active = true;
 
 	/**
 	 * Command constructor.

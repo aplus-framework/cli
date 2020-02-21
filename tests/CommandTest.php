@@ -5,10 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class CommandTest extends TestCase
 {
-	/**
-	 * @var CommandMock
-	 */
-	protected $command;
+	protected CommandMock $command;
 
 	protected function setUp() : void
 	{

@@ -49,7 +49,7 @@ class CLI
 	public const FM_FRANKTUR = 'fraktur';
 	public const FM_DOUBLY_UNDERLINE = 'doubly_underline';
 	public const FM_ENCIRCLED = 'encircled';
-	protected static $background_colors = [
+	protected static array $background_colors = [
 		'black' => "\033[40m",
 		'red' => "\033[41m",
 		'green' => "\033[42m",
@@ -67,7 +67,7 @@ class CLI
 		'bright_cyan' => "\033[106m",
 		'bright_white' => "\033[107m",
 	];
-	protected static $foreground_colors = [
+	protected static array $foreground_colors = [
 		'black' => "\033[0;30m",
 		'red' => "\033[0;31m",
 		'green' => "\033[0;32m",
@@ -85,7 +85,7 @@ class CLI
 		'bright_cyan' => "\033[0;96m",
 		'bright_white' => "\033[0;97m",
 	];
-	protected static $formats = [
+	protected static array $formats = [
 		'bold' => "\033[1m",
 		'faint' => "\033[2m",
 		'italic' => "\033[3m",
@@ -100,7 +100,7 @@ class CLI
 		'doubly_underline' => "\033[21m",
 		'encircled' => "\033[52m",
 	];
-	protected static $reset = "\033[0m";
+	protected static string $reset = "\033[0m";
 
 	/**
 	 * Tell if is running on a Windows OS.

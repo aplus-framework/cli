@@ -5,10 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConsoleTest extends TestCase
 {
-	/**
-	 * @var ConsoleMock
-	 */
-	protected $console;
+	protected ConsoleMock $console;
 
 	protected function setUp() : void
 	{
@@ -139,7 +136,7 @@ class ConsoleTest extends TestCase
 	{
 		$this->assertEmpty($this->console->getCommands());
 		$command = new class($this->console) extends CommandMock {
-			protected $active = false;
+			protected bool $active = false;
 		};
 		$this->console->addCommand($command);
 		$this->assertEmpty($this->console->getCommands());

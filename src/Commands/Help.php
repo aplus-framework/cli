@@ -5,8 +5,8 @@ use Framework\CLI\Command;
 
 class Help extends Command
 {
-	protected $name = 'help';
-	protected $usage = 'help [command_name]';
+	protected string $name = 'help';
+	protected string $usage = 'help [command_name]';
 
 	public function run(array $options = [], array $arguments = []) : void
 	{
