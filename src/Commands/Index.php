@@ -9,7 +9,7 @@ class Index extends Command
 	protected string $description = 'Show commands list';
 	protected string $usage = 'index';
 
-	public function run(array $options = [], array $arguments = []) : void
+	public function run() : void
 	{
 		$this->showHeader();
 		$this->showDate();

@@ -47,6 +47,50 @@ class Console
 	}
 
 	/**
+	 * Get all CLI options.
+	 *
+	 * @return array
+	 */
+	public function getOptions() : array
+	{
+		return $this->options;
+	}
+
+	/**
+	 * Get a specific option or null.
+	 *
+	 * @param string $option
+	 *
+	 * @return string|null
+	 */
+	public function getOption(string $option) : ?string
+	{
+		return $this->options[$option] ?? null;
+	}
+
+	/**
+	 * Get all arguments.
+	 *
+	 * @return array
+	 */
+	public function getArguments() : array
+	{
+		return $this->arguments;
+	}
+
+	/**
+	 * Get a specific argument or null.
+	 *
+	 * @param string $argument
+	 *
+	 * @return string|null
+	 */
+	public function getArgument(string $argument) : ?string
+	{
+		return $this->arguments[$argument] ?? null;
+	}
+
+	/**
 	 * Get the Language instance.
 	 *
 	 * @return Language
@@ -74,7 +118,7 @@ class Console
 	 *
 	 * @param string $name Command name
 	 *
-	 * @return Command|null The command on success or null if not ound
+	 * @return Command|null The command on success or null if not found
 	 */
 	public function getCommand(string $name) : ?Command
 	{
@@ -123,7 +167,7 @@ class Console
 			));
 		}
 		//$op = $this->filterCommandOptions($command);
-		$command->run($this->options, $this->arguments);
+		$command->run();
 	}
 
 	/*protected function filterCommandOptions(Command $command) : array

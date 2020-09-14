@@ -42,11 +42,8 @@ abstract class Command
 
 	/**
 	 * Run the command.
-	 *
-	 * @param array $options   Command line options
-	 * @param array $arguments Command line arguments
 	 */
-	abstract public function run(array $options = [], array $arguments = []) : void;
+	abstract public function run() : void;
 
 	/**
 	 * Get command name.

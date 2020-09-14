@@ -8,8 +8,9 @@ class Help extends Command
 	protected string $name = 'help';
 	protected string $usage = 'help [command_name]';
 
-	public function run(array $options = [], array $arguments = []) : void
+	public function run() : void
 	{
+		$arguments = $this->console->getArguments();
 		if (empty($arguments)) {
 			$arguments[0] = 'help';
 		}

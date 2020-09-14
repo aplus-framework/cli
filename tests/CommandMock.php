@@ -12,9 +12,11 @@ class CommandMock extends Command
 		'-b' => 'foo bar',
 	];
 
-	public function run(array $options = [], array $arguments = []) : void
+	public function run() : void
 	{
-		CLI::write(\print_r($options, true));
-		CLI::write(\print_r($arguments, true));
+		CLI::write(\print_r($this->console->getOptions(), true));
+		CLI::write(\print_r($this->console->getOption('o'), true));
+		CLI::write(\print_r($this->console->getArguments(), true));
+		CLI::write(\print_r($this->console->getArgument(1), true));
 	}
 }

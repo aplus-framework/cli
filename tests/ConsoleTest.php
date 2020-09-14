@@ -33,8 +33,8 @@ class ConsoleTest extends TestCase
 			'file.php',
 		]);
 		$this->assertEquals('', $this->console->command);
-		$this->assertEquals([], $this->console->options);
-		$this->assertEquals([], $this->console->arguments);
+		$this->assertEquals([], $this->console->getOptions());
+		$this->assertEquals([], $this->console->getArguments());
 	}
 
 	public function testCommandLine()
@@ -44,15 +44,15 @@ class ConsoleTest extends TestCase
 			'command',
 		]);
 		$this->assertEquals('command', $this->console->command);
-		$this->assertEquals([], $this->console->options);
-		$this->assertEquals([], $this->console->arguments);
+		$this->assertEquals([], $this->console->getOptions());
+		$this->assertEquals([], $this->console->getArguments());
 		$this->setArgv([
 			'file.php',
 			'xx',
 		]);
 		$this->assertEquals('xx', $this->console->command);
-		$this->assertEquals([], $this->console->options);
-		$this->assertEquals([], $this->console->arguments);
+		$this->assertEquals([], $this->console->getOptions());
+		$this->assertEquals([], $this->console->getArguments());
 	}
 
 	public function testOptionsLine()
@@ -80,8 +80,8 @@ class ConsoleTest extends TestCase
 			'=' => true,
 			1 => true,
 			0 => true,
-		], $this->console->options);
-		$this->assertEquals([], $this->console->arguments);
+		], $this->console->getOptions());
+		$this->assertEquals([], $this->console->getArguments());
 	}
 
 	public function testArgumentsLine()
@@ -95,11 +95,11 @@ class ConsoleTest extends TestCase
 		]);
 		$this->assertEquals([
 			'a' => true,
-		], $this->console->options);
+		], $this->console->getOptions());
 		$this->assertEquals([
 			'z',
 			'x',
-		], $this->console->arguments);
+		], $this->console->getArguments());
 		$this->setArgv([
 			'file.php',
 			'command',
@@ -108,12 +108,12 @@ class ConsoleTest extends TestCase
 			'-a',
 			'x',
 		]);
-		$this->assertEquals([], $this->console->options);
+		$this->assertEquals([], $this->console->getOptions());
 		$this->assertEquals([
 			'z',
 			'-a',
 			'x',
-		], $this->console->arguments);
+		], $this->console->getArguments());
 		$this->setArgv([
 			'file.php',
 			'command',
@@ -124,12 +124,12 @@ class ConsoleTest extends TestCase
 			'-a',
 			'x',
 		]);
-		$this->assertEquals(['i' => true, 'j' => true], $this->console->options);
+		$this->assertEquals(['i' => true, 'j' => true], $this->console->getOptions());
 		$this->assertEquals([
 			'z',
 			'-a',
 			'x',
-		], $this->console->arguments);
+		], $this->console->getArguments());
 	}
 
 	public function testCommands()
@@ -165,15 +165,18 @@ class ConsoleTest extends TestCase
 			'file.php',
 			'test',
 			'--option=foo',
-			'argument',
-			'argument',
+			'-o',
+			'argument0',
+			'argument1',
 		]);
 		$this->console->addCommand(new CommandMock($this->console));
 		$this->console->run();
 		$this->assertEquals(
-			Stream::$output,
-			\print_r(['option' => 'foo'], true) . \PHP_EOL
-			. \print_r(['argument', 'argument'], true) . \PHP_EOL
+			\print_r(['option' => 'foo', 'o' => 1], true) . \PHP_EOL
+			. \print_r(1, true) . \PHP_EOL
+			. \print_r(['argument0', 'argument1'], true) . \PHP_EOL
+			. \print_r('argument1', true) . \PHP_EOL,
+			Stream::$output
 		);
 	}
 }
