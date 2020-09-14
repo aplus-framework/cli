@@ -10,11 +10,8 @@ class Help extends Command
 
 	public function run() : void
 	{
-		$arguments = $this->console->getArguments();
-		if (empty($arguments)) {
-			$arguments[0] = 'help';
-		}
-		$this->showCommand($arguments[0]);
+		$command = $this->console->getArgument(0) ?? 'help';
+		$this->showCommand($command);
 	}
 
 	protected function showCommand(string $command_name)

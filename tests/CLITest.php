@@ -18,19 +18,19 @@ class CLITest extends TestCase
 	public function testWrite()
 	{
 		CLI::write('Hello!');
-		$this->assertEquals(Stream::$output, "Hello!\n");
+		$this->assertEquals("Hello!\n", Stream::$output);
 	}
 
 	public function testBeep()
 	{
 		CLI::beep(2);
-		$this->assertEquals(Stream::$output, "\x07\x07");
+		$this->assertEquals("\x07\x07", Stream::$output);
 	}
 
 	public function testNewLine()
 	{
 		CLI::newLine(2);
-		$this->assertEquals(Stream::$output, \PHP_EOL . \PHP_EOL);
+		$this->assertEquals(\PHP_EOL . \PHP_EOL, Stream::$output);
 	}
 
 	public function testIsWindows()
@@ -57,7 +57,7 @@ class CLITest extends TestCase
 	public function testClear()
 	{
 		CLI::clear();
-		$this->assertEquals(Stream::$output, "\e[H\e[2J");
+		$this->assertEquals("\e[H\e[2J", Stream::$output);
 	}
 
 	public function testTable()
@@ -72,6 +72,6 @@ class CLITest extends TestCase
 +----+------+
 
 EOL;
-		$this->assertEquals(Stream::$output, $table);
+		$this->assertEquals($table, Stream::$output);
 	}
 }
