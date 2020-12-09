@@ -341,9 +341,10 @@ class CLI
 	/**
 	 * Prompt a question.
 	 *
-	 * @param string            $question the question to prompt
-	 * @param array|string|null $options  Answer options. If an array is set, the default answer is
-	 *                                    the first value. If is an string, it will be the default.
+	 * @param string                    $question the question to prompt
+	 * @param array|mixed[]|string|null $options  Answer options. If an array is set, the default
+	 *                                            answer is the first value. If is an string, it
+	 *                                            will be the default.
 	 *
 	 * @return string the answer
 	 */
@@ -370,8 +371,8 @@ class CLI
 	/**
 	 * Creates a well formatted table.
 	 *
-	 * @param array $tbody table body rows
-	 * @param array $thead table head fields
+	 * @param array|array[]  $tbody table body rows
+	 * @param array|string[] $thead table head fields
 	 */
 	public static function table(array $tbody, array $thead = []) : void
 	{
@@ -421,7 +422,7 @@ class CLI
 				$column++;
 			}
 		}
-		$table = '';
+		$table = $line = '';
 		// Joins columns and append the well formatted rows to the table
 		for ($row = 0; $row < $total_rows; $row++) {
 			// Set the table border-top

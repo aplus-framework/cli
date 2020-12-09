@@ -80,7 +80,7 @@ abstract class Command
 	/**
 	 * Get command options.
 	 *
-	 * @return array
+	 * @return array|mixed[]
 	 */
 	public function getOptions() : array
 	{

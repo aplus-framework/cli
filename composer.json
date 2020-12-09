@@ -22,7 +22,7 @@
 		"ergebnis/composer-normalize": "^2.0",
 		"natanfelles/coding-standard": "^1.0",
 		"phpmd/phpmd": "^2.9",
-		"phpstan/phpstan": "^0.11",
+		"phpstan/phpstan": "^0.12",
 		"phpunit/phpunit": "^9.3"
 	},
 	"autoload": {
