@@ -1,5 +1,7 @@
 <?php namespace Framework\CLI;
 
+use InvalidArgumentException;
+
 /**
  * Class CLI.
  */
@@ -49,6 +51,9 @@ class CLI
 	public const FM_FRANKTUR = 'fraktur';
 	public const FM_DOUBLY_UNDERLINE = 'doubly_underline';
 	public const FM_ENCIRCLED = 'encircled';
+	/**
+	 * @var array|string[]
+	 */
 	protected static array $background_colors = [
 		'black' => "\033[40m",
 		'red' => "\033[41m",
@@ -67,6 +72,9 @@ class CLI
 		'bright_cyan' => "\033[106m",
 		'bright_white' => "\033[107m",
 	];
+	/**
+	 * @var array|string[]
+	 */
 	protected static array $foreground_colors = [
 		'black' => "\033[0;30m",
 		'red' => "\033[0;31m",
@@ -85,6 +93,9 @@ class CLI
 		'bright_cyan' => "\033[0;96m",
 		'bright_white' => "\033[0;97m",
 	];
+	/**
+	 * @var array|string[]
+	 */
 	protected static array $formats = [
 		'bold' => "\033[1m",
 		'faint' => "\033[2m",
@@ -121,7 +132,7 @@ class CLI
 	 */
 	public static function getWidth(int $default = 80) : int
 	{
-		if (static::isWindows() || ! $width = (int) \shell_exec('tput cols')) {
+		if (static::isWindows() || ! ($width = (int) \shell_exec('tput cols'))) {
 			return $default;
 		}
 		return $width;
@@ -172,7 +183,7 @@ class CLI
 	 * @param string|null $background One of the BG_* constants
 	 * @param array       $formats    List of the FM_* constants
 	 *
-	 * @throws \InvalidArgumentException for invalid color, background or format
+	 * @throws InvalidArgumentException for invalid color, background or format
 	 *
 	 * @return string
 	 */
@@ -185,20 +196,20 @@ class CLI
 		$string = '';
 		if ($color) {
 			if (empty(static::$foreground_colors[$color])) {
-				throw new \InvalidArgumentException('Invalid color: ' . $color);
+				throw new InvalidArgumentException('Invalid color: ' . $color);
 			}
 			$string = static::$foreground_colors[$color];
 		}
 		if ($background) {
 			if (empty(static::$background_colors[$background])) {
-				throw new \InvalidArgumentException('Invalid background color: ' . $background);
+				throw new InvalidArgumentException('Invalid background color: ' . $background);
 			}
 			$string .= static::$background_colors[$background];
 		}
 		if ($formats) {
 			foreach ($formats as $format) {
 				if (empty(static::$formats[$format])) {
-					throw new \InvalidArgumentException('Invalid format: ' . $format);
+					throw new InvalidArgumentException('Invalid format: ' . $format);
 				}
 				$string .= static::$formats[$format];
 			}
@@ -261,7 +272,7 @@ class CLI
 	 *
 	 * @param array|string $lines      one line as string or multi-lines as array
 	 * @param string       $background background color
-	 * @param int          $width
+	 * @param int|null     $width
 	 */
 	public static function box($lines, string $background = 'blue', int $width = null) //: void
 	{

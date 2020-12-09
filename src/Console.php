@@ -21,10 +21,14 @@ class Console
 	protected string $command = '';
 	/**
 	 * Input options.
+	 *
+	 * @var array|mixed[]
 	 */
 	protected array $options = [];
 	/**
 	 * Input arguments.
+	 *
+	 * @var array|string[]
 	 */
 	protected array $arguments = [];
 	/**
@@ -49,7 +53,7 @@ class Console
 	/**
 	 * Get all CLI options.
 	 *
-	 * @return array
+	 * @return array|string[]
 	 */
 	public function getOptions() : array
 	{
@@ -71,7 +75,7 @@ class Console
 	/**
 	 * Get all arguments.
 	 *
-	 * @return array
+	 * @return array|string[]
 	 */
 	public function getArguments() : array
 	{
@@ -222,7 +226,7 @@ class Console
 	 * After -- all values are arguments, also if is prefixed with -
 	 * Without --, arguments and options can be mixed: -ls foo -x abc --a=e.
 	 */
-	protected function prepare()
+	protected function prepare() : void
 	{
 		global $argv;
 		$this->command = '';

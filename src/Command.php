@@ -23,6 +23,8 @@ abstract class Command
 	protected string $usage = 'command [options] -- [arguments]';
 	/**
 	 * Command options.
+	 *
+	 * @var array|mixed[]
 	 */
 	protected array $options = [];
 	/**

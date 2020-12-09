@@ -6,7 +6,7 @@ class ConsoleMock extends Console
 {
 	public string $command;
 
-	public function prepare()
+	public function prepare() : void
 	{
 		parent::prepare();
 	}
