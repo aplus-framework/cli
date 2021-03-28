@@ -270,13 +270,16 @@ class CLI
 	/**
 	 * Writes a message box.
 	 *
-	 * @param array|string $lines      one line as string or multi-lines as array
-	 * @param string       $background background color
-	 * @param int|null     $width
+	 * @param array|string|string[] $lines      one line as string or multi-lines as array
+	 * @param string                $background background color. One of BG_* colors
+	 * @param string                $color      foreground color. One of FG_* colors
 	 */
-	public static function box($lines, string $background = 'blue', int $width = null) //: void
-	{
-		$width = $width ?? static::getWidth();
+	public static function box(
+		array | string $lines,
+		string $background = 'black',
+		$color = 'white'
+	) : void {
+		$width = static::getWidth();
 		$width -= 2;
 		if ( ! \is_array($lines)) {
 			$lines = [
@@ -294,29 +297,21 @@ class CLI
 			}
 		}
 		unset($line);
-		$color = static::FG_BRIGHT_WHITE;
-		if ($background === $color) {
-			$color = static::FG_BLACK;
-		}
 		$blank_line = \str_repeat(' ', $width + 2);
 		$text = static::style($blank_line, $color, $background);
-		//static::write($blank_line, $color, $background);
 		foreach ($all_lines as $key => $line) {
 			$end = \str_repeat(' ', $width - static::strlen($line)) . ' ';
 			$end = static::style($end, $color, $background);
-			//static::write(' ' . $line . $end, $color, $background);
 			$text .= static::style(' ' . $line . $end, $color, $background);
 		}
 		$text .= static::style($blank_line, $color, $background);
-		//static::write($blank_line, $color, $background);
-		//static::write($blank_line, $color, $background);
-		return $text;
+		static::write($text);
 	}
 
 	public static function error(string $content) : void
 	{
 		static::beep();
-		\fwrite(\STDERR, $content . \PHP_EOL);
+		\fwrite(\STDERR, static::style($content, static::FG_RED) . \PHP_EOL);
 		exit(1);
 	}
 
