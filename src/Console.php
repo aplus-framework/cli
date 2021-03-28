@@ -118,6 +118,21 @@ class Console
 	}
 
 	/**
+	 * Add many commands to the console.
+	 *
+	 * @param array|Command[] $commands
+	 *
+	 * @return $this
+	 */
+	public function addCommands(array $commands)
+	{
+		foreach ($commands as $command) {
+			$this->addCommand($command);
+		}
+		return $this;
+	}
+
+	/**
 	 * Get a command.
 	 *
 	 * @param string $name Command name
