@@ -247,7 +247,7 @@ class Console
 			if ($end_options === false && $value[0] === '-') {
 				if (isset($value[1]) && $value[1] === '-') {
 					$option = \substr($value, 2);
-					if (\strpos($option, '=') !== false) {
+					if (\str_contains($option, '=')) {
 						[$option, $value] = \explode('=', $option, 2);
 						$this->options[$option] = $value;
 						continue;
