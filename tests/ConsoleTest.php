@@ -146,6 +146,15 @@ class ConsoleTest extends TestCase
 		$this->assertInstanceOf(Command::class, $this->console->getCommand('test'));
 	}
 
+	public function testCommandString()
+	{
+		$this->assertEmpty($this->console->getCommands());
+		$this->console->addCommands([
+			CommandMock::class,
+		]);
+		$this->assertNotEmpty($this->console->getCommands());
+	}
+
 	public function testCommandIndex()
 	{
 		$this->console->run();

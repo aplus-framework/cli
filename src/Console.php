@@ -107,12 +107,15 @@ class Console
 	/**
 	 * Add a command to the console.
 	 *
-	 * @param Command $command
+	 * @param Command|string $command
 	 *
 	 * @return $this
 	 */
-	public function addCommand(Command $command)
+	public function addCommand(Command | string $command)
 	{
+		if (\is_string($command)) {
+			$command = new $command($this);
+		}
 		$this->commands[$command->getName()] = $command;
 		return $this;
 	}
@@ -120,7 +123,7 @@ class Console
 	/**
 	 * Add many commands to the console.
 	 *
-	 * @param array|Command[] $commands
+	 * @param array|Command[]|string[] $commands
 	 *
 	 * @return $this
 	 */
