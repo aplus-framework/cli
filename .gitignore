@@ -2,6 +2,7 @@
 build/
 vendor/
 .php-cs-fixer.cache
+.phpunit.result.cache
 composer.lock
 composer.phar
 phpstan.neon
