@@ -21,16 +21,9 @@ class ConsoleTest extends TestCase
 		Stream::reset();
 	}
 
-	protected function setArgv(array $args)
-	{
-		global $argv;
-		$argv = $args;
-		$this->console->prepare();
-	}
-
 	public function testEmptyLine()
 	{
-		$this->setArgv([
+		$this->console->prepare([
 			'file.php',
 		]);
 		$this->assertEquals('', $this->console->command);
@@ -40,14 +33,14 @@ class ConsoleTest extends TestCase
 
 	public function testCommandLine()
 	{
-		$this->setArgv([
+		$this->console->prepare([
 			'file.php',
 			'command',
 		]);
 		$this->assertEquals('command', $this->console->command);
 		$this->assertEquals([], $this->console->getOptions());
 		$this->assertEquals([], $this->console->getArguments());
-		$this->setArgv([
+		$this->console->prepare([
 			'file.php',
 			'xx',
 		]);
@@ -58,7 +51,7 @@ class ConsoleTest extends TestCase
 
 	public function testOptionsLine()
 	{
-		$this->setArgv([
+		$this->console->prepare([
 			'file.php',
 			'command',
 			'-x',
@@ -87,7 +80,7 @@ class ConsoleTest extends TestCase
 
 	public function testArgumentsLine()
 	{
-		$this->setArgv([
+		$this->console->prepare([
 			'file.php',
 			'command',
 			'z',
@@ -101,7 +94,7 @@ class ConsoleTest extends TestCase
 			'z',
 			'x',
 		], $this->console->getArguments());
-		$this->setArgv([
+		$this->console->prepare([
 			'file.php',
 			'command',
 			'--',
@@ -115,7 +108,7 @@ class ConsoleTest extends TestCase
 			'-a',
 			'x',
 		], $this->console->getArguments());
-		$this->setArgv([
+		$this->console->prepare([
 			'file.php',
 			'command',
 			'-i',
@@ -165,13 +158,13 @@ class ConsoleTest extends TestCase
 	public function _testCommandNotFound()
 	{
 		// TODO: Exit breaks the test
-		$this->setArgv(['file.php', 'unknown']);
+		$this->console->prepare(['file.php', 'unknown']);
 		$this->console->run();
 	}
 
 	public function testRun()
 	{
-		$this->setArgv([
+		$this->console->prepare([
 			'file.php',
 			'test',
 			'--option=foo',
@@ -181,12 +174,36 @@ class ConsoleTest extends TestCase
 		]);
 		$this->console->addCommand(new CommandMock($this->console));
 		$this->console->run();
-		$this->assertEquals(
-			\print_r(['option' => 'foo', 'o' => 1], true) . \PHP_EOL
+		$this->assertEquals($this->getOutputOfCommandMock(), Stream::getOutput());
+	}
+
+	protected function getOutputOfCommandMock() : string
+	{
+		return \print_r(['option' => 'foo', 'o' => 1], true) . \PHP_EOL
 			. \print_r(1, true) . \PHP_EOL
 			. \print_r(['argument0', 'argument1'], true) . \PHP_EOL
-			. \print_r('argument1', true) . \PHP_EOL,
-			Stream::getOutput()
+			. \print_r('argument1', true) . \PHP_EOL;
+	}
+
+	public function testExec()
+	{
+		$this->console->addCommand(new CommandMock($this->console));
+		$this->console->exec('test --option=foo -o argument0 argument1');
+		$this->assertEquals($this->getOutputOfCommandMock(), Stream::getOutput());
+	}
+
+	public function testCommandToArgs()
+	{
+		$this->assertEquals(
+			[
+			'command',
+			'--one=two',
+			'--three=four',
+			'can I have a "little" more',
+		],
+			$this->console::commandToArgs(
+				'command --one=two   --three="four" \'can I have a "little" more\''
+			)
 		);
 	}
 }

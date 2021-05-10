@@ -47,7 +47,8 @@ class Console
 			$language = new Language('en');
 		}
 		$this->language = $language->addDirectory(__DIR__ . '/Languages');
-		$this->prepare();
+		global $argv;
+		$this->prepare($argv);
 	}
 
 	/**
@@ -188,48 +189,19 @@ class Console
 				CLI::FG_BRIGHT_RED
 			));
 		}
-		//$op = $this->filterCommandOptions($command);
 		$command->run();
 	}
 
-	/*protected function filterCommandOptions(Command $command) : array
+	public function exec(string $command) : void
 	{
-		$options = $command->getOptions();
-		$options = \array_keys($options);
-		foreach ($options as &$option) {
-			$option = \trim(\preg_replace('/\s+/', '', $option));
-			$option = \explode(',', $option);
-			$option = \array_map(static function ($item) {
-				return \ltrim($item, '-');
-			}, $option);
-			\sort($option);
-		}
-		unset($option);
-		$result = [];
-		foreach ($options as $option) {
-			$key = null;
-			foreach ($option as $item) {
-				$result[$item] = null;
-				//$result[$item] =& $this->options[$key];
-				if (\array_key_exists($item, $this->options)) {
-					//$value = $this->options[$item];
-					$key = $item;
-					break;
-				}
-			}
-			//\var_dump($key);
-			if ($key) {
-				foreach ($option as $item) {
-					$result[$item] = &$this->options[$key];
-				}
-				break;
-			}
-		}
-		return $result;
-	}*/
+		$argument_values = static::commandToArgs($command);
+		\array_unshift($argument_values, 'removed');
+		$this->prepare($argument_values);
+		$this->run();
+	}
 
 	/**
-	 * Prepare informations of the command line.
+	 * Prepare information of the command line.
 	 *
 	 * [options] [arguments] [options]
 	 * [options] -- [arguments]
@@ -244,13 +216,11 @@ class Console
 	 * After -- all values are arguments, also if is prefixed with -
 	 * Without --, arguments and options can be mixed: -ls foo -x abc --a=e.
 	 */
-	protected function prepare() : void
+	protected function prepare(array $argument_values) : void
 	{
-		global $argv;
 		$this->command = '';
 		$this->options = [];
 		$this->arguments = [];
-		$argument_values = $argv;
 		unset($argument_values[0]);
 		if (isset($argument_values[1]) && $argument_values[1][0] !== '-') {
 			$this->command = $argument_values[1];
@@ -281,5 +251,50 @@ class Console
 			//$end_options = true;
 			$this->arguments[] = $value;
 		}
+	}
+
+	/**
+	 * @param string $command
+	 *
+	 * @see https://someguyjeremy.com/2017/07/adventures-in-parsing-strings-to-argv-in-php.html
+	 *
+	 * @return array
+	 */
+	public static function commandToArgs(string $command) : array
+	{
+		$charCount = \strlen($command);
+		$argv = [];
+		$arg = '';
+		$inDQuote = false;
+		$inSQuote = false;
+		for ($i = 0; $i < $charCount; $i++) {
+			$char = $command[$i];
+			if ($char === ' ' && ! $inDQuote && ! $inSQuote) {
+				if ($arg !== '') {
+					$argv[] = $arg;
+				}
+				$arg = '';
+				continue;
+			}
+			if ($inSQuote && $char === "'") {
+				$inSQuote = false;
+				continue;
+			}
+			if ($inDQuote && $char === '"') {
+				$inDQuote = false;
+				continue;
+			}
+			if ($char === '"' && ! $inSQuote) {
+				$inDQuote = true;
+				continue;
+			}
+			if ($char === "'" && ! $inDQuote) {
+				$inSQuote = true;
+				continue;
+			}
+			$arg .= $char;
+		}
+		$argv[] = $arg;
+		return $argv;
 	}
 }
