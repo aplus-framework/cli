@@ -4,6 +4,8 @@ use InvalidArgumentException;
 
 /**
  * Class CLI.
+ *
+ * @see https://en.wikipedia.org/wiki/ANSI_escape_code
  */
 class CLI
 {
@@ -48,7 +50,7 @@ class CLI
 	public const FM_CONCEAL = 'conceal';
 	public const FM_CROSSED_OUT = 'crossed_out';
 	public const FM_PRIMARY_FONT = 'primary_font';
-	public const FM_FRANKTUR = 'fraktur';
+	public const FM_FRAKTUR = 'fraktur';
 	public const FM_DOUBLY_UNDERLINE = 'doubly_underline';
 	public const FM_ENCIRCLED = 'encircled';
 	/**
@@ -149,8 +151,7 @@ class CLI
 	public static function wrap(string $text, int $width = null) : string
 	{
 		$width = $width ?? static::getWidth();
-		$text = \wordwrap($text, $width, \PHP_EOL, true);
-		return $text;
+		return \wordwrap($text, $width, \PHP_EOL, true);
 	}
 
 	/**
@@ -179,7 +180,7 @@ class CLI
 
 	/**
 	 * @param string      $text
-	 * @param string      $color      One of the FG_* constants
+	 * @param string|null $color      One of the FG_* constants
 	 * @param string|null $background One of the BG_* constants
 	 * @param array       $formats    List of the FM_* constants
 	 *
@@ -189,7 +190,7 @@ class CLI
 	 */
 	public static function style(
 		string $text,
-		string $color,
+		string $color = null,
 		string $background = null,
 		array $formats = []
 	) : string {
@@ -277,7 +278,7 @@ class CLI
 	public static function box(
 		array | string $lines,
 		string $background = 'black',
-		$color = 'white'
+		string $color = 'white'
 	) : void {
 		$width = static::getWidth();
 		$width -= 2;
@@ -287,7 +288,7 @@ class CLI
 			];
 		}
 		$all_lines = [];
-		foreach ($lines as $key => &$line) {
+		foreach ($lines as &$line) {
 			$length = static::strlen($line);
 			if ($length > $width) {
 				$line = static::wrap($line, $width);
@@ -299,7 +300,7 @@ class CLI
 		unset($line);
 		$blank_line = \str_repeat(' ', $width + 2);
 		$text = static::style($blank_line, $color, $background);
-		foreach ($all_lines as $key => $line) {
+		foreach ($all_lines as $line) {
 			$end = \str_repeat(' ', $width - static::strlen($line)) . ' ';
 			$end = static::style($end, $color, $background);
 			$text .= static::style(' ' . $line . $end, $color, $background);
@@ -325,7 +326,10 @@ class CLI
 		$input = \fgets(\STDIN);
 		$input = $input ? \trim($input) : '';
 		$prepend .= $input;
-		$eol_pos = \strrpos($prepend, '\\', -1);
+		$eol_pos = false;
+		if ($prepend) {
+			$eol_pos = \strrpos($prepend, '\\', -1);
+		}
 		if ($eol_pos !== false) {
 			$prepend = \substr_replace($prepend, \PHP_EOL, $eol_pos);
 			$prepend = static::getInput($prepend);
@@ -343,15 +347,19 @@ class CLI
 	 *
 	 * @return string the answer
 	 */
-	public static function prompt(string $question, $options = null) : string
+	public static function prompt(string $question, array | string $options = null) : string
 	{
 		if ($options !== null) {
 			$options = \is_array($options)
 				? \array_values($options)
 				: [$options];
-			$options_text = isset($options[1])
-				? \implode(', ', $options)
-				: $options[0];
+		}
+		if ($options) {
+			$opt = $options;
+			$opt[0] = static::style($opt[0], null, null, [static::FM_BOLD]);
+			$options_text = isset($opt[1])
+				? \implode(', ', $opt)
+				: $opt[0];
 			$question .= ' [' . $options_text . ']';
 		}
 		$question .= ': ';
@@ -398,7 +406,8 @@ class CLI
 				// If the current column does not have a value among the larger ones
 				// or the value of this is greater than the existing one
 				// then, now, this assumes the maximum length
-				if ( ! isset($max_cols_lengths[$column]) || $all_cols_lengths[$row][$column] > $max_cols_lengths[$column]) {
+				if ( ! isset($max_cols_lengths[$column])
+					|| $all_cols_lengths[$row][$column] > $max_cols_lengths[$column]) {
 					$max_cols_lengths[$column] = $all_cols_lengths[$row][$column];
 				}
 				// We can go check the size of the next column...
@@ -419,17 +428,17 @@ class CLI
 		}
 		$table = $line = '';
 		// Joins columns and append the well formatted rows to the table
-		for ($row = 0; $row < $total_rows; $row++) {
+		foreach ($table_rows as $row => $value) {
 			// Set the table border-top
 			if ($row === 0) {
 				$line = '+';
-				foreach ($table_rows[$row] as $col => $value) {
+				foreach ($value as $col => $val) {
 					$line .= \str_repeat('-', $max_cols_lengths[$col] + 2) . '+';
 				}
 				$table .= $line . \PHP_EOL;
 			}
 			// Set the vertical borders
-			$table .= '| ' . \implode(' | ', $table_rows[$row]) . ' |' . \PHP_EOL;
+			$table .= '| ' . \implode(' | ', $value) . ' |' . \PHP_EOL;
 			// Set the thead and table borders-bottom
 			if (($row === 0 && ! empty($thead)) || $row + 1 === $total_rows) {
 				$table .= $line . \PHP_EOL;
