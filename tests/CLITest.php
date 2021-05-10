@@ -1,6 +1,7 @@
 <?php namespace Tests\CLI;
 
 use Framework\CLI\CLI;
+use Framework\CLI\Stream;
 use PHPUnit\Framework\TestCase;
 
 class CLITest extends TestCase
@@ -18,19 +19,19 @@ class CLITest extends TestCase
 	public function testWrite()
 	{
 		CLI::write('Hello!');
-		$this->assertEquals("Hello!\n", Stream::$output);
+		$this->assertEquals("Hello!\n", Stream::getOutput());
 	}
 
 	public function testBeep()
 	{
 		CLI::beep(2);
-		$this->assertEquals("\x07\x07", Stream::$output);
+		$this->assertEquals("\x07\x07", Stream::getOutput());
 	}
 
 	public function testNewLine()
 	{
 		CLI::newLine(2);
-		$this->assertEquals(\PHP_EOL . \PHP_EOL, Stream::$output);
+		$this->assertEquals(\PHP_EOL . \PHP_EOL, Stream::getOutput());
 	}
 
 	public function testIsWindows()
@@ -57,7 +58,7 @@ class CLITest extends TestCase
 	public function testClear()
 	{
 		CLI::clear();
-		$this->assertEquals("\e[H\e[2J", Stream::$output);
+		$this->assertEquals("\e[H\e[2J", Stream::getOutput());
 	}
 
 	public function testTable()
@@ -72,6 +73,6 @@ class CLITest extends TestCase
 +----+------+
 
 EOL;
-		$this->assertEquals($table, Stream::$output);
+		$this->assertEquals($table, Stream::getOutput());
 	}
 }

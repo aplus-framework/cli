@@ -1,6 +1,7 @@
 <?php namespace Tests\CLI;
 
 use Framework\CLI\Command;
+use Framework\CLI\Stream;
 use PHPUnit\Framework\TestCase;
 
 class ConsoleTest extends TestCase
@@ -158,7 +159,7 @@ class ConsoleTest extends TestCase
 	public function testCommandIndex()
 	{
 		$this->console->run();
-		$this->assertStringContainsString('index', Stream::$output);
+		$this->assertStringContainsString('index', Stream::getOutput());
 	}
 
 	public function _testCommandNotFound()
@@ -185,7 +186,7 @@ class ConsoleTest extends TestCase
 			. \print_r(1, true) . \PHP_EOL
 			. \print_r(['argument0', 'argument1'], true) . \PHP_EOL
 			. \print_r('argument1', true) . \PHP_EOL,
-			Stream::$output
+			Stream::getOutput()
 		);
 	}
 }

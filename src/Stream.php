@@ -1,8 +1,8 @@
-<?php namespace Tests\CLI;
+<?php namespace Framework\CLI;
 
 class Stream extends \php_user_filter
 {
-	public static string $output = '';
+	protected static string $output = '';
 
 	public function filter($in, $out, &$consumed, $closing)
 	{
@@ -18,6 +18,11 @@ class Stream extends \php_user_filter
 	{
 		\stream_filter_register('stream', __CLASS__);
 		\stream_filter_append(\STDOUT, 'stream');
+	}
+
+	public static function getOutput() : string
+	{
+		return static::$output;
 	}
 
 	public static function reset()
