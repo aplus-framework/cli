@@ -18,16 +18,8 @@ class LanguagesTest extends TestCase
 
 	public function testKeys()
 	{
-		$rules = [
-			'command',
-			'commandNotFound',
-			'commands',
-			'description',
-			'help.description',
-			'index.description',
-			'options',
-			'usage',
-		];
+		$rules = require $this->langDir . 'en/cli.php';
+		$rules = \array_keys($rules);
 		foreach ($this->getCodes() as $code) {
 			$lines = require $this->langDir . $code . '/cli.php';
 			$lines = \array_keys($lines);

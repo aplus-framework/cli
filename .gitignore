@@ -1,7 +1,8 @@
 .idea/
 build/
 vendor/
-.php_cs.cache
+.php-cs-fixer.cache
+composer.lock
 composer.phar
 phpstan.neon
 phpunit.xml
