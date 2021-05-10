@@ -200,6 +200,13 @@ class Console
 		$this->run();
 	}
 
+	protected function reset() : void
+	{
+		$this->command = '';
+		$this->options = [];
+		$this->arguments = [];
+	}
+
 	/**
 	 * Prepare information of the command line.
 	 *
@@ -218,9 +225,7 @@ class Console
 	 */
 	protected function prepare(array $argument_values) : void
 	{
-		$this->command = '';
-		$this->options = [];
-		$this->arguments = [];
+		$this->reset();
 		unset($argument_values[0]);
 		if (isset($argument_values[1]) && $argument_values[1][0] !== '-') {
 			$this->command = $argument_values[1];
