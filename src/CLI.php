@@ -233,11 +233,11 @@ class CLI
 		string $background = null,
 		int $width = null
 	) : void {
-		if ($color || $background) {
-			$text = static::style($text, $color, $background);
-		}
 		if ($width) {
 			$text = static::wrap($text, $width);
+		}
+		if ($color || $background) {
+			$text = static::style($text, $color, $background);
 		}
 		\fwrite(\STDOUT, $text . \PHP_EOL);
 	}
