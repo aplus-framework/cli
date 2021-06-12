@@ -4,7 +4,7 @@ use Framework\CLI\Console;
 use Framework\CLI\Stream;
 use PHPUnit\Framework\TestCase;
 
-class HelpTest extends TestCase
+final class HelpTest extends TestCase
 {
 	public function testHelp() : void
 	{

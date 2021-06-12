@@ -3,7 +3,7 @@
 use Framework\CLI\Console;
 use PHPUnit\Framework\TestCase;
 
-class CommandTest extends TestCase
+final class CommandTest extends TestCase
 {
 	protected CommandMock $command;
 

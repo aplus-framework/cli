@@ -3,7 +3,7 @@
 use Framework\CLI\Stream;
 use PHPUnit\Framework\TestCase;
 
-class StreamTest extends TestCase
+final class StreamTest extends TestCase
 {
 	public function testStream() : void
 	{

@@ -4,7 +4,7 @@ use Framework\CLI\Command;
 use Framework\CLI\Stream;
 use PHPUnit\Framework\TestCase;
 
-class ConsoleTest extends TestCase
+final class ConsoleTest extends TestCase
 {
 	protected ConsoleMock $console;
 

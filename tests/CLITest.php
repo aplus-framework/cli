@@ -4,7 +4,7 @@ use Framework\CLI\CLI;
 use Framework\CLI\Stream;
 use PHPUnit\Framework\TestCase;
 
-class CLITest extends TestCase
+final class CLITest extends TestCase
 {
 	protected function setUp() : void
 	{

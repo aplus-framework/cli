@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class LanguagesTest extends TestCase
+final class LanguagesTest extends TestCase
 {
 	protected string $langDir = __DIR__ . '/../src/Languages/';
 
