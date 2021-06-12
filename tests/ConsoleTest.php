@@ -4,7 +4,7 @@ use Framework\CLI\Command;
 use Framework\CLI\Stream;
 use PHPUnit\Framework\TestCase;
 
-class ConsoleTest extends TestCase
+final class ConsoleTest extends TestCase
 {
 	protected ConsoleMock $console;
 
@@ -21,7 +21,7 @@ class ConsoleTest extends TestCase
 		Stream::reset();
 	}
 
-	public function testEmptyLine()
+	public function testEmptyLine() : void
 	{
 		$this->console->prepare([
 			'file.php',
@@ -31,7 +31,7 @@ class ConsoleTest extends TestCase
 		$this->assertEquals([], $this->console->getArguments());
 	}
 
-	public function testCommandLine()
+	public function testCommandLine() : void
 	{
 		$this->console->prepare([
 			'file.php',
@@ -49,7 +49,7 @@ class ConsoleTest extends TestCase
 		$this->assertEquals([], $this->console->getArguments());
 	}
 
-	public function testOptionsLine()
+	public function testOptionsLine() : void
 	{
 		$this->console->prepare([
 			'file.php',
@@ -78,7 +78,7 @@ class ConsoleTest extends TestCase
 		$this->assertEquals([], $this->console->getArguments());
 	}
 
-	public function testArgumentsLine()
+	public function testArgumentsLine() : void
 	{
 		$this->console->prepare([
 			'file.php',
@@ -126,7 +126,7 @@ class ConsoleTest extends TestCase
 		], $this->console->getArguments());
 	}
 
-	public function testCommands()
+	public function testCommands() : void
 	{
 		$this->assertEmpty($this->console->getCommands());
 		$command = new class($this->console) extends CommandMock {
@@ -140,7 +140,7 @@ class ConsoleTest extends TestCase
 		$this->assertInstanceOf(Command::class, $this->console->getCommand('test'));
 	}
 
-	public function testCommandString()
+	public function testCommandString() : void
 	{
 		$this->assertEmpty($this->console->getCommands());
 		$this->console->addCommands([
@@ -149,20 +149,20 @@ class ConsoleTest extends TestCase
 		$this->assertNotEmpty($this->console->getCommands());
 	}
 
-	public function testCommandIndex()
+	public function testCommandIndex() : void
 	{
 		$this->console->run();
 		$this->assertStringContainsString('index', Stream::getOutput());
 	}
 
-	public function _testCommandNotFound()
+	public function _testCommandNotFound() : void
 	{
 		// TODO: Exit breaks the test
 		$this->console->prepare(['file.php', 'unknown']);
 		$this->console->run();
 	}
 
-	public function testRun()
+	public function testRun() : void
 	{
 		$this->console->prepare([
 			'file.php',
@@ -185,14 +185,14 @@ class ConsoleTest extends TestCase
 			. \print_r('argument1', true) . \PHP_EOL;
 	}
 
-	public function testExec()
+	public function testExec() : void
 	{
 		$this->console->addCommand(new CommandMock($this->console));
 		$this->console->exec('test --option=foo -o argument0 argument1');
 		$this->assertEquals($this->getOutputOfCommandMock(), Stream::getOutput());
 	}
 
-	public function testCommandToArgs()
+	public function testCommandToArgs() : void
 	{
 		$this->assertEquals(
 			[

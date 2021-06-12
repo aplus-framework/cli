@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class LanguagesTest extends TestCase
+final class LanguagesTest extends TestCase
 {
 	protected string $langDir = __DIR__ . '/../src/Languages/';
 
@@ -16,7 +16,7 @@ class LanguagesTest extends TestCase
 		return $codes;
 	}
 
-	public function testKeys()
+	public function testKeys() : void
 	{
 		$rules = require $this->langDir . 'en/cli.php';
 		$rules = \array_keys($rules);

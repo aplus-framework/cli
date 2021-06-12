@@ -14,7 +14,7 @@ class Help extends Command
 		$this->showCommand($command);
 	}
 
-	protected function showCommand(string $command_name)
+	protected function showCommand(string $command_name) : void
 	{
 		$command = $this->console->getCommand($command_name);
 		if ($command === null) {
