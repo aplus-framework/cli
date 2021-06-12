@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class StreamTest extends TestCase
 {
-	public function testStream()
+	public function testStream() : void
 	{
 		Stream::init();
 		$this->assertEquals('', Stream::getOutput());

@@ -16,7 +16,7 @@ class LanguagesTest extends TestCase
 		return $codes;
 	}
 
-	public function testKeys()
+	public function testKeys() : void
 	{
 		$rules = require $this->langDir . 'en/cli.php';
 		$rules = \array_keys($rules);

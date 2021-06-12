@@ -12,17 +12,17 @@ class CommandTest extends TestCase
 		$this->command = new CommandMock(new Console());
 	}
 
-	public function testDescription()
+	public function testDescription() : void
 	{
 		$this->assertEquals('Lorem ipsum', $this->command->getDescription());
 	}
 
-	public function testUsage()
+	public function testUsage() : void
 	{
 		$this->assertEquals('test', $this->command->getUsage());
 	}
 
-	public function testOptions()
+	public function testOptions() : void
 	{
 		$this->assertEquals(['-b' => 'foo bar'], $this->command->getOptions());
 	}

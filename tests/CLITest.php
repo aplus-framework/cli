@@ -16,7 +16,7 @@ class CLITest extends TestCase
 		Stream::reset();
 	}
 
-	public function testWrite()
+	public function testWrite() : void
 	{
 		CLI::write('Hello!');
 		$this->assertEquals("Hello!\n", Stream::getOutput());
@@ -28,29 +28,29 @@ class CLITest extends TestCase
 		$this->assertEquals("He\nll\no!\n", Stream::getOutput());
 	}
 
-	public function testBeep()
+	public function testBeep() : void
 	{
 		CLI::beep(2);
 		$this->assertEquals("\x07\x07", Stream::getOutput());
 	}
 
-	public function testNewLine()
+	public function testNewLine() : void
 	{
 		CLI::newLine(2);
 		$this->assertEquals(\PHP_EOL . \PHP_EOL, Stream::getOutput());
 	}
 
-	public function testIsWindows()
+	public function testIsWindows() : void
 	{
 		$this->assertFalse(CLI::isWindows());
 	}
 
-	public function testWidth()
+	public function testWidth() : void
 	{
 		$this->assertEquals(80, CLI::getWidth());
 	}
 
-	public function testWrap()
+	public function testWrap() : void
 	{
 		$line = [];
 		$line[0] = \str_repeat('a', 80);
@@ -62,38 +62,38 @@ class CLITest extends TestCase
 		);
 	}
 
-	public function testClear()
+	public function testClear() : void
 	{
 		CLI::clear();
 		$this->assertEquals("\e[H\e[2J", Stream::getOutput());
 	}
 
-	public function testTable()
+	public function testTable() : void
 	{
 		CLI::table([[1, 'John'], [2, 'Mary']]);
-		$table = <<<EOL
-+---+------+
-| 1 | John |
-| 2 | Mary |
-+---+------+
+		$table = <<<'EOL'
+			+---+------+
+			| 1 | John |
+			| 2 | Mary |
+			+---+------+
 
-EOL;
+			EOL;
 		$this->assertEquals($table, Stream::getOutput());
 		Stream::reset();
 		CLI::table([[1, 'John'], [2, 'Mary']], ['ID', 'Name']);
-		$table = <<<EOL
-+----+------+
-| ID | Name |
-+----+------+
-| 1  | John |
-| 2  | Mary |
-+----+------+
+		$table = <<<'EOL'
+			+----+------+
+			| ID | Name |
+			+----+------+
+			| 1  | John |
+			| 2  | Mary |
+			+----+------+
 
-EOL;
+			EOL;
 		$this->assertEquals($table, Stream::getOutput());
 	}
 
-	public function testStyle()
+	public function testStyle() : void
 	{
 		$this->assertEquals("foo\033[0m", CLI::style('foo'));
 		$this->assertEquals(
@@ -110,28 +110,28 @@ EOL;
 		);
 	}
 
-	public function testStyleWithInvalidColor()
+	public function testStyleWithInvalidColor() : void
 	{
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Invalid color: bar');
 		CLI::style('foo', 'bar');
 	}
 
-	public function testStyleWithInvalidBackground()
+	public function testStyleWithInvalidBackground() : void
 	{
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Invalid background color: baz');
 		CLI::style('foo', null, 'baz');
 	}
 
-	public function testStyleWithInvalidFormat()
+	public function testStyleWithInvalidFormat() : void
 	{
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Invalid format: bar');
 		CLI::style('foo', null, null, [CLI::FM_BOLD, 'bar']);
 	}
 
-	public function testBox()
+	public function testBox() : void
 	{
 		CLI::box('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam'
 			. ' sem lacus, rutrum vel neque eu, aliquam aliquet neque.');

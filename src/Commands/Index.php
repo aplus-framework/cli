@@ -21,7 +21,7 @@ class Index extends Command
 		return $this->console->getLanguage()->render('cli', 'index.description');
 	}
 
-	protected function listCommands()
+	protected function listCommands() : void
 	{
 		$width = 0;
 		$lengths = [];
@@ -41,20 +41,20 @@ class Index extends Command
 		}
 	}
 
-	protected function showHeader()
+	protected function showHeader() : void
 	{
-		$text = <<<EOL
- _____                                            _
-|  ___| __ __ _ _ __ ___   _____      _____  _ __| | __
-| |_ | '__/ _` | '_ ` _ \\ / _ \\ \\ /\\ / / _ \\| '__| |/ /
-|  _|| | | (_| | | | | | |  __/\\ V  V / (_) | |  |   <
-|_|  |_|  \\__,_|_| |_| |_|\\___| \\_/\\_/ \\___/|_|  |_|\\_\\
+		$text = <<<'EOL'
+			 _____                                            _
+			|  ___| __ __ _ _ __ ___   _____      _____  _ __| | __
+			| |_ | '__/ _` | '_ ` _ \ / _ \ \ /\ / / _ \| '__| |/ /
+			|  _|| | | (_| | | | | | |  __/\ V  V / (_) | |  |   <
+			|_|  |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_\
 
-EOL;
+			EOL;
 		CLI::write($text, 'green');
 	}
 
-	protected function showDate()
+	protected function showDate() : void
 	{
 		$text = $this->console->getLanguage()->date(\time(), 'full');
 		$text = \ucfirst($text) . ' - '

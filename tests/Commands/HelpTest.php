@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class HelpTest extends TestCase
 {
-	public function testHelp()
+	public function testHelp() : void
 	{
 		$console = new Console();
 		$console->addCommand(Foo::class);
