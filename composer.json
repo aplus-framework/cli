@@ -10,7 +10,8 @@
 	"authors": [
 		{
 			"name": "Natan Felles",
-			"email": "natanfelles@gmail.com"
+			"email": "natanfelles@gmail.com",
+			"homepage": "https://natanfelles.github.io"
 		}
 	],
 	"require": {
