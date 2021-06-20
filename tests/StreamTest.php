@@ -8,12 +8,12 @@ final class StreamTest extends TestCase
 	public function testStream() : void
 	{
 		Stream::init();
-		$this->assertEquals('', Stream::getOutput());
+		self::assertSame('', Stream::getOutput());
 		\fwrite(\STDOUT, 'foo');
-		$this->assertEquals('foo', Stream::getOutput());
+		self::assertSame('foo', Stream::getOutput());
 		\fwrite(\STDOUT, 'bar');
-		$this->assertEquals('foobar', Stream::getOutput());
+		self::assertSame('foobar', Stream::getOutput());
 		Stream::reset();
-		$this->assertEquals('', Stream::getOutput());
+		self::assertSame('', Stream::getOutput());
 	}
 }

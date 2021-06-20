@@ -26,9 +26,9 @@ final class ConsoleTest extends TestCase
 		$this->console->prepare([
 			'file.php',
 		]);
-		$this->assertEquals('', $this->console->command);
-		$this->assertEquals([], $this->console->getOptions());
-		$this->assertEquals([], $this->console->getArguments());
+		self::assertSame('', $this->console->command);
+		self::assertSame([], $this->console->getOptions());
+		self::assertSame([], $this->console->getArguments());
 	}
 
 	public function testCommandLine() : void
@@ -37,16 +37,16 @@ final class ConsoleTest extends TestCase
 			'file.php',
 			'command',
 		]);
-		$this->assertEquals('command', $this->console->command);
-		$this->assertEquals([], $this->console->getOptions());
-		$this->assertEquals([], $this->console->getArguments());
+		self::assertSame('command', $this->console->command);
+		self::assertSame([], $this->console->getOptions());
+		self::assertSame([], $this->console->getArguments());
 		$this->console->prepare([
 			'file.php',
 			'xx',
 		]);
-		$this->assertEquals('xx', $this->console->command);
-		$this->assertEquals([], $this->console->getOptions());
-		$this->assertEquals([], $this->console->getArguments());
+		self::assertSame('xx', $this->console->command);
+		self::assertSame([], $this->console->getOptions());
+		self::assertSame([], $this->console->getArguments());
 	}
 
 	public function testOptionsLine() : void
@@ -60,8 +60,8 @@ final class ConsoleTest extends TestCase
 			'--long-value=10',
 			'-y=10',
 		]);
-		$this->assertEquals('command', $this->console->command);
-		$this->assertEquals([
+		self::assertSame('command', $this->console->command);
+		self::assertSame([
 			'x' => true,
 			's' => true,
 			'h' => true,
@@ -75,7 +75,7 @@ final class ConsoleTest extends TestCase
 			1 => true,
 			0 => true,
 		], $this->console->getOptions());
-		$this->assertEquals([], $this->console->getArguments());
+		self::assertSame([], $this->console->getArguments());
 	}
 
 	public function testArgumentsLine() : void
@@ -87,10 +87,10 @@ final class ConsoleTest extends TestCase
 			'-a',
 			'x',
 		]);
-		$this->assertEquals([
+		self::assertSame([
 			'a' => true,
 		], $this->console->getOptions());
-		$this->assertEquals([
+		self::assertSame([
 			'z',
 			'x',
 		], $this->console->getArguments());
@@ -102,8 +102,8 @@ final class ConsoleTest extends TestCase
 			'-a',
 			'x',
 		]);
-		$this->assertEquals([], $this->console->getOptions());
-		$this->assertEquals([
+		self::assertSame([], $this->console->getOptions());
+		self::assertSame([
 			'z',
 			'-a',
 			'x',
@@ -118,8 +118,8 @@ final class ConsoleTest extends TestCase
 			'-a',
 			'x',
 		]);
-		$this->assertEquals(['i' => true, 'j' => true], $this->console->getOptions());
-		$this->assertEquals([
+		self::assertSame(['i' => true, 'j' => true], $this->console->getOptions());
+		self::assertSame([
 			'z',
 			'-a',
 			'x',
@@ -128,31 +128,31 @@ final class ConsoleTest extends TestCase
 
 	public function testCommands() : void
 	{
-		$this->assertEmpty($this->console->getCommands());
+		self::assertEmpty($this->console->getCommands());
 		$command = new class($this->console) extends CommandMock {
 			protected bool $active = false;
 		};
 		$this->console->addCommand($command);
-		$this->assertEmpty($this->console->getCommands());
+		self::assertEmpty($this->console->getCommands());
 		$command = new CommandMock($this->console);
 		$this->console->addCommands([$command]);
-		$this->assertNotEmpty($this->console->getCommands());
-		$this->assertInstanceOf(Command::class, $this->console->getCommand('test'));
+		self::assertNotEmpty($this->console->getCommands());
+		self::assertInstanceOf(Command::class, $this->console->getCommand('test'));
 	}
 
 	public function testCommandString() : void
 	{
-		$this->assertEmpty($this->console->getCommands());
+		self::assertEmpty($this->console->getCommands());
 		$this->console->addCommands([
 			CommandMock::class,
 		]);
-		$this->assertNotEmpty($this->console->getCommands());
+		self::assertNotEmpty($this->console->getCommands());
 	}
 
 	public function testCommandIndex() : void
 	{
 		$this->console->run();
-		$this->assertStringContainsString('index', Stream::getOutput());
+		self::assertStringContainsString('index', Stream::getOutput());
 	}
 
 	public function _testCommandNotFound() : void
@@ -174,7 +174,7 @@ final class ConsoleTest extends TestCase
 		]);
 		$this->console->addCommand(new CommandMock($this->console));
 		$this->console->run();
-		$this->assertEquals($this->getOutputOfCommandMock(), Stream::getOutput());
+		self::assertSame($this->getOutputOfCommandMock(), Stream::getOutput());
 	}
 
 	protected function getOutputOfCommandMock() : string
@@ -189,12 +189,12 @@ final class ConsoleTest extends TestCase
 	{
 		$this->console->addCommand(new CommandMock($this->console));
 		$this->console->exec('test --option=foo -o argument0 argument1');
-		$this->assertEquals($this->getOutputOfCommandMock(), Stream::getOutput());
+		self::assertSame($this->getOutputOfCommandMock(), Stream::getOutput());
 	}
 
 	public function testCommandToArgs() : void
 	{
-		$this->assertEquals(
+		self::assertSame(
 			[
 			'command',
 			'--one=two',

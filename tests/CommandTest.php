@@ -14,16 +14,16 @@ final class CommandTest extends TestCase
 
 	public function testDescription() : void
 	{
-		$this->assertEquals('Lorem ipsum', $this->command->getDescription());
+		self::assertSame('Lorem ipsum', $this->command->getDescription());
 	}
 
 	public function testUsage() : void
 	{
-		$this->assertEquals('test', $this->command->getUsage());
+		self::assertSame('test', $this->command->getUsage());
 	}
 
 	public function testOptions() : void
 	{
-		$this->assertEquals(['-b' => 'foo bar'], $this->command->getOptions());
+		self::assertSame(['-b' => 'foo bar'], $this->command->getOptions());
 	}
 }

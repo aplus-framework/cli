@@ -19,35 +19,35 @@ final class CLITest extends TestCase
 	public function testWrite() : void
 	{
 		CLI::write('Hello!');
-		$this->assertEquals("Hello!\n", Stream::getOutput());
+		self::assertSame("Hello!\n", Stream::getOutput());
 		Stream::reset();
 		CLI::write('Hello!', CLI::FG_RED);
-		$this->assertStringContainsString("\033[0;31mHello!", Stream::getOutput());
+		self::assertStringContainsString("\033[0;31mHello!", Stream::getOutput());
 		Stream::reset();
 		CLI::write('Hello!', null, null, 2);
-		$this->assertEquals("He\nll\no!\n", Stream::getOutput());
+		self::assertSame("He\nll\no!\n", Stream::getOutput());
 	}
 
 	public function testBeep() : void
 	{
 		CLI::beep(2);
-		$this->assertEquals("\x07\x07", Stream::getOutput());
+		self::assertSame("\x07\x07", Stream::getOutput());
 	}
 
 	public function testNewLine() : void
 	{
 		CLI::newLine(2);
-		$this->assertEquals(\PHP_EOL . \PHP_EOL, Stream::getOutput());
+		self::assertSame(\PHP_EOL . \PHP_EOL, Stream::getOutput());
 	}
 
 	public function testIsWindows() : void
 	{
-		$this->assertFalse(CLI::isWindows());
+		self::assertFalse(CLI::isWindows());
 	}
 
 	public function testWidth() : void
 	{
-		$this->assertEquals(80, CLI::getWidth());
+		self::assertSame(80, CLI::getWidth());
 	}
 
 	public function testWrap() : void
@@ -56,7 +56,7 @@ final class CLITest extends TestCase
 		$line[0] = \str_repeat('a', 80);
 		$line[1] = \str_repeat('a', 80);
 		$line[2] = \str_repeat('a', 80);
-		$this->assertEquals(
+		self::assertSame(
 			$line[0] . \PHP_EOL . $line[1] . \PHP_EOL . $line[2],
 			CLI::wrap(\implode($line))
 		);
@@ -65,7 +65,7 @@ final class CLITest extends TestCase
 	public function testClear() : void
 	{
 		CLI::clear();
-		$this->assertEquals("\e[H\e[2J", Stream::getOutput());
+		self::assertSame("\e[H\e[2J", Stream::getOutput());
 	}
 
 	public function testTable() : void
@@ -78,7 +78,7 @@ final class CLITest extends TestCase
 			+---+------+
 
 			EOL;
-		$this->assertEquals($table, Stream::getOutput());
+		self::assertSame($table, Stream::getOutput());
 		Stream::reset();
 		CLI::table([[1, 'John'], [2, 'Mary']], ['ID', 'Name']);
 		$table = <<<'EOL'
@@ -90,21 +90,21 @@ final class CLITest extends TestCase
 			+----+------+
 
 			EOL;
-		$this->assertEquals($table, Stream::getOutput());
+		self::assertSame($table, Stream::getOutput());
 	}
 
 	public function testStyle() : void
 	{
-		$this->assertEquals("foo\033[0m", CLI::style('foo'));
-		$this->assertEquals(
+		self::assertSame("foo\033[0m", CLI::style('foo'));
+		self::assertSame(
 			"\033[0;31mfoo\033[0m",
 			CLI::style('foo', CLI::FG_RED)
 		);
-		$this->assertEquals(
+		self::assertSame(
 			"\033[0;31m\033[44mfoo\033[0m",
 			CLI::style('foo', CLI::FG_RED, CLI::BG_BLUE)
 		);
-		$this->assertEquals(
+		self::assertSame(
 			"\033[0;31m\033[44m\033[1m\033[3mfoo\033[0m",
 			CLI::style('foo', CLI::FG_RED, CLI::BG_BLUE, [CLI::FM_BOLD, CLI::FM_ITALIC])
 		);
@@ -135,6 +135,6 @@ final class CLITest extends TestCase
 	{
 		CLI::box('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam'
 			. ' sem lacus, rutrum vel neque eu, aliquam aliquet neque.');
-		$this->assertStringContainsString('Lorem', Stream::getOutput());
+		self::assertStringContainsString('Lorem', Stream::getOutput());
 	}
 }

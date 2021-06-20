@@ -12,10 +12,10 @@ final class HelpTest extends TestCase
 		$console->addCommand(Foo::class);
 		Stream::init();
 		$console->exec('help');
-		$this->assertStringContainsString('Command', Stream::getOutput());
-		$this->assertStringNotContainsString('Options', Stream::getOutput());
+		self::assertStringContainsString('Command', Stream::getOutput());
+		self::assertStringNotContainsString('Options', Stream::getOutput());
 		Stream::reset();
 		$console->exec('help foo');
-		$this->assertStringContainsString('Options', Stream::getOutput());
+		self::assertStringContainsString('Options', Stream::getOutput());
 	}
 }
