@@ -54,7 +54,7 @@ class CLI
 	public const FM_DOUBLY_UNDERLINE = 'doubly_underline';
 	public const FM_ENCIRCLED = 'encircled';
 	/**
-	 * @var array|string[]
+	 * @var array<string,string>
 	 */
 	protected static array $background_colors = [
 		'black' => "\033[40m",
@@ -75,7 +75,7 @@ class CLI
 		'bright_white' => "\033[107m",
 	];
 	/**
-	 * @var array|string[]
+	 * @var array<string,string>
 	 */
 	protected static array $foreground_colors = [
 		'black' => "\033[0;30m",
@@ -96,7 +96,7 @@ class CLI
 		'bright_white' => "\033[0;97m",
 	];
 	/**
-	 * @var array|string[]
+	 * @var array<string,string>
 	 */
 	protected static array $formats = [
 		'bold' => "\033[1m",
@@ -179,10 +179,10 @@ class CLI
 	}
 
 	/**
-	 * @param string      $text
-	 * @param string|null $color      One of the FG_* constants
+	 * @param string $text
+	 * @param string|null $color One of the FG_* constants
 	 * @param string|null $background One of the BG_* constants
-	 * @param array       $formats    List of the FM_* constants
+	 * @param array<int,string> $formats List of the FM_* constants
 	 *
 	 * @throws InvalidArgumentException for invalid color, background or format
 	 *
@@ -271,9 +271,9 @@ class CLI
 	/**
 	 * Writes a message box.
 	 *
-	 * @param array|string|string[] $lines      one line as string or multi-lines as array
-	 * @param string                $background background color. One of BG_* colors
-	 * @param string                $color      foreground color. One of FG_* colors
+	 * @param array<int,string>|string $lines One line as string or multi-lines as array
+	 * @param string $background Background color. One of BG_* colors
+	 * @param string $color Foreground color. One of FG_* colors
 	 */
 	public static function box(
 		array | string $lines,
@@ -340,12 +340,12 @@ class CLI
 	/**
 	 * Prompt a question.
 	 *
-	 * @param string                    $question the question to prompt
-	 * @param array|mixed[]|string|null $options  Answer options. If an array is set, the default
-	 *                                            answer is the first value. If is an string, it
-	 *                                            will be the default.
+	 * @param string $question The question to prompt
+	 * @param array<int,string>|string|null $options Answer options. If an array
+	 * is set, the default answer is the first value. If is an string, it
+	 * will be the default.
 	 *
-	 * @return string the answer
+	 * @return string The answer
 	 */
 	public static function prompt(string $question, array | string $options = null) : string
 	{
@@ -374,8 +374,8 @@ class CLI
 	/**
 	 * Creates a well formatted table.
 	 *
-	 * @param array|array[]  $tbody table body rows
-	 * @param array|string[] $thead table head fields
+	 * @param array<int,array> $tbody Table body rows
+	 * @param array<int,string> $thead Table head fields
 	 */
 	public static function table(array $tbody, array $thead = []) : void
 	{

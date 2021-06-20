@@ -24,7 +24,7 @@ abstract class Command
 	/**
 	 * Command options.
 	 *
-	 * @var array|mixed[]
+	 * @var array<string,string>
 	 */
 	protected array $options = [];
 	/**
@@ -80,7 +80,7 @@ abstract class Command
 	/**
 	 * Get command options.
 	 *
-	 * @return array|mixed[]
+	 * @return array<string,string>
 	 */
 	public function getOptions() : array
 	{

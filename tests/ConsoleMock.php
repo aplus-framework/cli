@@ -6,8 +6,8 @@ class ConsoleMock extends Console
 {
 	public string $command;
 
-	public function prepare(array $argument_values) : void
+	public function prepare(array $argumentValues) : void
 	{
-		parent::prepare($argument_values);
+		parent::prepare($argumentValues);
 	}
 }

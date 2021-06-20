@@ -12,7 +12,7 @@ class Console
 	/**
 	 * List of commands.
 	 *
-	 * @var array|Command[]
+	 * @var array<string,Command> The command name as key and the object as value
 	 */
 	protected array $commands = [];
 	/**
@@ -22,13 +22,14 @@ class Console
 	/**
 	 * Input options.
 	 *
-	 * @var array|mixed[]
+	 * @var array<string,bool|string> The option value as string or TRUE if it
+	 * was passed without a value
 	 */
 	protected array $options = [];
 	/**
 	 * Input arguments.
 	 *
-	 * @var array|string[]
+	 * @var array<int,string>
 	 */
 	protected array $arguments = [];
 	/**
@@ -54,7 +55,7 @@ class Console
 	/**
 	 * Get all CLI options.
 	 *
-	 * @return array|string[]
+	 * @return array<string,bool|string>
 	 */
 	public function getOptions() : array
 	{
@@ -66,9 +67,10 @@ class Console
 	 *
 	 * @param string $option
 	 *
-	 * @return string|null
+	 * @return bool|string|null The option value as string, TRUE if it
+	 * was passed without a value or NULL if the option was not set
 	 */
-	public function getOption(string $option) : ?string
+	public function getOption(string $option) : bool | string | null
 	{
 		return $this->options[$option] ?? null;
 	}
@@ -76,7 +78,7 @@ class Console
 	/**
 	 * Get all arguments.
 	 *
-	 * @return array|string[]
+	 * @return array<int,string>
 	 */
 	public function getArguments() : array
 	{
@@ -86,13 +88,13 @@ class Console
 	/**
 	 * Get a specific argument or null.
 	 *
-	 * @param string $argument
+	 * @param int $position Argument position, starting from zero
 	 *
-	 * @return string|null
+	 * @return string|null The argument value or null if it was not set
 	 */
-	public function getArgument(string $argument) : ?string
+	public function getArgument(int $position) : ?string
 	{
-		return $this->arguments[$argument] ?? null;
+		return $this->arguments[$position] ?? null;
 	}
 
 	/**
@@ -108,7 +110,7 @@ class Console
 	/**
 	 * Add a command to the console.
 	 *
-	 * @param Command|string $command
+	 * @param Command|string $command A Command instance or the class FQN
 	 *
 	 * @return $this
 	 */
@@ -124,7 +126,8 @@ class Console
 	/**
 	 * Add many commands to the console.
 	 *
-	 * @param array|Command[]|string[] $commands
+	 * @param array<int,Command|string> $commands A list of Command instances
+	 * or the classes FQN
 	 *
 	 * @return $this
 	 */
@@ -137,11 +140,11 @@ class Console
 	}
 
 	/**
-	 * Get a command.
+	 * Get an active command.
 	 *
 	 * @param string $name Command name
 	 *
-	 * @return Command|null The command on success or null if not found
+	 * @return Command|null The Command on success or null if not found
 	 */
 	public function getCommand(string $name) : ?Command
 	{
@@ -154,7 +157,7 @@ class Console
 	/**
 	 * Get a list of active commands.
 	 *
-	 * @return array|Command[]
+	 * @return array<string,Command>
 	 */
 	public function getCommands() : array
 	{
@@ -222,6 +225,8 @@ class Console
 	 * -foo=bar or -f=bar - all characters are true (f, o, =, b, a, r)
 	 * After -- all values are arguments, also if is prefixed with -
 	 * Without --, arguments and options can be mixed: -ls foo -x abc --a=e.
+	 *
+	 * @param array<int,string> $argumentValues
 	 */
 	protected function prepare(array $argumentValues) : void
 	{
@@ -263,7 +268,7 @@ class Console
 	 *
 	 * @see https://someguyjeremy.com/2017/07/adventures-in-parsing-strings-to-argv-in-php.html
 	 *
-	 * @return array
+	 * @return array<int,string>
 	 */
 	public static function commandToArgs(string $command) : array
 	{
