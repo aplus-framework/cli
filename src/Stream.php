@@ -26,8 +26,8 @@ class Stream extends \php_user_filter
 
 	public static function init() : void
 	{
-		\stream_filter_register('stream', static::class);
-		\stream_filter_append(\STDOUT, 'stream');
+		\stream_filter_register(static::class, static::class);
+		\stream_filter_append(\STDOUT, static::class);
 	}
 
 	public static function getOutput() : string
