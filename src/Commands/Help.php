@@ -3,6 +3,9 @@
 use Framework\CLI\CLI;
 use Framework\CLI\Command;
 
+/**
+ * Class Help.
+ */
 class Help extends Command
 {
 	protected string $name = 'help';

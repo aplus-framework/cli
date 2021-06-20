@@ -3,6 +3,9 @@
 use Framework\CLI\CLI;
 use Framework\CLI\Command;
 
+/**
+ * Class Index.
+ */
 class Index extends Command
 {
 	protected string $name = 'index';

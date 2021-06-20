@@ -1,5 +1,8 @@
 <?php namespace Framework\CLI;
 
+/**
+ * Class Stream.
+ */
 class Stream extends \php_user_filter
 {
 	protected static string $output = '';
