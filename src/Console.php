@@ -223,16 +223,16 @@ class Console
 	 * After -- all values are arguments, also if is prefixed with -
 	 * Without --, arguments and options can be mixed: -ls foo -x abc --a=e.
 	 */
-	protected function prepare(array $argument_values) : void
+	protected function prepare(array $argumentValues) : void
 	{
 		$this->reset();
-		unset($argument_values[0]);
-		if (isset($argument_values[1]) && $argument_values[1][0] !== '-') {
-			$this->command = $argument_values[1];
-			unset($argument_values[1]);
+		unset($argumentValues[0]);
+		if (isset($argumentValues[1]) && $argumentValues[1][0] !== '-') {
+			$this->command = $argumentValues[1];
+			unset($argumentValues[1]);
 		}
 		$end_options = false;
-		foreach ($argument_values as $value) {
+		foreach ($argumentValues as $value) {
 			if ($end_options === false && $value === '--') {
 				$end_options = true;
 				continue;

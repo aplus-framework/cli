@@ -14,12 +14,12 @@ class Help extends Command
 		$this->showCommand($command);
 	}
 
-	protected function showCommand(string $command_name) : void
+	protected function showCommand(string $commandName) : void
 	{
-		$command = $this->console->getCommand($command_name);
+		$command = $this->console->getCommand($commandName);
 		if ($command === null) {
 			CLI::error(CLI::style(
-				$this->console->getLanguage()->render('cli', 'commandNotFound', [$command_name]),
+				$this->console->getLanguage()->render('cli', 'commandNotFound', [$commandName]),
 				CLI::FG_BRIGHT_RED
 			));
 		}
@@ -27,19 +27,22 @@ class Help extends Command
 			$this->console->getLanguage()->render('cli', 'command') . ': ',
 			'green'
 		) . $command->getName());
-		if ($value = $command->getDescription()) {
+		$value = $command->getDescription();
+		if ($value !== '') {
 			CLI::write(CLI::style(
 				$this->console->getLanguage()->render('cli', 'description') . ': ',
 				'green'
 			) . $value);
 		}
-		if ($value = $command->getUsage()) {
+		$value = $command->getUsage();
+		if ($value !== '') {
 			CLI::write(CLI::style(
 				$this->console->getLanguage()->render('cli', 'usage') . ': ',
 				'green'
 			) . $value);
 		}
-		if ($value = $command->getOptions()) {
+		$value = $command->getOptions();
+		if ($value) {
 			CLI::write($this->console->getLanguage()->render('cli', 'options') . ': ', 'green');
 			$last_key = \array_key_last($value);
 			foreach ($value as $option => $description) {
