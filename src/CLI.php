@@ -1,6 +1,7 @@
 <?php namespace Framework\CLI;
 
 use InvalidArgumentException;
+use JetBrains\PhpStorm\NoReturn;
 
 /**
  * Class CLI.
@@ -309,6 +310,7 @@ class CLI
 		static::write($text);
 	}
 
+	#[NoReturn]
 	public static function error(string $content) : void
 	{
 		static::beep();
