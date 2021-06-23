@@ -79,7 +79,7 @@ abstract class Command
 		if (isset($this->description)) {
 			return $this->description;
 		}
-		$description = 'This command does not provide a description.';
+		$description = $this->console->getLanguage()->render('cli', 'noDescription');
 		return $this->description = $description;
 	}
 

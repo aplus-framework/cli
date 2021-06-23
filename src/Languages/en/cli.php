@@ -6,6 +6,7 @@ return [
 	'description' => 'Description',
 	'help.description' => 'Shows command usage help.',
 	'index.description' => 'Shows commands list.',
+	'noDescription' => 'This command does not provide a description.',
 	'options' => 'Options',
 	'usage' => 'Usage',
 ];
