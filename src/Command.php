@@ -54,7 +54,19 @@ abstract class Command
 	 */
 	public function getName() : string
 	{
-		return $this->name;
+		if (isset($this->name)) {
+			return $this->name;
+		}
+		$name = static::class;
+		$pos = \strrpos($name, '\\');
+		if ($pos !== false) {
+			$name = \substr($name, $pos + 1);
+		}
+		if (\str_ends_with($name, 'Command')) {
+			$name = \substr($name, 0, -7);
+		}
+		$name = \strtolower($name);
+		return $this->name = $name;
 	}
 
 	/**
@@ -64,7 +76,11 @@ abstract class Command
 	 */
 	public function getDescription() : string
 	{
-		return $this->description;
+		if (isset($this->description)) {
+			return $this->description;
+		}
+		$description = 'This command does not provide a description.';
+		return $this->description = $description;
 	}
 
 	/**
