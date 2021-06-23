@@ -3,7 +3,9 @@
 	"type": "library",
 	"description": "The Framework CLI Library",
 	"keywords": [
-		"cli"
+		"cli",
+		"console",
+		"commands"
 	],
 	"homepage": "https://the-framework.gitlab.io/libraries/cli.html",
 	"license": "MIT",
