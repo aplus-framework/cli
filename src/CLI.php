@@ -144,19 +144,19 @@ class CLI
 	/**
 	 * Display a text wrapped in a given width.
 	 *
-	 * @param string   $text
+	 * @param string $text
 	 * @param int|null $width
 	 *
-	 * @return string
+	 * @return string Returns the wrapped text
 	 */
 	public static function wrap(string $text, int $width = null) : string
 	{
-		$width = $width ?? static::getWidth();
+		$width ??= static::getWidth();
 		return \wordwrap($text, $width, \PHP_EOL, true);
 	}
 
 	/**
-	 * Calculate the multibyte length of a text without format characters.
+	 * Calculate the multibyte length of a text without style characters.
 	 *
 	 * @param string $text
 	 *
@@ -180,14 +180,16 @@ class CLI
 	}
 
 	/**
-	 * @param string $text
-	 * @param string|null $color One of the FG_* constants
-	 * @param string|null $background One of the BG_* constants
-	 * @param array<int,string> $formats List of the FM_* constants
+	 * Applies styles to a text.
+	 *
+	 * @param string $text The text to be styled
+	 * @param string|null $color Foreground color. One of the FG_* constants
+	 * @param string|null $background Background color. One of the BG_* constants
+	 * @param array<int,string> $formats The text format. A list of FM_* constants
 	 *
 	 * @throws InvalidArgumentException for invalid color, background or format
 	 *
-	 * @return string
+	 * @return string Returns the styled text
 	 */
 	public static function style(
 		string $text,
@@ -223,10 +225,12 @@ class CLI
 	/**
 	 * Write a text in the output.
 	 *
-	 * @param string      $text
-	 * @param string|null $color
-	 * @param string|null $background
-	 * @param int|null    $width
+	 * Optionally with styles and width wrapping.
+	 *
+	 * @param string $text The text to be written
+	 * @param string|null $color Foreground color. One of the FG_* constants
+	 * @param string|null $background Background color. One of the BG_* constants
+	 * @param int|null $width Width to wrap the text. Null to do not wrap.
 	 */
 	public static function write(
 		string $text,
@@ -258,7 +262,7 @@ class CLI
 	/**
 	 * Performs audible beep alarms.
 	 *
-	 * @param int $times
+	 * @param int $times How many times should the beep be played
 	 * @param int $usleep Interval in microseconds
 	 */
 	public static function beep(int $times = 1, int $usleep = 0) : void
@@ -273,13 +277,13 @@ class CLI
 	 * Writes a message box.
 	 *
 	 * @param array<int,string>|string $lines One line as string or multi-lines as array
-	 * @param string $background Background color. One of BG_* colors
-	 * @param string $color Foreground color. One of FG_* colors
+	 * @param string $background Background color. One of the BG_* constants
+	 * @param string $color Foreground color. One of the FG_* constants
 	 */
 	public static function box(
 		array | string $lines,
-		string $background = 'black',
-		string $color = 'white'
+		string $background = CLI::BG_BLACK,
+		string $color = CLI::FG_WHITE
 	) : void {
 		$width = static::getWidth();
 		$width -= 2;
@@ -310,19 +314,38 @@ class CLI
 		static::write($text);
 	}
 
+	/**
+	 * Writes a message to STDERR and exit with code 1.
+	 *
+	 * @param string $message
+	 */
 	#[NoReturn]
-	public static function error(string $content) : void
-	{
+	public static function error(
+		string $message
+	) : void {
 		static::beep();
-		\fwrite(\STDERR, static::style($content, static::FG_RED) . \PHP_EOL);
+		\fwrite(\STDERR, static::style($message, static::FG_RED) . \PHP_EOL);
 		exit(1);
 	}
 
+	/**
+	 * Clear the terminal screen.
+	 */
 	public static function clear() : void
 	{
 		\fwrite(\STDOUT, "\e[H\e[2J");
 	}
 
+	/**
+	 * Get user input.
+	 *
+	 * NOTE: It is possible pass multiple lines ending each line with a backslash.
+	 *
+	 * @param string $prepend [Optional] Text prepended in the input. Used
+	 * internally to allow multiple lines
+	 *
+	 * @return string Returns the user input
+	 */
 	public static function getInput(string $prepend = '') : string
 	{
 		$input = \fgets(\STDIN);
