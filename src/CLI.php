@@ -57,7 +57,7 @@ class CLI
 	/**
 	 * @var array<string,string>
 	 */
-	protected static array $background_colors = [
+	protected static array $backgroundColors = [
 		'black' => "\033[40m",
 		'red' => "\033[41m",
 		'green' => "\033[42m",
@@ -78,7 +78,7 @@ class CLI
 	/**
 	 * @var array<string,string>
 	 */
-	protected static array $foreground_colors = [
+	protected static array $foregroundColors = [
 		'black' => "\033[0;30m",
 		'red' => "\033[0;31m",
 		'green' => "\033[0;32m",
@@ -165,10 +165,10 @@ class CLI
 	public static function strlen(string $text) : int
 	{
 		$codes = [];
-		foreach (static::$foreground_colors as $color) {
+		foreach (static::$foregroundColors as $color) {
 			$codes[] = $color;
 		}
-		foreach (static::$background_colors as $background) {
+		foreach (static::$backgroundColors as $background) {
 			$codes[] = $background;
 		}
 		foreach (static::$formats as $format) {
@@ -197,16 +197,16 @@ class CLI
 	) : string {
 		$string = '';
 		if ($color) {
-			if (empty(static::$foreground_colors[$color])) {
+			if (empty(static::$foregroundColors[$color])) {
 				throw new InvalidArgumentException('Invalid color: ' . $color);
 			}
-			$string = static::$foreground_colors[$color];
+			$string = static::$foregroundColors[$color];
 		}
 		if ($background) {
-			if (empty(static::$background_colors[$background])) {
+			if (empty(static::$backgroundColors[$background])) {
 				throw new InvalidArgumentException('Invalid background color: ' . $background);
 			}
-			$string .= static::$background_colors[$background];
+			$string .= static::$backgroundColors[$background];
 		}
 		if ($formats) {
 			foreach ($formats as $format) {
