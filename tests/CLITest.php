@@ -40,6 +40,25 @@ final class CLITest extends TestCase
 		self::assertSame(\PHP_EOL . \PHP_EOL, Stream::getOutput());
 	}
 
+	public function testLiveLine() : void
+	{
+		for ($i = 0; $i <= 10; $i++) {
+			$percent = $i * 10 . '%';
+			//$percent = \str_pad($percent, 5, ' ', \STR_PAD_LEFT);
+			$progress = '';
+			//$progress = \str_repeat('#', $i);
+			//$progress = \str_pad($progress, 10);
+			$finalize = $i === 10;
+			CLI::liveLine($progress . $percent, $finalize);
+			//\sleep(1);
+			if ($finalize) {
+				$percent .= \PHP_EOL;
+			}
+			self::assertSame("\33[2K\r{$percent}", Stream::getOutput());
+			Stream::reset();
+		}
+	}
+
 	public function testIsWindows() : void
 	{
 		self::assertFalse(CLI::isWindows());

@@ -260,6 +260,31 @@ class CLI
 	}
 
 	/**
+	 * Creates a "live line".
+	 *
+	 * Erase the current line, move the cursor to the beginning of the line and
+	 * writes a text.
+	 *
+	 * @param string $text The text to be written
+	 * @param bool $finalize If true the "live line" activity ends, creating a
+	 * new line after the text
+	 */
+	public static function liveLine(string $text, bool $finalize = false) : void
+	{
+		// See: https://stackoverflow.com/a/35190285
+		$string = '';
+		if ( ! static::isWindows()) {
+			$string .= "\33[2K";
+		}
+		$string .= "\r";
+		$string .= $text;
+		if ($finalize) {
+			$string .= \PHP_EOL;
+		}
+		\fwrite(\STDOUT, $string);
+	}
+
+	/**
 	 * Performs audible beep alarms.
 	 *
 	 * @param int $times How many times should the beep be played
