@@ -9,6 +9,8 @@
  */
 namespace Framework\CLI;
 
+use JetBrains\PhpStorm\Pure;
+
 /**
  * Class Stream.
  */
@@ -42,6 +44,7 @@ class Stream extends \php_user_filter
 		\stream_filter_append(\STDOUT, static::class);
 	}
 
+	#[Pure]
 	public static function getOutput() : string
 	{
 		return static::$output;

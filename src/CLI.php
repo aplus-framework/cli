@@ -11,6 +11,7 @@ namespace Framework\CLI;
 
 use InvalidArgumentException;
 use JetBrains\PhpStorm\NoReturn;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * Class CLI.
@@ -130,6 +131,7 @@ class CLI
 	 *
 	 * @return bool
 	 */
+	#[Pure]
 	public static function isWindows() : bool
 	{
 		return \PHP_OS_FAMILY === 'Windows';

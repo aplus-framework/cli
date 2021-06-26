@@ -9,6 +9,8 @@
  */
 namespace Framework\CLI;
 
+use JetBrains\PhpStorm\Pure;
+
 /**
  * Class Command.
  */
@@ -97,6 +99,7 @@ abstract class Command
 	 *
 	 * @return string
 	 */
+	#[Pure]
 	public function getUsage() : string
 	{
 		return $this->usage;
@@ -107,6 +110,7 @@ abstract class Command
 	 *
 	 * @return array<string,string>
 	 */
+	#[Pure]
 	public function getOptions() : array
 	{
 		return $this->options;
@@ -117,6 +121,7 @@ abstract class Command
 	 *
 	 * @return bool
 	 */
+	#[Pure]
 	public function isActive() : bool
 	{
 		return $this->active;

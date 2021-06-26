@@ -12,6 +12,7 @@ namespace Framework\CLI;
 use Framework\CLI\Commands\Help;
 use Framework\CLI\Commands\Index;
 use Framework\Language\Language;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * Class Console.
@@ -66,6 +67,7 @@ class Console
 	 *
 	 * @return array<string,bool|string>
 	 */
+	#[Pure]
 	public function getOptions() : array
 	{
 		return $this->options;
@@ -79,6 +81,7 @@ class Console
 	 * @return bool|string|null The option value as string, TRUE if it
 	 * was passed without a value or NULL if the option was not set
 	 */
+	#[Pure]
 	public function getOption(string $option) : bool | string | null
 	{
 		return $this->options[$option] ?? null;
@@ -89,6 +92,7 @@ class Console
 	 *
 	 * @return array<int,string>
 	 */
+	#[Pure]
 	public function getArguments() : array
 	{
 		return $this->arguments;
@@ -101,6 +105,7 @@ class Console
 	 *
 	 * @return string|null The argument value or null if it was not set
 	 */
+	#[Pure]
 	public function getArgument(int $position) : ?string
 	{
 		return $this->arguments[$position] ?? null;
@@ -111,6 +116,7 @@ class Console
 	 *
 	 * @return Language
 	 */
+	#[Pure]
 	public function getLanguage() : Language
 	{
 		return $this->language;
@@ -279,6 +285,7 @@ class Console
 	 *
 	 * @return array<int,string>
 	 */
+	#[Pure]
 	public static function commandToArgs(string $command) : array
 	{
 		$charCount = \strlen($command);
