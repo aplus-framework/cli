@@ -127,9 +127,9 @@ class Console
 	 *
 	 * @param Command|string $command A Command instance or the class FQN
 	 *
-	 * @return $this
+	 * @return static
 	 */
-	public function addCommand(Command | string $command)
+	public function addCommand(Command | string $command) : static
 	{
 		if (\is_string($command)) {
 			$command = new $command($this);
@@ -144,9 +144,9 @@ class Console
 	 * @param array<int,Command|string> $commands A list of Command instances
 	 * or the classes FQN
 	 *
-	 * @return $this
+	 * @return static
 	 */
-	public function addCommands(array $commands)
+	public function addCommands(array $commands) : static
 	{
 		foreach ($commands as $command) {
 			$this->addCommand($command);
