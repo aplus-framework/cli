@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of The Framework CLI Library.
  *
@@ -461,7 +461,7 @@ class CLI
 			$column = 0; // Current column index
 			foreach ($table_rows[$row] as $col) {
 				// Sets the size of this column in the current row
-				$all_cols_lengths[$row][$column] = static::strlen($col);
+				$all_cols_lengths[$row][$column] = static::strlen((string) $col);
 				// If the current column does not have a value among the larger ones
 				// or the value of this is greater than the existing one
 				// then, now, this assumes the maximum length
