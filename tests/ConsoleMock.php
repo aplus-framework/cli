@@ -13,10 +13,10 @@ use Framework\CLI\Console;
 
 class ConsoleMock extends Console
 {
-	public string $command;
+    public string $command;
 
-	public function prepare(array $argumentValues) : void
-	{
-		parent::prepare($argumentValues);
-	}
+    public function prepare(array $argumentValues) : void
+    {
+        parent::prepare($argumentValues);
+    }
 }

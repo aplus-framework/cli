@@ -15,16 +15,16 @@ use PHPUnit\Framework\TestCase;
 
 final class HelpTest extends TestCase
 {
-	public function testHelp() : void
-	{
-		$console = new Console();
-		$console->addCommand(Foo::class);
-		Stream::init();
-		$console->exec('help');
-		self::assertStringContainsString('Command', Stream::getOutput());
-		self::assertStringNotContainsString('Options', Stream::getOutput());
-		Stream::reset();
-		$console->exec('help foo');
-		self::assertStringContainsString('Options', Stream::getOutput());
-	}
+    public function testHelp() : void
+    {
+        $console = new Console();
+        $console->addCommand(Foo::class);
+        Stream::init();
+        $console->exec('help');
+        self::assertStringContainsString('Command', Stream::getOutput());
+        self::assertStringNotContainsString('Options', Stream::getOutput());
+        Stream::reset();
+        $console->exec('help foo');
+        self::assertStringContainsString('Options', Stream::getOutput());
+    }
 }
