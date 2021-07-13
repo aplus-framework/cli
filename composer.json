@@ -1,7 +1,7 @@
 {
-    "name": "natanfelles/cli",
+    "name": "aplus/cli",
     "type": "library",
-    "description": "The Framework CLI Library",
+    "description": "Aplus Framework CLI Library",
     "keywords": [
         "cli",
         "console",
@@ -10,7 +10,7 @@
         "command",
         "commands"
     ],
-    "homepage": "https://the-framework.gitlab.io/libraries/cli.html",
+    "homepage": "https://aplus-framework.com/docs/cli",
     "license": "MIT",
     "authors": [
         {
@@ -51,9 +51,9 @@
     "prefer-stable": true,
     "support": {
         "email": "natanfelles@gmail.com",
-        "issues": "https://gitlab.com/the-framework/libraries/cli/issues",
-        "wiki": "https://gitlab.com/the-framework/libraries/cli/wikis/home",
-        "source": "https://gitlab.com/the-framework/libraries/cli",
-        "docs": "https://the-framework.gitlab.io/libraries/cli/docs/"
+        "issues": "https://gitlab.com/aplus-framework/libraries/cli/issues",
+        "wiki": "https://gitlab.com/aplus-framework/libraries/cli/wikis/home",
+        "source": "https://gitlab.com/aplus-framework/libraries/cli",
+        "docs": "https://aplus-framework.gitlab.io/libraries/cli/docs/"
     }
 }
