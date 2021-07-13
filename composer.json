@@ -5,6 +5,9 @@
     "keywords": [
         "cli",
         "console",
+        "terminal",
+        "cron",
+        "command",
         "commands"
     ],
     "homepage": "https://the-framework.gitlab.io/libraries/cli.html",
