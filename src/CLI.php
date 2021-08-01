@@ -497,7 +497,7 @@ class CLI
             // Set the table border-top
             if ($row === 0) {
                 $line = '+';
-                foreach ($value as $col => $val) {
+                foreach (\array_keys($value) as $col) {
                     $line .= \str_repeat('-', $maxColsLengths[$col] + 2) . '+';
                 }
                 $table .= $line . \PHP_EOL;
