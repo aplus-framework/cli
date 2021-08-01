@@ -212,9 +212,9 @@ class Console
 
     public function exec(string $command) : void
     {
-        $argument_values = static::commandToArgs($command);
-        \array_unshift($argument_values, 'removed');
-        $this->prepare($argument_values);
+        $argumentValues = static::commandToArgs($command);
+        \array_unshift($argumentValues, 'removed');
+        $this->prepare($argumentValues);
         $this->run();
     }
 
@@ -251,13 +251,13 @@ class Console
             $this->command = $argumentValues[1];
             unset($argumentValues[1]);
         }
-        $end_options = false;
+        $endOptions = false;
         foreach ($argumentValues as $value) {
-            if ($end_options === false && $value === '--') {
-                $end_options = true;
+            if ($endOptions === false && $value === '--') {
+                $endOptions = true;
                 continue;
             }
-            if ($end_options === false && $value[0] === '-') {
+            if ($endOptions === false && $value[0] === '-') {
                 if (isset($value[1]) && $value[1] === '-') {
                     $option = \substr($value, 2);
                     if (\str_contains($option, '=')) {
@@ -273,7 +273,7 @@ class Console
                 }
                 continue;
             }
-            //$end_options = true;
+            //$endOptions = true;
             $this->arguments[] = $value;
         }
     }

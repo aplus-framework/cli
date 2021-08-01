@@ -332,25 +332,25 @@ class CLI
                 $lines,
             ];
         }
-        $all_lines = [];
+        $allLines = [];
         foreach ($lines as &$line) {
             $length = static::strlen($line);
             if ($length > $width) {
                 $line = static::wrap($line, $width);
             }
-            foreach (\explode(\PHP_EOL, $line) as $sub_line) {
-                $all_lines[] = $sub_line;
+            foreach (\explode(\PHP_EOL, $line) as $subLine) {
+                $allLines[] = $subLine;
             }
         }
         unset($line);
-        $blank_line = \str_repeat(' ', $width + 2);
-        $text = static::style($blank_line, $color, $background);
-        foreach ($all_lines as $line) {
+        $blankLine = \str_repeat(' ', $width + 2);
+        $text = static::style($blankLine, $color, $background);
+        foreach ($allLines as $line) {
             $end = \str_repeat(' ', $width - static::strlen($line)) . ' ';
             $end = static::style($end, $color, $background);
             $text .= static::style(' ' . $line . $end, $color, $background);
         }
-        $text .= static::style($blank_line, $color, $background);
+        $text .= static::style($blankLine, $color, $background);
         static::write($text);
     }
 
@@ -391,12 +391,12 @@ class CLI
         $input = \fgets(\STDIN);
         $input = $input ? \trim($input) : '';
         $prepend .= $input;
-        $eol_pos = false;
+        $eolPos = false;
         if ($prepend) {
-            $eol_pos = \strrpos($prepend, '\\', -1);
+            $eolPos = \strrpos($prepend, '\\', -1);
         }
-        if ($eol_pos !== false) {
-            $prepend = \substr_replace($prepend, \PHP_EOL, $eol_pos);
+        if ($eolPos !== false) {
+            $prepend = \substr_replace($prepend, \PHP_EOL, $eolPos);
             $prepend = static::getInput($prepend);
         }
         return $prepend;
@@ -422,10 +422,10 @@ class CLI
         if ($options) {
             $opt = $options;
             $opt[0] = static::style($opt[0], null, null, [static::FM_BOLD]);
-            $options_text = isset($opt[1])
+            $optionsText = isset($opt[1])
                 ? \implode(', ', $opt)
                 : $opt[0];
-            $question .= ' [' . $options_text . ']';
+            $question .= ' [' . $optionsText . ']';
         }
         $question .= ': ';
         \fwrite(\STDOUT, $question);
@@ -445,35 +445,35 @@ class CLI
     public static function table(array $tbody, array $thead = []) : void
     {
         // All the rows in the table will be here until the end
-        $table_rows = [];
+        $tableRows = [];
         // We need only indexes and not keys
         if ( ! empty($thead)) {
-            $table_rows[] = \array_values($thead);
+            $tableRows[] = \array_values($thead);
         }
         foreach ($tbody as $tr) {
             // cast tr to array if is not - (objects...)
-            $table_rows[] = \array_values((array) $tr);
+            $tableRows[] = \array_values((array) $tr);
         }
         // Yes, it really is necessary to know this count
-        $total_rows = \count($table_rows);
+        $totalRows = \count($tableRows);
         // Store all columns lengths
-        // $all_cols_lengths[row][column] = length
-        $all_cols_lengths = [];
+        // $allColsLengths[row][column] = length
+        $allColsLengths = [];
         // Store maximum lengths by column
-        // $max_cols_lengths[column] = length
-        $max_cols_lengths = [];
+        // $maxColsLengths[column] = length
+        $maxColsLengths = [];
         // Read row by row and define the longest columns
-        for ($row = 0; $row < $total_rows; $row++) {
+        for ($row = 0; $row < $totalRows; $row++) {
             $column = 0; // Current column index
-            foreach ($table_rows[$row] as $col) {
+            foreach ($tableRows[$row] as $col) {
                 // Sets the size of this column in the current row
-                $all_cols_lengths[$row][$column] = static::strlen((string) $col);
+                $allColsLengths[$row][$column] = static::strlen((string) $col);
                 // If the current column does not have a value among the larger ones
                 // or the value of this is greater than the existing one
                 // then, now, this assumes the maximum length
-                if ( ! isset($max_cols_lengths[$column])
-                    || $all_cols_lengths[$row][$column] > $max_cols_lengths[$column]) {
-                    $max_cols_lengths[$column] = $all_cols_lengths[$row][$column];
+                if ( ! isset($maxColsLengths[$column])
+                    || $allColsLengths[$row][$column] > $maxColsLengths[$column]) {
+                    $maxColsLengths[$column] = $allColsLengths[$row][$column];
                 }
                 // We can go check the size of the next column...
                 $column++;
@@ -481,31 +481,31 @@ class CLI
         }
         // Read row by row and add spaces at the end of the columns
         // to match the exact column length
-        for ($row = 0; $row < $total_rows; $row++) {
+        for ($row = 0; $row < $totalRows; $row++) {
             $column = 0;
-            foreach ($table_rows[$row] as $col => $value) {
-                $diff = $max_cols_lengths[$column] - $all_cols_lengths[$row][$col];
+            foreach ($tableRows[$row] as $col => $value) {
+                $diff = $maxColsLengths[$column] - $allColsLengths[$row][$col];
                 if ($diff) {
-                    $table_rows[$row][$column] .= \str_repeat(' ', $diff);
+                    $tableRows[$row][$column] .= \str_repeat(' ', $diff);
                 }
                 $column++;
             }
         }
         $table = $line = '';
         // Joins columns and append the well formatted rows to the table
-        foreach ($table_rows as $row => $value) {
+        foreach ($tableRows as $row => $value) {
             // Set the table border-top
             if ($row === 0) {
                 $line = '+';
                 foreach ($value as $col => $val) {
-                    $line .= \str_repeat('-', $max_cols_lengths[$col] + 2) . '+';
+                    $line .= \str_repeat('-', $maxColsLengths[$col] + 2) . '+';
                 }
                 $table .= $line . \PHP_EOL;
             }
             // Set the vertical borders
             $table .= '| ' . \implode(' | ', $value) . ' |' . \PHP_EOL;
             // Set the thead and table borders-bottom
-            if (($row === 0 && ! empty($thead)) || $row + 1 === $total_rows) {
+            if (($row === 0 && ! empty($thead)) || $row + 1 === $totalRows) {
                 $table .= $line . \PHP_EOL;
             }
         }

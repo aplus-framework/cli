@@ -56,11 +56,11 @@ class Help extends Command
         $value = $command->getOptions();
         if ($value) {
             CLI::write($this->console->getLanguage()->render('cli', 'options') . ': ', 'green');
-            $last_key = \array_key_last($value);
+            $lastKey = \array_key_last($value);
             foreach ($value as $option => $description) {
                 CLI::write('  ' . $this->renderOption($option));
                 CLI::write('  ' . $description);
-                if ($option !== $last_key) {
+                if ($option !== $lastKey) {
                     CLI::newLine();
                 }
             }
