@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": ">=8.0",
-        "aplus/language": "^1.5"
+        "aplus/language": "^1.6"
     },
     "require-dev": {
         "ext-xdebug": "*",
