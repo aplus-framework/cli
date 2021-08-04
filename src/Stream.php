@@ -9,10 +9,15 @@
  */
 namespace Framework\CLI;
 
+use JetBrains\PhpStorm\Deprecated;
 use JetBrains\PhpStorm\Pure;
 
 /**
  * Class Stream.
+ *
+ * @codeCoverageIgnore
+ *
+ * @deprecated Use Framework\CLI\Streams classes
  */
 class Stream extends \php_user_filter
 {
@@ -38,8 +43,16 @@ class Stream extends \php_user_filter
         return \PSFS_FEED_ME;
     }
 
+    #[Deprecated(
+        'Since CLI Library version 1.16, use Stdout instead',
+        '\Framework\CLI\Streams\Stdout::init()'
+    )]
     public static function init() : void
     {
+        \trigger_error(
+            'The class ' . __CLASS__ . ' is deprecated',
+            \E_USER_DEPRECATED
+        );
         \stream_filter_register(static::class, static::class);
         \stream_filter_append(\STDOUT, static::class);
     }
