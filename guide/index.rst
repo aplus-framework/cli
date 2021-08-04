@@ -1,7 +1,7 @@
 CLI
 ===
 
-Aplus CLI (Command-Line Interface) Library.
+Aplus Framework CLI (Command-Line Interface) Library.
 
 - `Installation`_
 - `Running`_
