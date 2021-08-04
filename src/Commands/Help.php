@@ -30,10 +30,9 @@ class Help extends Command
     {
         $command = $this->console->getCommand($commandName);
         if ($command === null) {
-            CLI::error(CLI::style(
-                $this->console->getLanguage()->render('cli', 'commandNotFound', [$commandName]),
-                CLI::FG_BRIGHT_RED
-            ));
+            CLI::error(
+                $this->console->getLanguage()->render('cli', 'commandNotFound', [$commandName])
+            );
         }
         CLI::write(CLI::style(
             $this->console->getLanguage()->render('cli', 'command') . ': ',
