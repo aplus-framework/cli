@@ -9,6 +9,7 @@
  */
 namespace Framework\CLI;
 
+use Framework\CLI\Commands\About;
 use Framework\CLI\Commands\Help;
 use Framework\CLI\Commands\Index;
 use Framework\Language\Language;
@@ -196,6 +197,9 @@ class Console
         }
         if ($this->getCommand('help') === null) {
             $this->addCommand(new Help($this));
+        }
+        if ($this->getCommand('about') === null) {
+            $this->addCommand(new About($this));
         }
         if ($this->command === '') {
             $this->command = 'index';
