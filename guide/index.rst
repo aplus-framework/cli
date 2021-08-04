@@ -1,9 +1,130 @@
 CLI
 ===
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Aplus CLI (Command-Line Interface) Library.
+
+- `Installation`_
+- `Running`_
+- `Conclusion`_
+
+Installation
+------------
+
+The installation of this library can be done with Composer:
+
+.. code-block::
+
+    composer require aplus/cli
+
+Running
+-------
+
+Create a file (**cli.php**) with the following contents:
+
+.. code-block:: php
+
+    <?php
+    require __DIR__ . '/vendor/autoload.php';
+
+    use Framework\CLI\Console;
+
+    $console = new Console();
+    $console->run();
+
+Go to the terminal an run:
+
+.. code-block::
+
+    php cli.php
+
+The output will be like the image below:
+
+.. image:: img/index.png
+    :alt: Aplus CLI - Index Command
+
+Add a Custom Language
+^^^^^^^^^^^^^^^^^^^^^
+
+Edit the PHP file:
+
+.. code-block:: php
+
+    use Framework\CLI\Console;
+    use Framework\Language\Language;
+
+    $language = new Language('pt-br');
+
+    $console = new Console($language);
+    $console->run();
+
+Run the file on the terminal.
+The output will be like the following:
+
+.. image:: img/custom-language.png
+    :alt: Aplus CLI - Index Command with Custom Language
+
+If the CLI Library is not localized in your language, you can contribute by adding
+it with a Pull Request in GitLab: `<https://gitlab.com/aplus-framework/libraries/cli>`_.
+
+It is also possible to add custom languages in the execution time. See the
+`Language Library <https://gitlab.com/aplus-framework/libraries/language>`_ to know more.
+
+Add a Custom Command
+^^^^^^^^^^^^^^^^^^^^
+
+Now, let's add your first Command.
+
+Edit the PHP file:
+
+.. code-block:: php
+
+    use Framework\CLI\CLI;
+    use Framework\CLI\Command;
+    use Framework\CLI\Console;
+
+    class HelloCommand extends Command
+    {
+        public function run(): void
+        {
+            CLI::write('Hello, Aplus!');
+        }
+    }
+
+    $console = new Console();
+    $console->addCommand(HelloCommand::class);
+    $console->run();
+
+Go to the terminal an run:
+
+.. code-block::
+
+    php cli.php
+
+Note that **hello** is listed as a available command:
+
+.. image:: img/custom-command.png
+    :alt: Aplus CLI - Index Command with Custom Command
+
+Run the **hello** command:
+
+.. code-block::
+
+    php cli.php hello
+
+The output will be like this:
+
+.. image:: img/custom-command-run.png
+    :alt: Aplus CLI - Run a Hello Command
+
+Conclusion
+----------
+
+Aplus CLI Library is an, easy to use, tool for PHP, beginners and experienced, developers. 
+It is perfect for building, simple and full-featured, command-line interfaces. 
+The more you use it, the more you will learn.
+
+.. note::
+    Did you find something wrong? 
+    Be sure to let us know about it in
+    `GitLab <https://gitlab.com/aplus-framework/libraries/cli/issues>`_. 
+    Thank you!
