@@ -10,7 +10,7 @@
 namespace Tests\CLI\Commands;
 
 use Framework\CLI\Console;
-use Framework\CLI\Stream;
+use Framework\CLI\Streams\Stdout;
 use PHPUnit\Framework\TestCase;
 
 final class AboutTest extends TestCase
@@ -18,9 +18,9 @@ final class AboutTest extends TestCase
     public function testAbout() : void
     {
         $console = new Console();
-        Stream::init();
+        Stdout::init();
         $console->exec('about');
-        self::assertStringContainsString('About', Stream::getOutput());
-        self::assertStringContainsString('CLI', Stream::getOutput());
+        self::assertStringContainsString('About', Stdout::getContents());
+        self::assertStringContainsString('CLI', Stdout::getContents());
     }
 }

@@ -10,43 +10,44 @@
 namespace Tests\CLI;
 
 use Framework\CLI\CLI;
-use Framework\CLI\Stream;
+use Framework\CLI\Streams\Stderr;
+use Framework\CLI\Streams\Stdout;
 use PHPUnit\Framework\TestCase;
 
 final class CLITest extends TestCase
 {
     protected function setUp() : void
     {
-        Stream::init();
+        Stdout::init();
     }
 
     protected function tearDown() : void
     {
-        Stream::reset();
+        Stdout::reset();
     }
 
     public function testWrite() : void
     {
         CLI::write('Hello!');
-        self::assertSame("Hello!\n", Stream::getOutput());
-        Stream::reset();
+        self::assertSame("Hello!\n", Stdout::getContents());
+        Stdout::reset();
         CLI::write('Hello!', CLI::FG_RED);
-        self::assertStringContainsString("\033[0;31mHello!", Stream::getOutput());
-        Stream::reset();
+        self::assertStringContainsString("\033[0;31mHello!", Stdout::getContents());
+        Stdout::reset();
         CLI::write('Hello!', null, null, 2);
-        self::assertSame("He\nll\no!\n", Stream::getOutput());
+        self::assertSame("He\nll\no!\n", Stdout::getContents());
     }
 
     public function testBeep() : void
     {
         CLI::beep(2);
-        self::assertSame("\x07\x07", Stream::getOutput());
+        self::assertSame("\x07\x07", Stdout::getContents());
     }
 
     public function testNewLine() : void
     {
         CLI::newLine(2);
-        self::assertSame(\PHP_EOL . \PHP_EOL, Stream::getOutput());
+        self::assertSame(\PHP_EOL . \PHP_EOL, Stdout::getContents());
     }
 
     public function testLiveLine() : void
@@ -63,8 +64,8 @@ final class CLITest extends TestCase
             if ($finalize) {
                 $percent .= \PHP_EOL;
             }
-            self::assertSame("\33[2K\r{$percent}", Stream::getOutput());
-            Stream::reset();
+            self::assertSame("\33[2K\r{$percent}", Stdout::getContents());
+            Stdout::reset();
         }
     }
 
@@ -93,7 +94,14 @@ final class CLITest extends TestCase
     public function testClear() : void
     {
         CLI::clear();
-        self::assertSame("\e[H\e[2J", Stream::getOutput());
+        self::assertSame("\e[H\e[2J", Stdout::getContents());
+    }
+
+    public function testError() : void
+    {
+        Stderr::init();
+        CLI::error('Whoops!', null);
+        self::assertStringContainsString('Whoops!', Stderr::getContents());
     }
 
     public function testTable() : void
@@ -106,8 +114,8 @@ final class CLITest extends TestCase
             +---+------+
 
             EOL;
-        self::assertSame($table, Stream::getOutput());
-        Stream::reset();
+        self::assertSame($table, Stdout::getContents());
+        Stdout::reset();
         CLI::table([[1, 'John'], [2, 'Mary']], ['ID', 'Name']);
         $table = <<<'EOL'
             +----+------+
@@ -118,7 +126,7 @@ final class CLITest extends TestCase
             +----+------+
 
             EOL;
-        self::assertSame($table, Stream::getOutput());
+        self::assertSame($table, Stdout::getContents());
     }
 
     public function testStyle() : void
@@ -163,6 +171,6 @@ final class CLITest extends TestCase
     {
         CLI::box('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam'
             . ' sem lacus, rutrum vel neque eu, aliquam aliquet neque.');
-        self::assertStringContainsString('Lorem', Stream::getOutput());
+        self::assertStringContainsString('Lorem', Stdout::getContents());
     }
 }

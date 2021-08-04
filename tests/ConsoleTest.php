@@ -10,7 +10,7 @@
 namespace Tests\CLI;
 
 use Framework\CLI\Command;
-use Framework\CLI\Stream;
+use Framework\CLI\Streams\Stdout;
 use PHPUnit\Framework\TestCase;
 
 final class ConsoleTest extends TestCase
@@ -19,7 +19,7 @@ final class ConsoleTest extends TestCase
 
     protected function setUp() : void
     {
-        Stream::init();
+        Stdout::init();
         global $argv;
         $argv = [];
         $this->console = new ConsoleMock();
@@ -27,7 +27,7 @@ final class ConsoleTest extends TestCase
 
     protected function tearDown() : void
     {
-        Stream::reset();
+        Stdout::reset();
     }
 
     public function testEmptyLine() : void
@@ -161,7 +161,7 @@ final class ConsoleTest extends TestCase
     public function testCommandIndex() : void
     {
         $this->console->run();
-        self::assertStringContainsString('index', Stream::getOutput());
+        self::assertStringContainsString('index', Stdout::getContents());
     }
 
     public function _testCommandNotFound() : void
@@ -183,10 +183,10 @@ final class ConsoleTest extends TestCase
         ]);
         $this->console->addCommand(new CommandMock($this->console));
         $this->console->run();
-        self::assertSame($this->getOutputOfCommandMock(), Stream::getOutput());
+        self::assertSame($this->getContentsOfCommandMock(), Stdout::getContents());
     }
 
-    protected function getOutputOfCommandMock() : string
+    protected function getContentsOfCommandMock() : string
     {
         return \print_r(['option' => 'foo', 'o' => 1], true) . \PHP_EOL
             . \print_r(1, true) . \PHP_EOL
@@ -198,7 +198,7 @@ final class ConsoleTest extends TestCase
     {
         $this->console->addCommand(new CommandMock($this->console));
         $this->console->exec('test --option=foo -o argument0 argument1');
-        self::assertSame($this->getOutputOfCommandMock(), Stream::getOutput());
+        self::assertSame($this->getContentsOfCommandMock(), Stdout::getContents());
     }
 
     public function testCommandToArgs() : void

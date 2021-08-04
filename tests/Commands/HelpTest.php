@@ -10,7 +10,7 @@
 namespace Tests\CLI\Commands;
 
 use Framework\CLI\Console;
-use Framework\CLI\Stream;
+use Framework\CLI\Streams\Stdout;
 use PHPUnit\Framework\TestCase;
 
 final class HelpTest extends TestCase
@@ -19,12 +19,12 @@ final class HelpTest extends TestCase
     {
         $console = new Console();
         $console->addCommand(Foo::class);
-        Stream::init();
+        Stdout::init();
         $console->exec('help');
-        self::assertStringContainsString('Command', Stream::getOutput());
-        self::assertStringNotContainsString('Options', Stream::getOutput());
-        Stream::reset();
+        self::assertStringContainsString('Command', Stdout::getContents());
+        self::assertStringNotContainsString('Options', Stdout::getContents());
+        Stdout::reset();
         $console->exec('help foo');
-        self::assertStringContainsString('Options', Stream::getOutput());
+        self::assertStringContainsString('Options', Stdout::getContents());
     }
 }
