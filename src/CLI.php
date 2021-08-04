@@ -10,7 +10,6 @@
 namespace Framework\CLI;
 
 use InvalidArgumentException;
-use JetBrains\PhpStorm\NoReturn;
 use JetBrains\PhpStorm\Pure;
 
 /**
@@ -355,17 +354,18 @@ class CLI
     }
 
     /**
-     * Writes a message to STDERR and exit with code 1.
+     * Writes a message to STDERR and optionally exit with a custom code.
      *
      * @param string $message
+     * @param int|null $exitCode Set null to do not exit
      */
-    #[NoReturn]
-    public static function error(
-        string $message
-    ) : void {
+    public static function error(string $message, ?int $exitCode = 1) : void
+    {
         static::beep();
         \fwrite(\STDERR, static::style($message, static::FG_RED) . \PHP_EOL);
-        exit(1);
+        if ($exitCode !== null) {
+            exit($exitCode);
+        }
     }
 
     /**
