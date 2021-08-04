@@ -8,6 +8,12 @@
  * file that was distributed with this source code.
  */
 return [
+    'about.description' => 'Shows information about this command-line interface.',
+    'about.line1' => 'About',
+    'about.line2' => 'This interface is built on Aplus Framework CLI Library.',
+    'about.line3' => 'Aplus Framework CLI Library is Open Source Software (OSS).',
+    'about.line4' => 'Visit our website to know more: https://aplus-framework.com',
+    'about.line5' => 'Thanks for choosing Aplus as your PHP Framework!',
     'command' => 'Command',
     'commandNotFound' => 'Command not found: "{0}"',
     'commands' => 'Commands',
