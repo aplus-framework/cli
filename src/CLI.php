@@ -389,7 +389,7 @@ class CLI
     public static function getInput(string $prepend = '') : string
     {
         $input = \fgets(\STDIN);
-        $input = $input ? \trim($input) : '';
+        $input = $input === false ? '' : \trim($input);
         $prepend .= $input;
         $eolPos = false;
         if ($prepend) {
