@@ -13,6 +13,8 @@ use JetBrains\PhpStorm\Pure;
 
 /**
  * Class Stream.
+ *
+ * @package cli
  */
 abstract class Stream extends \php_user_filter
 {

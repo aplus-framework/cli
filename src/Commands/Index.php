@@ -14,6 +14,8 @@ use Framework\CLI\Command;
 
 /**
  * Class Index.
+ *
+ * @package cli
  */
 class Index extends Command
 {

@@ -18,6 +18,8 @@ use JetBrains\PhpStorm\Pure;
  * @codeCoverageIgnore
  *
  * @deprecated Use Framework\CLI\Streams classes
+ *
+ * @package cli
  */
 class Stream extends \php_user_filter
 {

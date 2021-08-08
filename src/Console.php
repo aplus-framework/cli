@@ -17,6 +17,8 @@ use JetBrains\PhpStorm\Pure;
 
 /**
  * Class Console.
+ *
+ * @package cli
  */
 class Console
 {

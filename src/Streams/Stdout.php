@@ -11,6 +11,8 @@ namespace Framework\CLI\Streams;
 
 /**
  * Class Stdout.
+ *
+ * @package cli
  */
 class Stdout extends Stream
 {

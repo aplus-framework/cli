@@ -13,6 +13,8 @@ use JetBrains\PhpStorm\Pure;
 
 /**
  * Class Command.
+ *
+ * @package cli
  */
 abstract class Command
 {

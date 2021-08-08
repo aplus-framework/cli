@@ -14,6 +14,8 @@ use Framework\CLI\Command;
 
 /**
  * Class Help.
+ *
+ * @package cli
  */
 class Help extends Command
 {

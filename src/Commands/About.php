@@ -14,6 +14,8 @@ use Framework\CLI\Command;
 
 /**
  * Class About.
+ *
+ * @package cli
  */
 class About extends Command
 {

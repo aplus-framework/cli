@@ -16,6 +16,8 @@ use JetBrains\PhpStorm\Pure;
  * Class CLI.
  *
  * @see https://en.wikipedia.org/wiki/ANSI_escape_code
+ *
+ * @package cli
  */
 class CLI
 {

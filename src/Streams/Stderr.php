@@ -11,6 +11,8 @@ namespace Framework\CLI\Streams;
 
 /**
  * Class Stderr.
+ *
+ * @package cli
  */
 class Stderr extends Stream
 {
