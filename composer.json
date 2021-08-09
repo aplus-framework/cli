@@ -10,7 +10,7 @@
         "command",
         "commands"
     ],
-    "homepage": "https://aplus-framework.com/docs/cli",
+    "homepage": "https://docs.aplus-framework.com/guides/libraries/cli/",
     "license": "MIT",
     "authors": [
         {
@@ -54,6 +54,6 @@
         "issues": "https://gitlab.com/aplus-framework/libraries/cli/issues",
         "wiki": "https://gitlab.com/aplus-framework/libraries/cli/wikis/home",
         "source": "https://gitlab.com/aplus-framework/libraries/cli",
-        "docs": "https://aplus-framework.gitlab.io/libraries/cli/docs/"
+        "docs": "https://docs.aplus-framework.com/guides/libraries/cli/"
     }
 }
