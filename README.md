@@ -1,7 +1,6 @@
 # Aplus Framework CLI Library
 
-- [Homepage](https://aplus-framework.com/docs/cli)
-- [API Documentation](https://aplus-framework.gitlab.io/libraries/cli/docs/guide/)
+- [Documentation](https://docs.aplus-framework.com/guides/libraries/cli/)
 
 [![Pipeline](https://gitlab.com/aplus-framework/libraries/cli/badges/master/pipeline.svg)](https://gitlab.com/aplus-framework/libraries/cli/-/pipelines?scope=branches)
 [![Coverage](https://gitlab.com/aplus-framework/libraries/cli/badges/master/coverage.svg?job=test:php)](https://aplus-framework.gitlab.io/libraries/cli/coverage/)
