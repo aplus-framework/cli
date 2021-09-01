@@ -119,7 +119,7 @@ The output will be like this:
 Conclusion
 ----------
 
-Aplus CLI Library is an easy-to-use tool for PHP developers, beginners and experienced.
+Aplus CLI Library is an easy-to-use tool for PHP developers, beginners and experienced. 
 It is perfect for building simple and full-featured command-line interfaces. 
 The more you use it, the more you will learn.
 
