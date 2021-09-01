@@ -21,49 +21,269 @@ use JetBrains\PhpStorm\Pure;
  */
 class CLI
 {
+    /**
+     * Background color "black".
+     *
+     * @var string
+     */
     public const BG_BLACK = 'black';
+    /**
+     * Background color "red".
+     *
+     * @var string
+     */
     public const BG_RED = 'red';
+    /**
+     * Background color "green".
+     *
+     * @var string
+     */
     public const BG_GREEN = 'green';
+    /**
+     * Background color "yellow".
+     *
+     * @var string
+     */
     public const BG_YELLOW = 'yellow';
+    /**
+     * Background color "blue".
+     *
+     * @var string
+     */
     public const BG_BLUE = 'blue';
+    /**
+     * Background color "magenta".
+     *
+     * @var string
+     */
     public const BG_MAGENTA = 'magenta';
+    /**
+     * Background color "cyan".
+     *
+     * @var string
+     */
     public const BG_CYAN = 'cyan';
+    /**
+     * Background color "white".
+     *
+     * @var string
+     */
     public const BG_WHITE = 'white';
+    /**
+     * Background color "bright black".
+     *
+     * @var string
+     */
     public const BG_BRIGHT_BLACK = 'bright_black';
+    /**
+     * Background color "bright red".
+     *
+     * @var string
+     */
     public const BG_BRIGHT_RED = 'bright_red';
+    /**
+     * Background color "bright green".
+     *
+     * @var string
+     */
     public const BG_BRIGHT_GREEN = 'bright_green';
+    /**
+     * Background color "bright yellow".
+     *
+     * @var string
+     */
     public const BG_BRIGHT_YELLOW = 'bright_yellow';
+    /**
+     * Background color "bright blue".
+     *
+     * @var string
+     */
     public const BG_BRIGHT_BLUE = 'bright_blue';
+    /**
+     * Background color "bright magenta".
+     *
+     * @var string
+     */
     public const BG_BRIGHT_MAGENTA = 'bright_magenta';
+    /**
+     * Background color "bright cyan".
+     *
+     * @var string
+     */
     public const BG_BRIGHT_CYAN = 'bright_cyan';
+    /**
+     * Foreground color "black".
+     *
+     * @var string
+     */
     public const FG_BLACK = 'black';
+    /**
+     * Foreground color "red".
+     *
+     * @var string
+     */
     public const FG_RED = 'red';
+    /**
+     * Foreground color "green".
+     *
+     * @var string
+     */
     public const FG_GREEN = 'green';
+    /**
+     * Foreground color "yellow".
+     *
+     * @var string
+     */
     public const FG_YELLOW = 'yellow';
+    /**
+     * Foreground color "blue".
+     *
+     * @var string
+     */
     public const FG_BLUE = 'blue';
+    /**
+     * Foreground color "magenta".
+     *
+     * @var string
+     */
     public const FG_MAGENTA = 'magenta';
+    /**
+     * Foreground color "cyan".
+     *
+     * @var string
+     */
     public const FG_CYAN = 'cyan';
+    /**
+     * Foreground color "white".
+     *
+     * @var string
+     */
     public const FG_WHITE = 'white';
+    /**
+     * Foreground color "bright black".
+     *
+     * @var string
+     */
     public const FG_BRIGHT_BLACK = 'bright_black';
+    /**
+     * Foreground color "bright red".
+     *
+     * @var string
+     */
     public const FG_BRIGHT_RED = 'bright_red';
+    /**
+     * Foreground color "bright green".
+     *
+     * @var string
+     */
     public const FG_BRIGHT_GREEN = 'bright_green';
+    /**
+     * Foreground color "bright yellow".
+     *
+     * @var string
+     */
     public const FG_BRIGHT_YELLOW = 'bright_yellow';
+    /**
+     * Foreground color "bright blue".
+     *
+     * @var string
+     */
     public const FG_BRIGHT_BLUE = 'bright_blue';
+    /**
+     * Foreground color "bright magenta".
+     *
+     * @var string
+     */
     public const FG_BRIGHT_MAGENTA = 'bright_magenta';
+    /**
+     * Foreground color "bright cyan".
+     *
+     * @var string
+     */
     public const FG_BRIGHT_CYAN = 'bright_cyan';
+    /**
+     * Foreground color "bright white".
+     *
+     * @var string
+     */
     public const FG_BRIGHT_WHITE = 'bright_white';
+    /**
+     * SGR format "bold".
+     *
+     * @var string
+     */
     public const FM_BOLD = 'bold';
+    /**
+     * SGR format "faint".
+     *
+     * @var string
+     */
     public const FM_FAINT = 'faint';
+    /**
+     * SGR format "italic".
+     *
+     * @var string
+     */
     public const FM_ITALIC = 'italic';
+    /**
+     * SGR format "underline".
+     *
+     * @var string
+     */
     public const FM_UNDERLINE = 'underline';
+    /**
+     * SGR format "slow blink".
+     *
+     * @var string
+     */
     public const FM_SLOW_BLINK = 'slow_blink';
+    /**
+     * SGR format "rapid blink".
+     *
+     * @var string
+     */
     public const FM_RAPID_BLINK = 'rapid_blink';
+    /**
+     * SGR format "reverse video".
+     *
+     * @var string
+     */
     public const FM_REVERSE_VIDEO = 'reverse_video';
+    /**
+     * SGR format "conceal".
+     *
+     * @var string
+     */
     public const FM_CONCEAL = 'conceal';
+    /**
+     * SGR format "crossed out".
+     *
+     * @var string
+     */
     public const FM_CROSSED_OUT = 'crossed_out';
+    /**
+     * SGR format "primary font".
+     *
+     * @var string
+     */
     public const FM_PRIMARY_FONT = 'primary_font';
+    /**
+     * SGR format "fraktur".
+     *
+     * @var string
+     */
     public const FM_FRAKTUR = 'fraktur';
+    /**
+     * SGR format "doubly underline".
+     *
+     * @var string
+     */
     public const FM_DOUBLY_UNDERLINE = 'doubly_underline';
+    /**
+     * SGR format "encircled".
+     *
+     * @var string
+     */
     public const FM_ENCIRCLED = 'encircled';
     /**
      * @var array<string,string>
@@ -128,7 +348,7 @@ class CLI
     protected static string $reset = "\033[0m";
 
     /**
-     * Tell if is running on a Windows OS.
+     * Tells if it is running on a Windows OS.
      *
      * @return bool
      */
@@ -139,7 +359,7 @@ class CLI
     }
 
     /**
-     * Get the width of the screen.
+     * Get the screen width.
      *
      * @param int $default
      *
@@ -158,7 +378,7 @@ class CLI
     }
 
     /**
-     * Display a text wrapped in a given width.
+     * Displays text wrapped to a certain width.
      *
      * @param string $text
      * @param int|null $width
@@ -174,7 +394,7 @@ class CLI
     /**
      * Calculate the multibyte length of a text without style characters.
      *
-     * @param string $text
+     * @param string $text The text being checked for length
      *
      * @return int
      */
@@ -203,7 +423,7 @@ class CLI
      * @param string|null $background Background color. One of the BG_* constants
      * @param array<int,string> $formats The text format. A list of FM_* constants
      *
-     * @throws InvalidArgumentException for invalid color, background or format
+     * @throws InvalidArgumentException For invalid color, background or format
      *
      * @return string Returns the styled text
      */
@@ -266,7 +486,7 @@ class CLI
     /**
      * Prints a new line in the output.
      *
-     * @param int $lines
+     * @param int $lines Number of lines to be printed
      */
     public static function newLine(int $lines = 1) : void
     {
@@ -358,7 +578,7 @@ class CLI
     /**
      * Writes a message to STDERR and optionally exit with a custom code.
      *
-     * @param string $message
+     * @param string $message The error message
      * @param int|null $exitCode Set null to do not exit
      */
     public static function error(string $message, ?int $exitCode = 1) : void
@@ -383,8 +603,8 @@ class CLI
      *
      * NOTE: It is possible pass multiple lines ending each line with a backslash.
      *
-     * @param string $prepend [Optional] Text prepended in the input. Used
-     * internally to allow multiple lines
+     * @param string $prepend Text prepended in the input. Used internally to
+     * allow multiple lines
      *
      * @return string Returns the user input
      */
@@ -409,8 +629,8 @@ class CLI
      *
      * @param string $question The question to prompt
      * @param array<int,string>|string|null $options Answer options. If an array
-     * is set, the default answer is the first value. If is an string, it
-     * will be the default.
+     * is set, the default answer is the first value. If is a string, it will
+     * be the default.
      *
      * @return string The answer
      */
