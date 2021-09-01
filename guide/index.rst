@@ -57,7 +57,7 @@ Edit the PHP file:
     $console = new Console($language);
     $console->run();
 
-Run the file on the terminal.
+Run the file in the terminal.
 The output will be like the following:
 
 .. image:: img/custom-language.png
@@ -66,7 +66,7 @@ The output will be like the following:
 If the CLI Library is not localized in your language, you can contribute by adding
 it with a `Merge Request in the package repository <https://gitlab.com/aplus-framework/libraries/cli/-/merge_requests>`_.
 
-It is also possible to add custom languages in the runtime. See the
+It is also possible to add custom languages at runtime. See the
 `Language Library <https://gitlab.com/aplus-framework/libraries/language>`_ to know more.
 
 Add a Custom Command
@@ -94,13 +94,13 @@ Edit the PHP file:
     $console->addCommand(HelloCommand::class);
     $console->run();
 
-Go to the terminal an run:
+Go to the terminal and run:
 
 .. code-block::
 
     php cli.php
 
-Note that **hello** is listed as a available command:
+Note that **hello** is listed as an available command:
 
 .. image:: img/custom-command.png
     :alt: Aplus CLI - Index Command with Custom Command
@@ -119,8 +119,8 @@ The output will be like this:
 Conclusion
 ----------
 
-Aplus CLI Library is an, easy to use, tool for PHP, beginners and experienced, developers. 
-It is perfect for building, simple and full-featured, command-line interfaces. 
+Aplus CLI Library is an easy-to-use tool for PHP developers, beginners and experienced.
+It is perfect for building simple and full-featured command-line interfaces. 
 The more you use it, the more you will learn.
 
 .. note::
