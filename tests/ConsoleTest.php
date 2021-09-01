@@ -20,8 +20,6 @@ final class ConsoleTest extends TestCase
     protected function setUp() : void
     {
         Stdout::init();
-        global $argv;
-        $argv = [];
         $this->console = new ConsoleMock();
     }
 

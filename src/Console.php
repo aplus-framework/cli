@@ -62,7 +62,7 @@ class Console
         }
         $this->language = $language->addDirectory(__DIR__ . '/Languages');
         global $argv;
-        $this->prepare($argv);
+        $this->prepare($argv ?? []);
     }
 
     /**
