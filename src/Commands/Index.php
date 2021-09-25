@@ -45,10 +45,13 @@ class Index extends Command
                 $width = $lengths[$name];
             }
         }
-        CLI::write($this->console->getLanguage()->render('cli', 'commands') . ':', 'yellow');
+        CLI::write(
+            $this->console->getLanguage()->render('cli', 'commands') . ':',
+            CLI::FG_YELLOW
+        );
         foreach ($this->console->getCommands() as $name => $command) {
             CLI::write(
-                '  ' . CLI::style($name, 'green') . '  '
+                '  ' . CLI::style($name, CLI::FG_GREEN) . '  '
                 . \str_repeat(' ', $width - $lengths[$name])
                 . $command->getDescription()
             );
@@ -66,7 +69,7 @@ class Index extends Command
                     |_|
 
             EOL;
-        CLI::write($text, 'green');
+        CLI::write($text, CLI::FG_GREEN);
     }
 
     protected function showDate() : void

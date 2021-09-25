@@ -38,25 +38,28 @@ class Help extends Command
         }
         CLI::write(CLI::style(
             $this->console->getLanguage()->render('cli', 'command') . ': ',
-            'green'
+            CLI::FG_GREEN
         ) . $command->getName());
         $value = $command->getDescription();
         if ($value !== '') {
             CLI::write(CLI::style(
                 $this->console->getLanguage()->render('cli', 'description') . ': ',
-                'green'
+                CLI::FG_GREEN
             ) . $value);
         }
         $value = $command->getUsage();
         if ($value !== '') {
             CLI::write(CLI::style(
                 $this->console->getLanguage()->render('cli', 'usage') . ': ',
-                'green'
+                CLI::FG_GREEN
             ) . $value);
         }
         $value = $command->getOptions();
         if ($value) {
-            CLI::write($this->console->getLanguage()->render('cli', 'options') . ': ', 'green');
+            CLI::write(
+                $this->console->getLanguage()->render('cli', 'options') . ': ',
+                CLI::FG_GREEN
+            );
             $lastKey = \array_key_last($value);
             foreach ($value as $option => $description) {
                 CLI::write('  ' . $this->renderOption($option));
