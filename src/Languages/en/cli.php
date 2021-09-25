@@ -13,7 +13,7 @@ return [
     'about.line2' => 'This interface is built on Aplus Framework CLI Library.',
     'about.line3' => 'Aplus Framework CLI Library is Open Source Software (OSS).',
     'about.line4' => 'Visit our website to know more: https://aplus-framework.com',
-    'about.line5' => 'Thanks for choosing Aplus as your PHP Framework!',
+    'about.line5' => 'Thanks for using Aplus Framework!',
     'command' => 'Command',
     'commandNotFound' => 'Command not found: "{0}"',
     'commands' => 'Commands',
