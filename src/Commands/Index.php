@@ -22,17 +22,30 @@ class Index extends Command
     protected string $name = 'index';
     protected string $description = 'Show commands list';
     protected string $usage = 'index';
+    protected array $options = [
+        '-g' => 'Shows greeting.',
+    ];
 
     public function run() : void
     {
         $this->showHeader();
         $this->showDate();
+        if ($this->console->getOption('g')) {
+            $this->greet();
+        }
         $this->listCommands();
     }
 
     public function getDescription() : string
     {
         return $this->console->getLanguage()->render('cli', 'index.description');
+    }
+
+    public function getOptions() : array
+    {
+        return [
+            '-g' => $this->console->getLanguage()->render('cli', 'index.option.greet'),
+        ];
     }
 
     protected function listCommands() : void
@@ -79,5 +92,38 @@ class Index extends Command
             . \date('H:i:s') . ' - '
             . \date_default_timezone_get() . \PHP_EOL;
         CLI::write($text);
+    }
+
+    protected function greet() : void
+    {
+        $hour = \date('H');
+        $timing = 'evening';
+        if ($hour > 4 && $hour < 12) {
+            $timing = 'morning';
+        } elseif ($hour > 4 && $hour < 18) {
+            $timing = 'afternoon';
+        }
+        $greeting = $this->console->getLanguage()
+            ->render('cli', 'greet.' . $timing, [$this->getUser()]);
+        CLI::write($greeting);
+        CLI::newLine();
+    }
+
+    protected function getUser() : string
+    {
+        $username = \posix_getlogin();
+        if ($username === false) {
+            return $this->console->getLanguage()->render('cli', 'friend');
+        }
+        $info = \posix_getpwnam($username);
+        if ( ! $info) {
+            return $username;
+        }
+        $gecos = $info['gecos'] ?? '';
+        if ( ! $gecos) {
+            return $username;
+        }
+        $length = \strpos($gecos, ',') ?: \strlen($gecos);
+        return \substr($gecos, 0, $length);
     }
 }
