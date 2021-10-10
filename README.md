@@ -1,3 +1,5 @@
+<a href="https://gitlab.com/aplus-framework/libraries/cli"><img src="https://gitlab.com/aplus-framework/libraries/cli/-/raw/master/guide/image.png" alt="Aplus Framework CLI Library" align="right" width="100"></a>
+
 # Aplus Framework CLI Library
 
 - [User Guide](https://docs.aplus-framework.com/guides/libraries/cli/index.html)
