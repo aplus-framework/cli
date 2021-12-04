@@ -10,7 +10,7 @@
         "command",
         "commands"
     ],
-    "homepage": "https://docs.aplus-framework.com/guides/libraries/cli/",
+    "homepage": "https://aplus-framework.com/packages/cli",
     "license": "MIT",
     "authors": [
         {
@@ -53,13 +53,13 @@
     "support": {
         "email": "support@aplus-framework.com",
         "issues": "https://gitlab.com/aplus-framework/libraries/cli/issues",
-        "wiki": "https://gitlab.com/aplus-framework/libraries/cli/wikis/home",
+        "forum": "https://aplus-framework.com/forum",
         "source": "https://gitlab.com/aplus-framework/libraries/cli",
         "docs": "https://docs.aplus-framework.com/guides/libraries/cli/"
     },
     "funding": [
         {
-            "type": "other",
+            "type": "Aplus Sponsor",
             "url": "https://aplus-framework.com/sponsor"
         }
     ]
