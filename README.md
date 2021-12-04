@@ -2,6 +2,7 @@
 
 # Aplus Framework CLI Library
 
+- [Homepage](https://aplus-framework.com/packages/cli)
 - [User Guide](https://docs.aplus-framework.com/guides/libraries/cli/index.html)
 - [API Documentation](https://docs.aplus-framework.com/packages/cli.html)
 
