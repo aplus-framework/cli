@@ -2,10 +2,11 @@
 
 # Aplus Framework CLI Library
 
-- [Homepage](https://aplus-framework.com/packages/cli)
+- [Home](https://aplus-framework.com/packages/cli)
 - [User Guide](https://docs.aplus-framework.com/guides/libraries/cli/index.html)
 - [API Documentation](https://docs.aplus-framework.com/packages/cli.html)
 
+[![tests](https://github.com/aplus-framework/cli/actions/workflows/tests.yml/badge.svg)](https://github.com/aplus-framework/cli/actions/workflows/tests.yml)
 [![pipeline](https://gitlab.com/aplus-framework/libraries/cli/badges/master/pipeline.svg)](https://gitlab.com/aplus-framework/libraries/cli/-/pipelines?scope=branches)
 [![coverage](https://gitlab.com/aplus-framework/libraries/cli/badges/master/coverage.svg?job=test:php)](https://aplus-framework.gitlab.io/libraries/cli/coverage/)
 [![packagist](https://img.shields.io/packagist/v/aplus/cli)](https://packagist.org/packages/aplus/cli)
