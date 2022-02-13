@@ -661,8 +661,8 @@ class CLI
     /**
      * Creates a well formatted table.
      *
-     * @param array<int,array> $tbody Table body rows
-     * @param array<int,string> $thead Table head fields
+     * @param array<array<scalar|\Stringable>> $tbody Table body rows
+     * @param array<scalar|\Stringable> $thead Table head fields
      */
     public static function table(array $tbody, array $thead = []) : void
     {

@@ -128,7 +128,7 @@ class Console
     /**
      * Add a command to the console.
      *
-     * @param Command|string $command A Command instance or the class FQN
+     * @param class-string<Command>|Command $command A Command instance or the class FQN
      *
      * @return static
      */
@@ -144,8 +144,8 @@ class Console
     /**
      * Add many commands to the console.
      *
-     * @param array<int,Command|string> $commands A list of Command instances
-     * or the classes FQN
+     * @param array<class-string<Command>|Command> $commands A list of Command
+     * instances or the classes FQN
      *
      * @return static
      */
