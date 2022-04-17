@@ -434,13 +434,13 @@ class CLI
         array $formats = []
     ) : string {
         $string = '';
-        if ($color) {
+        if ($color !== null) {
             if (empty(static::$foregroundColors[$color])) {
                 throw new InvalidArgumentException('Invalid color: ' . $color);
             }
             $string = static::$foregroundColors[$color];
         }
-        if ($background) {
+        if ($background !== null) {
             if (empty(static::$backgroundColors[$background])) {
                 throw new InvalidArgumentException('Invalid background color: ' . $background);
             }
@@ -474,10 +474,10 @@ class CLI
         string $background = null,
         int $width = null
     ) : void {
-        if ($width) {
+        if ($width !== null) {
             $text = static::wrap($text, $width);
         }
-        if ($color || $background) {
+        if ($color !== null || $background !== null) {
             $text = static::style($text, $color, $background);
         }
         \fwrite(\STDOUT, $text . \PHP_EOL);
