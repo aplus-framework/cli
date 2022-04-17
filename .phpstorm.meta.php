@@ -62,6 +62,16 @@ registerArgumentsSet(
     \Framework\CLI\CLI::FM_UNDERLINE,
 );
 expectedArguments(
+    \Framework\CLI\CLI::box(),
+    1,
+    argumentsSet('cli_background_colors')
+);
+expectedArguments(
+    \Framework\CLI\CLI::box(),
+    2,
+    argumentsSet('cli_foreground_colors')
+);
+expectedArguments(
     \Framework\CLI\CLI::write(),
     1,
     argumentsSet('cli_foreground_colors')
