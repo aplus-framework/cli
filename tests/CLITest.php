@@ -153,6 +153,24 @@ final class CLITest extends TestCase
         );
     }
 
+    public function testConstantsWithStyle() : void
+    {
+        $class = new \ReflectionClass(CLI::class);
+        foreach ($class->getReflectionConstants(\ReflectionClassConstant::IS_PUBLIC) as $constant) {
+            if (\str_starts_with($constant->getName(), 'BG_')) {
+                self::assertNotEmpty(CLI::style('', background: $constant->getValue()));
+                continue;
+            }
+            if (\str_starts_with($constant->getName(), 'FG_')) {
+                self::assertNotEmpty(CLI::style('', color: $constant->getValue()));
+                continue;
+            }
+            if (\str_starts_with($constant->getName(), 'FM_')) {
+                self::assertNotEmpty(CLI::style('', formats: [$constant->getValue()]));
+            }
+        }
+    }
+
     public function testStyleWithInvalidColor() : void
     {
         $this->expectException(\InvalidArgumentException::class);
