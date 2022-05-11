@@ -48,4 +48,13 @@ final class CommandTest extends TestCase
         $this->command->setOptions(['-a' => 'baz']);
         self::assertSame(['-a' => 'baz'], $this->command->getOptions());
     }
+
+    public function testActive() : void
+    {
+        self::assertTrue($this->command->isActive());
+        $this->command->deactivate();
+        self::assertFalse($this->command->isActive());
+        $this->command->activate();
+        self::assertTrue($this->command->isActive());
+    }
 }

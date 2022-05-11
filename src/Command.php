@@ -180,4 +180,26 @@ abstract class Command
     {
         return $this->active;
     }
+
+    /**
+     * Activate the command.
+     *
+     * @return static
+     */
+    public function activate() : static
+    {
+        $this->active = true;
+        return $this;
+    }
+
+    /**
+     * Deactivate the command.
+     *
+     * @return static
+     */
+    public function deactivate() : static
+    {
+        $this->active = false;
+        return $this;
+    }
 }
