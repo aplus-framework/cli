@@ -21,18 +21,31 @@ final class CommandTest extends TestCase
         $this->command = new CommandMock(new Console());
     }
 
+    public function testName() : void
+    {
+        self::assertSame('test', $this->command->getName());
+        $this->command->setName('Foo');
+        self::assertSame('Foo', $this->command->getName());
+    }
+
     public function testDescription() : void
     {
         self::assertSame('Lorem ipsum', $this->command->getDescription());
+        $this->command->setDescription('Foo bar.');
+        self::assertSame('Foo bar.', $this->command->getDescription());
     }
 
     public function testUsage() : void
     {
         self::assertSame('test', $this->command->getUsage());
+        $this->command->setUsage('foo');
+        self::assertSame('foo', $this->command->getUsage());
     }
 
     public function testOptions() : void
     {
         self::assertSame(['-b' => 'foo bar'], $this->command->getOptions());
+        $this->command->setOptions(['-a' => 'baz']);
+        self::assertSame(['-a' => 'baz'], $this->command->getOptions());
     }
 }

@@ -83,6 +83,19 @@ abstract class Command
     }
 
     /**
+     * Set command name.
+     *
+     * @param string $name
+     *
+     * @return static
+     */
+    public function setName(string $name) : static
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
      * Get command description.
      *
      * @return string
@@ -97,6 +110,19 @@ abstract class Command
     }
 
     /**
+     * Set command description.
+     *
+     * @param string $description
+     *
+     * @return static
+     */
+    public function setDescription(string $description) : static
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
      * Get command usage.
      *
      * @return string
@@ -108,6 +134,19 @@ abstract class Command
     }
 
     /**
+     * Set command usage.
+     *
+     * @param string $usage
+     *
+     * @return static
+     */
+    public function setUsage(string $usage) : static
+    {
+        $this->usage = $usage;
+        return $this;
+    }
+
+    /**
      * Get command options.
      *
      * @return array<string,string>
@@ -116,6 +155,19 @@ abstract class Command
     public function getOptions() : array
     {
         return $this->options;
+    }
+
+    /**
+     * Set command options.
+     *
+     * @param array<string,string> $options
+     *
+     * @return static
+     */
+    public function setOptions(array $options) : static
+    {
+        $this->options = $options;
+        return $this;
     }
 
     /**
