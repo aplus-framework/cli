@@ -48,11 +48,13 @@ abstract class Command
     /**
      * Command constructor.
      *
-     * @param Console $console
+     * @param Console|null $console
      */
-    public function __construct(Console $console)
+    public function __construct(Console $console = null)
     {
-        $this->console = $console;
+        if ($console) {
+            $this->console = $console;
+        }
     }
 
     /**

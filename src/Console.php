@@ -135,8 +135,9 @@ class Console
     public function addCommand(Command | string $command) : static
     {
         if (\is_string($command)) {
-            $command = new $command($this);
+            $command = new $command();
         }
+        $command->setConsole($this);
         $this->commands[$command->getName()] = $command;
         return $this;
     }
