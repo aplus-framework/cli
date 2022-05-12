@@ -21,6 +21,14 @@ final class CommandTest extends TestCase
         $this->command = new CommandMock(new Console());
     }
 
+    public function testConsole() : void
+    {
+        self::assertInstanceOf(Console::class, $this->command->getConsole());
+        $console = new Console();
+        $this->command->setConsole($console);
+        self::assertSame($console, $this->command->getConsole());
+    }
+
     public function testName() : void
     {
         self::assertSame('test', $this->command->getName());

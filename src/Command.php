@@ -61,6 +61,29 @@ abstract class Command
     abstract public function run() : void;
 
     /**
+     * Get console instance.
+     *
+     * @return Console
+     */
+    public function getConsole() : Console
+    {
+        return $this->console;
+    }
+
+    /**
+     * Set console instance.
+     *
+     * @param Console $console
+     *
+     * @return static
+     */
+    public function setConsole(Console $console) : static
+    {
+        $this->console = $console;
+        return $this;
+    }
+
+    /**
      * Get command name.
      *
      * @return string
