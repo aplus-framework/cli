@@ -33,8 +33,8 @@ abstract class Stream extends \php_user_filter
     public function filter($in, $out, &$consumed, $closing) : int
     {
         while ($bucket = \stream_bucket_make_writeable($in)) {
-            static::$contents .= $bucket->data; // @phpstan-ignore-line
-            $consumed += $bucket->datalen; // @phpstan-ignore-line
+            static::$contents .= $bucket->data;
+            $consumed += $bucket->datalen;
             \stream_bucket_append($out, $bucket);
         }
         return \PSFS_FEED_ME;
