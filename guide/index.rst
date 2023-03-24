@@ -32,7 +32,7 @@ Create a file (**cli.php**) with the following contents:
     use Framework\CLI\Console;
 
     $console = new Console();
-    $console->run();
+    $console->run(); // void
 
 Go to the terminal an run:
 
@@ -58,7 +58,7 @@ Edit the PHP file:
     $language = new Language('pt-br');
 
     $console = new Console($language);
-    $console->run();
+    $console->run(); // void
 
 Run the file in the terminal.
 The output will be like the following:
@@ -87,15 +87,15 @@ Edit the PHP file:
 
     class HelloCommand extends Command
     {
-        public function run(): void
+        public function run() : void
         {
             CLI::write('Hello, Aplus!');
         }
     }
 
     $console = new Console();
-    $console->addCommand(HelloCommand::class);
-    $console->run();
+    $console->addCommand(HelloCommand::class); // static
+    $console->run(); // void
 
 Go to the terminal and run:
 
