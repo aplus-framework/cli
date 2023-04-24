@@ -14,8 +14,10 @@ namespace Framework\CLI\Streams;
  *
  * @package cli
  */
-class Stderr extends Stream
+class Stderr extends \php_user_filter
 {
+    use FilterStream;
+
     public static function init() : void
     {
         \stream_filter_register(static::class, static::class);
