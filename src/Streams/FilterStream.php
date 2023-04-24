@@ -16,7 +16,7 @@ use JetBrains\PhpStorm\Pure;
  *
  * @package cli
  *
- * @since 2.4
+ * @since 2.3.1
  */
 trait FilterStream
 {
