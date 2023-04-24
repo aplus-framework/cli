@@ -17,6 +17,8 @@ use JetBrains\PhpStorm\Pure;
  * @package cli
  *
  * @deprecated
+ *
+ * @codeCoverageIgnore
  */
 abstract class Stream extends \php_user_filter
 {
