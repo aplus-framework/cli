@@ -27,5 +27,7 @@ final class StderrTest extends TestCase
         self::assertSame('errrbar', Stderr::getContents());
         Stderr::reset();
         self::assertSame('', Stderr::getContents());
+        \fwrite(\STDERR, 'bar');
+        self::assertSame('bar', Stderr::getContents());
     }
 }

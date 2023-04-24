@@ -27,5 +27,7 @@ final class StdoutTest extends TestCase
         self::assertSame('foobar', Stdout::getContents());
         Stdout::reset();
         self::assertSame('', Stdout::getContents());
+        \fwrite(\STDOUT, 'bar');
+        self::assertSame('bar', Stdout::getContents());
     }
 }
