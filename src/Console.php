@@ -206,6 +206,34 @@ class Console
     }
 
     /**
+     * Remove a command.
+     *
+     * @param string $name Command name
+     *
+     * @return static
+     */
+    public function removeCommand(string $name) : static
+    {
+        unset($this->commands[$name]);
+        return $this;
+    }
+
+    /**
+     * Remove commands.
+     *
+     * @param array<string> $names Command names
+     *
+     * @return static
+     */
+    public function removeCommands(array $names) : static
+    {
+        foreach ($names as $name) {
+            $this->removeCommand($name);
+        }
+        return $this;
+    }
+
+    /**
      * Run the Console.
      */
     public function run() : void

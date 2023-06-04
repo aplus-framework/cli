@@ -156,6 +156,15 @@ final class ConsoleTest extends TestCase
         self::assertInstanceOf(Command::class, $this->console->getCommand('test'));
     }
 
+    public function testRemoveCommands() : void
+    {
+        self::assertNotNull($this->console->getCommand('about'));
+        self::assertNotNull($this->console->getCommand('help'));
+        $this->console->removeCommands(['about', 'help']);
+        self::assertNull($this->console->getCommand('about'));
+        self::assertNull($this->console->getCommand('help'));
+    }
+
     public function testCommandString() : void
     {
         $this->console->addCommands([
