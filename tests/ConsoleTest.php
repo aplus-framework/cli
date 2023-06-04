@@ -133,14 +133,23 @@ final class ConsoleTest extends TestCase
         ], $this->console->getArguments());
     }
 
+    public function testDefaultCommands() : void
+    {
+        self::assertNotEmpty($this->console->getCommands());
+        self::assertNotNull($this->console->getCommand('index'));
+        self::assertNotNull($this->console->getCommand('about'));
+        self::assertNotNull($this->console->getCommand('help'));
+        self::assertNull($this->console->getCommand('foo'));
+    }
+
     public function testCommands() : void
     {
-        self::assertEmpty($this->console->getCommands());
         $command = new class($this->console) extends CommandMock {
+            protected string $name = 'test';
             protected bool $active = false;
         };
         $this->console->addCommand($command);
-        self::assertEmpty($this->console->getCommands());
+        self::assertNull($this->console->getCommand('test'));
         $command = new CommandMock($this->console);
         $this->console->addCommands([$command]);
         self::assertNotEmpty($this->console->getCommands());
@@ -149,7 +158,6 @@ final class ConsoleTest extends TestCase
 
     public function testCommandString() : void
     {
-        self::assertEmpty($this->console->getCommands());
         $this->console->addCommands([
             CommandMock::class,
         ]);
@@ -203,11 +211,11 @@ final class ConsoleTest extends TestCase
     {
         self::assertSame(
             [
-            'command',
-            '--one=two',
-            '--three=four',
-            'can I have a "little" more',
-        ],
+                'command',
+                '--one=two',
+                '--three=four',
+                'can I have a "little" more',
+            ],
             $this->console::commandToArgs(
                 'command --one=two   --three="four" \'can I have a "little" more\''
             )

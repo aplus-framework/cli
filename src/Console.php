@@ -63,6 +63,21 @@ class Console
         $this->language = $language->addDirectory(__DIR__ . '/Languages');
         global $argv;
         $this->prepare($argv ?? []);
+        $this->setDefaultCommands();
+    }
+
+    protected function setDefaultCommands() : static
+    {
+        if ($this->getCommand('index') === null) {
+            $this->addCommand(new Index($this));
+        }
+        if ($this->getCommand('help') === null) {
+            $this->addCommand(new Help($this));
+        }
+        if ($this->getCommand('about') === null) {
+            $this->addCommand(new About($this));
+        }
+        return $this;
     }
 
     /**
@@ -195,15 +210,6 @@ class Console
      */
     public function run() : void
     {
-        if ($this->getCommand('index') === null) {
-            $this->addCommand(new Index($this));
-        }
-        if ($this->getCommand('help') === null) {
-            $this->addCommand(new Help($this));
-        }
-        if ($this->getCommand('about') === null) {
-            $this->addCommand(new About($this));
-        }
         if ($this->command === '') {
             $this->command = 'index';
         }
