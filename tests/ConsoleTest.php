@@ -144,16 +144,23 @@ final class ConsoleTest extends TestCase
 
     public function testCommands() : void
     {
-        $command = new class($this->console) extends CommandMock {
-            protected string $name = 'test';
-            protected bool $active = false;
-        };
-        $this->console->addCommand($command);
-        self::assertNull($this->console->getCommand('test'));
         $command = new CommandMock($this->console);
         $this->console->addCommands([$command]);
         self::assertNotEmpty($this->console->getCommands());
         self::assertInstanceOf(Command::class, $this->console->getCommand('test'));
+    }
+
+    public function testInactiveCommand() : void
+    {
+        $inactiveCommand = new class($this->console) extends CommandMock {
+            protected string $name = 'foo';
+            protected bool $active = false;
+        };
+        $this->console->addCommand($inactiveCommand);
+        self::assertNull($this->console->getCommand('foo'));
+        foreach ($this->console->getCommands() as $command) {
+            self::assertNotSame($inactiveCommand, $command);
+        }
     }
 
     public function testRemoveCommands() : void
