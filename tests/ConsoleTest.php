@@ -165,6 +165,13 @@ final class ConsoleTest extends TestCase
         self::assertNull($this->console->getCommand('help'));
     }
 
+    public function testHasCommand() : void
+    {
+        self::assertTrue($this->console->hasCommand('about'));
+        $this->console->removeCommand('about');
+        self::assertFalse($this->console->hasCommand('about'));
+    }
+
     public function testCommandString() : void
     {
         $this->console->addCommands([

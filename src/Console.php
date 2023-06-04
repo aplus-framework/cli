@@ -234,6 +234,18 @@ class Console
     }
 
     /**
+     * Tells if it has a command.
+     *
+     * @param string $name Command name
+     *
+     * @return bool
+     */
+    public function hasCommand(string $name) : bool
+    {
+        return $this->getCommand($name) !== null;
+    }
+
+    /**
      * Run the Console.
      */
     public function run() : void
