@@ -659,6 +659,25 @@ class CLI
     }
 
     /**
+     * Prompt a question with secret answer.
+     *
+     * @param string $question The question to prompt
+     *
+     * @see https://dev.to/mykeels/reading-passwords-from-stdin-in-php-1np9
+     *
+     * @return string The secret answer
+     */
+    public static function secret(string $question) : string
+    {
+        $question .= ': ';
+        \fwrite(\STDOUT, $question);
+        \exec('stty -echo');
+        $secret = \trim((string) \fgets(\STDIN));
+        \exec('stty echo');
+        return $secret;
+    }
+
+    /**
      * Creates a well formatted table.
      *
      * @param array<array<scalar|\Stringable>> $tbody Table body rows
