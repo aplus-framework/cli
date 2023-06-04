@@ -258,7 +258,8 @@ class Console
             CLI::error(CLI::style(
                 $this->getLanguage()->render('cli', 'commandNotFound', [$this->command]),
                 CLI::FG_BRIGHT_RED
-            ));
+            ), \defined('TESTING') ? null : 1);
+            return;
         }
         $command->run();
     }

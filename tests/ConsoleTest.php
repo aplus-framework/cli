@@ -10,6 +10,7 @@
 namespace Tests\CLI;
 
 use Framework\CLI\Command;
+use Framework\CLI\Streams\Stderr;
 use Framework\CLI\Streams\Stdout;
 use PHPUnit\Framework\TestCase;
 
@@ -213,6 +214,20 @@ final class ConsoleTest extends TestCase
         $this->console->addCommand(new CommandMock($this->console));
         $this->console->run();
         self::assertSame($this->getContentsOfCommandMock(), Stdout::getContents());
+    }
+
+    public function testRunWithInvalidCommand() : void
+    {
+        $this->console->prepare([
+            'file.php',
+            'unknown',
+        ]);
+        Stderr::init();
+        $this->console->run();
+        self::assertStringContainsString(
+            'Command not found: "unknown"',
+            Stderr::getContents()
+        );
     }
 
     protected function getContentsOfCommandMock() : string

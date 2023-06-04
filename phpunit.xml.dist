@@ -18,4 +18,7 @@
         <directory suffix="Test.php">tests</directory>
     </testsuite>
     <logging/>
+    <php>
+        <const name="TESTING" value="true"/>
+    </php>
 </phpunit>
