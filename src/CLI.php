@@ -371,7 +371,7 @@ class CLI
             return $default;
         }
         $width = (int) \shell_exec('tput cols');
-        if ( ! $width) {
+        if (!$width) {
             return $default;
         }
         return $width;
@@ -509,7 +509,7 @@ class CLI
     {
         // See: https://stackoverflow.com/a/35190285
         $string = '';
-        if ( ! static::isWindows()) {
+        if (!static::isWindows()) {
             $string .= "\33[2K";
         }
         $string .= "\r";
@@ -548,7 +548,7 @@ class CLI
     ) : void {
         $width = static::getWidth();
         $width -= 2;
-        if ( ! \is_array($lines)) {
+        if (!\is_array($lines)) {
             $lines = [
                 $lines,
             ];
@@ -688,7 +688,7 @@ class CLI
         // All the rows in the table will be here until the end
         $tableRows = [];
         // We need only indexes and not keys
-        if ( ! empty($thead)) {
+        if (!empty($thead)) {
             $tableRows[] = \array_values($thead);
         }
         foreach ($tbody as $tr) {
@@ -712,7 +712,7 @@ class CLI
                 // If the current column does not have a value among the larger ones
                 // or the value of this is greater than the existing one
                 // then, now, this assumes the maximum length
-                if ( ! isset($maxColsLengths[$column])
+                if (!isset($maxColsLengths[$column])
                     || $allColsLengths[$row][$column] > $maxColsLengths[$column]) {
                     $maxColsLengths[$column] = $allColsLengths[$row][$column];
                 }
@@ -746,7 +746,7 @@ class CLI
             // Set the vertical borders
             $table .= '| ' . \implode(' | ', $value) . ' |' . \PHP_EOL;
             // Set the thead and table borders-bottom
-            if (($row === 0 && ! empty($thead)) || $row + 1 === $totalRows) {
+            if (($row === 0 && !empty($thead)) || $row + 1 === $totalRows) {
                 $table .= $line . \PHP_EOL;
             }
         }
