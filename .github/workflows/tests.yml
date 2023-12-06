@@ -50,7 +50,7 @@ jobs:
           vendor/bin/phpstan analyse -vvv
 
       - name: PHPUnit
-        run: vendor/bin/phpunit --verbose
+        run: vendor/bin/phpunit
 
       - name: Upload coverage results to Coveralls
         env:
@@ -88,4 +88,4 @@ jobs:
           composer update
 
       - name: PHPUnit
-        run: vendor/bin/phpunit --verbose
+        run: vendor/bin/phpunit
