@@ -197,7 +197,7 @@ class Console
     {
         $commands = $this->commands;
         foreach ($commands as $name => $command) {
-            if ( ! $command->isActive()) {
+            if (!$command->isActive()) {
                 unset($commands[$name]);
             }
         }
@@ -349,7 +349,7 @@ class Console
         $inSQuote = false;
         for ($i = 0; $i < $charCount; $i++) {
             $char = $command[$i];
-            if ($char === ' ' && ! $inDQuote && ! $inSQuote) {
+            if ($char === ' ' && !$inDQuote && !$inSQuote) {
                 if ($arg !== '') {
                     $argv[] = $arg;
                 }
@@ -364,11 +364,11 @@ class Console
                 $inDQuote = false;
                 continue;
             }
-            if ($char === '"' && ! $inSQuote) {
+            if ($char === '"' && !$inSQuote) {
                 $inDQuote = true;
                 continue;
             }
-            if ($char === "'" && ! $inDQuote) {
+            if ($char === "'" && !$inDQuote) {
                 $inSQuote = true;
                 continue;
             }

@@ -116,11 +116,11 @@ class Index extends Command
             return $this->console->getLanguage()->render('cli', 'friend');
         }
         $info = \posix_getpwnam($username);
-        if ( ! $info) {
+        if (!$info) {
             return $username;
         }
         $gecos = $info['gecos'] ?? '';
-        if ( ! $gecos) {
+        if (!$gecos) {
             return $username;
         }
         $length = \strpos($gecos, ',') ?: \strlen($gecos);
