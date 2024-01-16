@@ -67,10 +67,10 @@ The output will be like the following:
     :alt: Aplus CLI - Index Command with Custom Language
 
 If the CLI Library is not localized in your language, you can contribute by adding
-it with a `Merge Request in the package repository <https://gitlab.com/aplus-framework/libraries/cli/-/merge_requests>`_.
+it with a `Pull Request in the package repository <https://github.com/aplus-framework/cli/pulls>`_.
 
 It is also possible to add custom languages at runtime. See the
-`Language Library <https://gitlab.com/aplus-framework/libraries/language>`_ to know more.
+`Language Library <https://github.com/aplus-framework/language>`_ to know more.
 
 Add a Custom Command
 ^^^^^^^^^^^^^^^^^^^^
@@ -129,5 +129,5 @@ The more you use it, the more you will learn.
 .. note::
     Did you find something wrong? 
     Be sure to let us know about it with an
-    `issue <https://gitlab.com/aplus-framework/libraries/cli/issues>`_. 
+    `issue <https://github.com/aplus-framework/cli/issues>`_. 
     Thank you!
