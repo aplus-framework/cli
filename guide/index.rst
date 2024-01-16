@@ -70,7 +70,7 @@ If the CLI Library is not localized in your language, you can contribute by addi
 it with a `Pull Request in the package repository <https://github.com/aplus-framework/cli/pulls>`_.
 
 It is also possible to add custom languages at runtime. See the
-`Language Library <https://gitlab.com/aplus-framework/libraries/language>`_ to know more.
+`Language Library <https://github.com/aplus-framework/language>`_ to know more.
 
 Add a Custom Command
 ^^^^^^^^^^^^^^^^^^^^
