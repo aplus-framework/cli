@@ -36,6 +36,13 @@ final class CommandTest extends TestCase
         self::assertSame('Foo', $this->command->getName());
     }
 
+    public function testGroup() : void
+    {
+        self::assertNull($this->command->getGroup());
+        $this->command->setGroup('Foo');
+        self::assertSame('Foo', $this->command->getGroup());
+    }
+
     public function testDescription() : void
     {
         self::assertSame('Lorem ipsum', $this->command->getDescription());

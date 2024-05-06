@@ -27,6 +27,10 @@ abstract class Command
      */
     protected string $name;
     /**
+     * Command group.
+     */
+    protected string $group;
+    /**
      * Command description.
      */
     protected string $description;
@@ -117,6 +121,29 @@ abstract class Command
     public function setName(string $name) : static
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get command group.
+     *
+     * @return string|null
+     */
+    public function getGroup() : ?string
+    {
+        return $this->group ?? null;
+    }
+
+    /**
+     * Set command group.
+     *
+     * @param string $group
+     *
+     * @return static
+     */
+    public function setGroup(string $group) : static
+    {
+        $this->group = $group;
         return $this;
     }
 
