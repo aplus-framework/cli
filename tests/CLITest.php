@@ -12,6 +12,9 @@ namespace Tests\CLI;
 use Framework\CLI\CLI;
 use Framework\CLI\Streams\Stderr;
 use Framework\CLI\Streams\Stdout;
+use Framework\CLI\Styles\BackgroundColor;
+use Framework\CLI\Styles\ForegroundColor;
+use Framework\CLI\Styles\Format;
 use PHPUnit\Framework\TestCase;
 
 final class CLITest extends TestCase
@@ -31,7 +34,7 @@ final class CLITest extends TestCase
         CLI::write('Hello!');
         self::assertSame("Hello!\n", Stdout::getContents());
         Stdout::reset();
-        CLI::write('Hello!', CLI::FG_RED);
+        CLI::write('Hello!', ForegroundColor::red);
         self::assertStringContainsString("\033[0;31mHello!", Stdout::getContents());
         Stdout::reset();
         CLI::write('Hello!', null, null, 2);
@@ -141,55 +144,61 @@ final class CLITest extends TestCase
         self::assertSame("foo\033[0m", CLI::style('foo'));
         self::assertSame(
             "\033[0;31mfoo\033[0m",
-            CLI::style('foo', CLI::FG_RED)
+            CLI::style('foo', ForegroundColor::red)
+        );
+        self::assertSame(
+            "\033[0;31mfoo\033[0m",
+            CLI::style('foo', 'red')
         );
         self::assertSame(
             "\033[0;31m\033[44mfoo\033[0m",
-            CLI::style('foo', CLI::FG_RED, CLI::BG_BLUE)
+            CLI::style('foo', ForegroundColor::red, BackgroundColor::blue)
+        );
+        self::assertSame(
+            "\033[0;31m\033[44mfoo\033[0m",
+            CLI::style('foo', 'red', 'blue')
         );
         self::assertSame(
             "\033[0;31m\033[44m\033[1m\033[3mfoo\033[0m",
-            CLI::style('foo', CLI::FG_RED, CLI::BG_BLUE, [CLI::FM_BOLD, CLI::FM_ITALIC])
+            CLI::style('foo', ForegroundColor::red, BackgroundColor::blue, [
+                Format::bold,
+                Format::italic,
+            ])
         );
-    }
-
-    public function testConstantsWithStyle() : void
-    {
-        $class = new \ReflectionClass(CLI::class);
-        foreach ($class->getReflectionConstants(\ReflectionClassConstant::IS_PUBLIC) as $constant) {
-            if (\str_starts_with($constant->getName(), 'BG_')) {
-                self::assertNotEmpty(CLI::style('', background: $constant->getValue()));
-                continue;
-            }
-            if (\str_starts_with($constant->getName(), 'FG_')) {
-                self::assertNotEmpty(CLI::style('', color: $constant->getValue()));
-                continue;
-            }
-            if (\str_starts_with($constant->getName(), 'FM_')) {
-                self::assertNotEmpty(CLI::style('', formats: [$constant->getValue()]));
-            }
-        }
+        self::assertSame(
+            "\033[0;31m\033[44m\033[1m\033[3mfoo\033[0m",
+            CLI::style('foo', 'red', 'blue', [
+                'bold',
+                'italic',
+            ])
+        );
     }
 
     public function testStyleWithInvalidColor() : void
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid color: bar');
+        $this->expectException(\ValueError::class);
+        $this->expectExceptionMessage(
+            '"bar" is not a valid backing value for enum Framework\CLI\Styles\ForegroundColor'
+        );
         CLI::style('foo', 'bar');
     }
 
     public function testStyleWithInvalidBackground() : void
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid background color: baz');
+        $this->expectException(\ValueError::class);
+        $this->expectExceptionMessage(
+            '"baz" is not a valid backing value for enum Framework\CLI\Styles\BackgroundColor'
+        );
         CLI::style('foo', null, 'baz');
     }
 
     public function testStyleWithInvalidFormat() : void
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid format: bar');
-        CLI::style('foo', null, null, [CLI::FM_BOLD, 'bar']);
+        $this->expectException(\ValueError::class);
+        $this->expectExceptionMessage(
+            '"bar" is not a valid backing value for enum Framework\CLI\Styles\Format'
+        );
+        CLI::style('foo', null, null, [Format::bold, 'bar']);
     }
 
     public function testBox() : void
