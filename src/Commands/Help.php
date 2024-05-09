@@ -11,6 +11,7 @@ namespace Framework\CLI\Commands;
 
 use Framework\CLI\CLI;
 use Framework\CLI\Command;
+use Framework\CLI\Styles\ForegroundColor;
 
 /**
  * Class Help.
@@ -38,27 +39,27 @@ class Help extends Command
         }
         CLI::write(CLI::style(
             $this->console->getLanguage()->render('cli', 'command') . ': ',
-            CLI::FG_GREEN
+            ForegroundColor::green
         ) . $command->getName());
         $value = $command->getDescription();
         if ($value !== '') {
             CLI::write(CLI::style(
                 $this->console->getLanguage()->render('cli', 'description') . ': ',
-                CLI::FG_GREEN
+                ForegroundColor::green
             ) . $value);
         }
         $value = $command->getUsage();
         if ($value !== '') {
             CLI::write(CLI::style(
                 $this->console->getLanguage()->render('cli', 'usage') . ': ',
-                CLI::FG_GREEN
+                ForegroundColor::green
             ) . $value);
         }
         $value = $command->getOptions();
         if ($value) {
             CLI::write(
                 $this->console->getLanguage()->render('cli', 'options') . ': ',
-                CLI::FG_GREEN
+                ForegroundColor::green
             );
             $lastKey = \array_key_last($value);
             foreach ($value as $option => $description) {
@@ -77,7 +78,7 @@ class Help extends Command
         $text = \explode(',', $text);
         \sort($text);
         foreach ($text as &$item) {
-            $item = CLI::style($item, CLI::FG_YELLOW);
+            $item = CLI::style($item, ForegroundColor::yellow);
         }
         return \implode(', ', $text);
     }

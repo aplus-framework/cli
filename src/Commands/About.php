@@ -11,6 +11,7 @@ namespace Framework\CLI\Commands;
 
 use Framework\CLI\CLI;
 use Framework\CLI\Command;
+use Framework\CLI\Styles\ForegroundColor;
 
 /**
  * Class About.
@@ -22,7 +23,7 @@ class About extends Command
     public function run() : void
     {
         $lang = $this->console->getLanguage();
-        CLI::write($lang->render('cli', 'about.line1'), CLI::FG_BRIGHT_GREEN);
+        CLI::write($lang->render('cli', 'about.line1'), ForegroundColor::brightGreen);
         CLI::write($lang->render('cli', 'about.line2'));
         CLI::write($lang->render('cli', 'about.line3'));
         CLI::write($lang->render('cli', 'about.line4'));

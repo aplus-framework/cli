@@ -12,6 +12,7 @@ namespace Framework\CLI;
 use Framework\CLI\Commands\About;
 use Framework\CLI\Commands\Help;
 use Framework\CLI\Commands\Index;
+use Framework\CLI\Styles\ForegroundColor;
 use Framework\Language\Language;
 use JetBrains\PhpStorm\Pure;
 
@@ -257,7 +258,7 @@ class Console
         if ($command === null) {
             CLI::error(CLI::style(
                 $this->getLanguage()->render('cli', 'commandNotFound', [$this->command]),
-                CLI::FG_BRIGHT_RED
+                ForegroundColor::brightRed
             ), \defined('TESTING') ? null : 1);
             return;
         }

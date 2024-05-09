@@ -9,8 +9,11 @@
  */
 namespace Framework\CLI;
 
-use InvalidArgumentException;
+use Framework\CLI\Styles\BackgroundColor;
+use Framework\CLI\Styles\ForegroundColor;
+use Framework\CLI\Styles\Format;
 use JetBrains\PhpStorm\Pure;
+use ValueError;
 
 /**
  * Class CLI.
@@ -77,14 +80,14 @@ class CLI
     public static function strlen(string $text) : int
     {
         $codes = [];
-        foreach (static::$foregroundColors as $color) {
-            $codes[] = $color;
+        foreach (ForegroundColor::cases() as $case) {
+            $codes[] = $case->getCode();
         }
-        foreach (static::$backgroundColors as $background) {
-            $codes[] = $background;
+        foreach (BackgroundColor::cases() as $case) {
+            $codes[] = $case->getCode();
         }
-        foreach (static::$formats as $format) {
-            $codes[] = $format;
+        foreach (Format::cases() as $case) {
+            $codes[] = $case->getCode();
         }
         $codes[] = static::$reset;
         $text = \str_replace($codes, '', $text);
@@ -95,39 +98,36 @@ class CLI
      * Applies styles to a text.
      *
      * @param string $text The text to be styled
-     * @param string|null $color Foreground color. One of the FG_* constants
-     * @param string|null $background Background color. One of the BG_* constants
-     * @param array<int,string> $formats The text format. A list of FM_* constants
+     * @param ForegroundColor|string|null $color Foreground color
+     * @param BackgroundColor|string|null $background Background color
+     * @param array<Format|string> $formats The text formats
      *
-     * @throws InvalidArgumentException For invalid color, background or format
+     * @throws ValueError For invalid color, background or format
      *
      * @return string Returns the styled text
      */
     public static function style(
         string $text,
-        string $color = null,
-        string $background = null,
+        ForegroundColor | string $color = null,
+        BackgroundColor | string $background = null,
         array $formats = []
     ) : string {
         $string = '';
         if ($color !== null) {
-            if (empty(static::$foregroundColors[$color])) {
-                throw new InvalidArgumentException('Invalid color: ' . $color);
-            }
-            $string = static::$foregroundColors[$color];
+            $string = \is_string($color)
+                ? ForegroundColor::from($color)->getCode()
+                : $color->getCode();
         }
         if ($background !== null) {
-            if (empty(static::$backgroundColors[$background])) {
-                throw new InvalidArgumentException('Invalid background color: ' . $background);
-            }
-            $string .= static::$backgroundColors[$background];
+            $string .= \is_string($background)
+                ? BackgroundColor::from($background)->getCode()
+                : $background->getCode();
         }
         if ($formats) {
             foreach ($formats as $format) {
-                if (empty(static::$formats[$format])) {
-                    throw new InvalidArgumentException('Invalid format: ' . $format);
-                }
-                $string .= static::$formats[$format];
+                $string .= \is_string($format)
+                    ? Format::from($format)->getCode()
+                    : $format->getCode();
             }
         }
         $string .= $text . static::$reset;
@@ -140,14 +140,14 @@ class CLI
      * Optionally with styles and width wrapping.
      *
      * @param string $text The text to be written
-     * @param string|null $color Foreground color. One of the FG_* constants
-     * @param string|null $background Background color. One of the BG_* constants
+     * @param ForegroundColor|string|null $color Foreground color
+     * @param BackgroundColor|string|null $background Background color
      * @param int|null $width Width to wrap the text. Null to do not wrap.
      */
     public static function write(
         string $text,
-        string $color = null,
-        string $background = null,
+        ForegroundColor | string $color = null,
+        BackgroundColor | string $background = null,
         int $width = null
     ) : void {
         if ($width !== null) {
@@ -214,13 +214,13 @@ class CLI
      * Writes a message box.
      *
      * @param array<int,string>|string $lines One line as string or multi-lines as array
-     * @param string $background Background color. One of the BG_* constants
-     * @param string $color Foreground color. One of the FG_* constants
+     * @param BackgroundColor|string $background Background color
+     * @param ForegroundColor|string $color Foreground color
      */
     public static function box(
         array | string $lines,
-        string $background = CLI::BG_BLACK,
-        string $color = CLI::FG_WHITE
+        BackgroundColor | string $background = BackgroundColor::black,
+        ForegroundColor | string $color = ForegroundColor::white
     ) : void {
         $width = static::getWidth();
         $width -= 2;
@@ -260,7 +260,7 @@ class CLI
     public static function error(string $message, ?int $exitCode = 1) : void
     {
         static::beep();
-        \fwrite(\STDERR, static::style($message, static::FG_RED) . \PHP_EOL);
+        \fwrite(\STDERR, static::style($message, ForegroundColor::red) . \PHP_EOL);
         if ($exitCode !== null) {
             exit($exitCode);
         }
@@ -319,7 +319,7 @@ class CLI
         }
         if ($options) {
             $opt = $options;
-            $opt[0] = static::style($opt[0], null, null, [static::FM_BOLD]);
+            $opt[0] = static::style($opt[0], null, null, [Format::bold]);
             $optionsText = isset($opt[1])
                 ? \implode(', ', $opt)
                 : $opt[0];

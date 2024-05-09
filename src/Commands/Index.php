@@ -11,6 +11,7 @@ namespace Framework\CLI\Commands;
 
 use Framework\CLI\CLI;
 use Framework\CLI\Command;
+use Framework\CLI\Styles\ForegroundColor;
 
 /**
  * Class Index.
@@ -60,11 +61,11 @@ class Index extends Command
         }
         CLI::write(
             $this->console->getLanguage()->render('cli', 'commands') . ':',
-            CLI::FG_YELLOW
+            ForegroundColor::yellow
         );
         foreach ($this->console->getCommands() as $name => $command) {
             CLI::write(
-                '  ' . CLI::style($name, CLI::FG_GREEN) . '  '
+                '  ' . CLI::style($name, ForegroundColor::green) . '  '
                 . \str_repeat(' ', $width - $lengths[$name])
                 . $command->getDescription()
             );
@@ -82,7 +83,7 @@ class Index extends Command
                     |_|
 
             EOL;
-        CLI::write($text, CLI::FG_GREEN);
+        CLI::write($text, ForegroundColor::green);
     }
 
     protected function showDate() : void
