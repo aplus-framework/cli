@@ -25,6 +25,7 @@ final class HelpTest extends TestCase
         self::assertStringNotContainsString('Options', Stdout::getContents());
         Stdout::reset();
         $console->exec('help foo');
+        self::assertStringContainsString('Group', Stdout::getContents());
         self::assertStringContainsString('Options', Stdout::getContents());
     }
 }

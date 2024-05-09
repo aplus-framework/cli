@@ -22,6 +22,7 @@ return [
     'greet.afternoon' => 'Boa tarde, {0}!',
     'greet.evening' => 'Boa noite, {0}!',
     'greet.morning' => 'Bom dia, {0}!',
+    'group' => 'Grupo',
     'help.description' => 'Mostra a ajuda de uso do comando.',
     'index.description' => 'Mostra a lista de comandos.',
     'index.option.greet' => 'Mostra saudação.',

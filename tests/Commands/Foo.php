@@ -15,6 +15,7 @@ use Framework\CLI\Command;
 class Foo extends Command
 {
     protected string $name = 'foo';
+    protected string $group = 'Foo';
     protected string $description = 'Foo command test';
     protected array $options = [
         '-o,--opt' => 'Set option as true',

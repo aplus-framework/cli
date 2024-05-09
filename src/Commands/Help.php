@@ -41,6 +41,13 @@ class Help extends Command
             $this->console->getLanguage()->render('cli', 'command') . ': ',
             ForegroundColor::green
         ) . $command->getName());
+        $value = $command->getGroup();
+        if ($value !== null) {
+            CLI::write(CLI::style(
+                $this->console->getLanguage()->render('cli', 'group') . ': ',
+                ForegroundColor::green
+            ) . $value);
+        }
         $value = $command->getDescription();
         if ($value !== '') {
             CLI::write(CLI::style(
