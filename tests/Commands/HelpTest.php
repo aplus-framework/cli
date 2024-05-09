@@ -10,6 +10,7 @@
 namespace Tests\CLI\Commands;
 
 use Framework\CLI\Console;
+use Framework\CLI\Streams\Stderr;
 use Framework\CLI\Streams\Stdout;
 use PHPUnit\Framework\TestCase;
 
@@ -27,5 +28,16 @@ final class HelpTest extends TestCase
         $console->exec('help foo');
         self::assertStringContainsString('Group', Stdout::getContents());
         self::assertStringContainsString('Options', Stdout::getContents());
+    }
+
+    public function testError() : void
+    {
+        $console = new Console();
+        Stderr::init();
+        $console->exec('help foo');
+        self::assertStringContainsString(
+            'Command not found: "foo"',
+            Stderr::getContents()
+        );
     }
 }
