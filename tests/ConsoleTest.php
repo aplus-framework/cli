@@ -12,6 +12,7 @@ namespace Tests\CLI;
 use Framework\CLI\Command;
 use Framework\CLI\Streams\Stderr;
 use Framework\CLI\Streams\Stdout;
+use Framework\Language\Language;
 use PHPUnit\Framework\TestCase;
 
 final class ConsoleTest extends TestCase
@@ -27,6 +28,17 @@ final class ConsoleTest extends TestCase
     protected function tearDown() : void
     {
         Stdout::reset();
+    }
+
+    public function testLanguage() : void
+    {
+        $language = new Language();
+        $console = new ConsoleMock($language);
+        self::assertSame($language, $console->getLanguage());
+        self::assertContains(
+            \realpath(__DIR__ . '/../src/Languages') . \DIRECTORY_SEPARATOR,
+            $console->getLanguage()->getDirectories()
+        );
     }
 
     public function testEmptyLine() : void

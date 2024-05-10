@@ -58,10 +58,9 @@ class Console
      */
     public function __construct(Language $language = null)
     {
-        if ($language === null) {
-            $language = new Language('en');
+        if ($language) {
+            $this->setLanguage($language);
         }
-        $this->language = $language->addDirectory(__DIR__ . '/Languages');
         global $argv;
         $this->prepare($argv ?? []);
         $this->setDefaultCommands();
@@ -131,13 +130,29 @@ class Console
     }
 
     /**
+     * Set the Language instance.
+     *
+     * @param Language|null $language
+     *
+     * @return static
+     */
+    public function setLanguage(Language $language = null) : static
+    {
+        $this->language = $language ?? new Language();
+        $this->language->addDirectory(__DIR__ . '/Languages');
+        return $this;
+    }
+
+    /**
      * Get the Language instance.
      *
      * @return Language
      */
-    #[Pure]
     public function getLanguage() : Language
     {
+        if (!isset($this->language)) {
+            $this->setLanguage();
+        }
         return $this->language;
     }
 
