@@ -51,25 +51,61 @@ class Index extends Command
 
     protected function listCommands() : void
     {
+        $groupDefault = [];
+        $groups = [];
+        foreach ($this->console->getCommands() as $name => $command) {
+            $group = $command->getGroup();
+            if ($group === null) {
+                $groupDefault[$name] = $command;
+                continue;
+            }
+            $groups[$group][$name] = $command;
+        }
+        CLI::write(
+            $this->console->getLanguage()->render('cli', 'availableCommands') . ':',
+            ForegroundColor::yellow
+        );
+        [$width, $lengths] = $this->getWidthAndLengths($groupDefault);
+        foreach ($groupDefault as $name => $command) {
+            CLI::write(
+                '  ' . CLI::style($name, ForegroundColor::green) . '  '
+                // @phpstan-ignore-next-line
+                . \str_repeat(' ', $width - $lengths[$name])
+                . $command->getDescription()
+            );
+        }
+        \ksort($groups);
+        foreach ($groups as $groupName => $commands) {
+            CLI::newLine();
+            CLI::write(' ' . $groupName . ':', ForegroundColor::brightYellow);
+            [$width, $lengths] = $this->getWidthAndLengths($commands);
+            foreach ($commands as $name => $command) {
+                CLI::write(
+                    '  ' . CLI::style($name, ForegroundColor::green) . '  '
+                    // @phpstan-ignore-next-line
+                    . \str_repeat(' ', $width - $lengths[$name])
+                    . $command->getDescription()
+                );
+            }
+        }
+    }
+
+    /**
+     * @param array<string,Command> $commands
+     *
+     * @return array<array<string,int>|int>
+     */
+    protected function getWidthAndLengths(array $commands) : array
+    {
         $width = 0;
         $lengths = [];
-        foreach (\array_keys($this->console->getCommands()) as $name) {
+        foreach (\array_keys($commands) as $name) {
             $lengths[$name] = \mb_strlen($name);
             if ($lengths[$name] > $width) {
                 $width = $lengths[$name];
             }
         }
-        CLI::write(
-            $this->console->getLanguage()->render('cli', 'commands') . ':',
-            ForegroundColor::yellow
-        );
-        foreach ($this->console->getCommands() as $name => $command) {
-            CLI::write(
-                '  ' . CLI::style($name, ForegroundColor::green) . '  '
-                . \str_repeat(' ', $width - $lengths[$name])
-                . $command->getDescription()
-            );
-        }
+        return [$width, $lengths];
     }
 
     protected function showHeader() : void

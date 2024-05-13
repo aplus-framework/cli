@@ -38,4 +38,21 @@ final class IndexTest extends TestCase
         $console->exec('index -g');
         self::assertStringContainsString('Good ', Stdout::getContents());
     }
+
+    public function testManyGroups() : void
+    {
+        $console = new Console();
+        $foo = new Foo();
+        $foo->setName('fooCommand')->setGroup('Group 2');
+        $bar = new Foo();
+        $bar->setName('barCommand')->setGroup('Group 1');
+        $console->addCommand($foo)->addCommand($bar);
+        Stdout::init();
+        $console->exec('index');
+        self::assertStringContainsString('Group 2', Stdout::getContents());
+        self::assertStringContainsString('Group 1', Stdout::getContents());
+        $group2Pos = \strpos(Stdout::getContents(), 'Group 2');
+        $group1Pos = \strpos(Stdout::getContents(), 'Group 1');
+        self::assertTrue($group2Pos > $group1Pos);
+    }
 }
