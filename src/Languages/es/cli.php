@@ -14,6 +14,7 @@ return [
     'about.line3' => 'Aplus Framework CLI Library es Software de Código Abierto (OSS).',
     'about.line4' => 'Visite nuestro website para obtener más información: https://aplus-framework.com',
     'about.line5' => '¡Gracias por usar Aplus Framework!',
+    'availableCommands' => 'Comandos Disponibles',
     'command' => 'Comando',
     'commandNotFound' => 'Comando no encontrado: "{0}"',
     'commands' => 'Comandos',
