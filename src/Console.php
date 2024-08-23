@@ -56,7 +56,7 @@ class Console
      *
      * @param Language|null $language
      */
-    public function __construct(Language $language = null)
+    public function __construct(?Language $language = null)
     {
         if ($language) {
             $this->setLanguage($language);
@@ -136,7 +136,7 @@ class Console
      *
      * @return static
      */
-    public function setLanguage(Language $language = null) : static
+    public function setLanguage(?Language $language = null) : static
     {
         $this->language = $language ?? new Language();
         $this->language->addDirectory(__DIR__ . '/Languages');
@@ -159,7 +159,7 @@ class Console
     /**
      * Add a command to the console.
      *
-     * @param class-string<Command>|Command $command A Command instance or the class FQN
+     * @param Command|class-string<Command> $command A Command instance or the class FQN
      *
      * @return static
      */
@@ -176,7 +176,7 @@ class Console
     /**
      * Add many commands to the console.
      *
-     * @param array<class-string<Command>|Command> $commands A list of Command
+     * @param array<Command|class-string<Command>> $commands A list of Command
      * instances or the classes FQN
      *
      * @return static

@@ -54,7 +54,7 @@ abstract class Command
      *
      * @param Console|null $console
      */
-    public function __construct(Console $console = null)
+    public function __construct(?Console $console = null)
     {
         if ($console) {
             $this->console = $console;

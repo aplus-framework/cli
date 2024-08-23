@@ -13,6 +13,7 @@ use Framework\CLI\Styles\BackgroundColor;
 use Framework\CLI\Styles\ForegroundColor;
 use Framework\CLI\Styles\Format;
 use JetBrains\PhpStorm\Pure;
+use Stringable;
 use ValueError;
 
 /**
@@ -64,7 +65,7 @@ class CLI
      *
      * @return string Returns the wrapped text
      */
-    public static function wrap(string $text, int $width = null) : string
+    public static function wrap(string $text, ?int $width = null) : string
     {
         $width ??= static::getWidth();
         return \wordwrap($text, $width, \PHP_EOL, true);
@@ -108,8 +109,8 @@ class CLI
      */
     public static function style(
         string $text,
-        ForegroundColor | string $color = null,
-        BackgroundColor | string $background = null,
+        ForegroundColor | string | null $color = null,
+        BackgroundColor | string | null $background = null,
         array $formats = []
     ) : string {
         $string = '';
@@ -146,9 +147,9 @@ class CLI
      */
     public static function write(
         string $text,
-        ForegroundColor | string $color = null,
-        BackgroundColor | string $background = null,
-        int $width = null
+        ForegroundColor | string | null $color = null,
+        BackgroundColor | string | null $background = null,
+        ?int $width = null
     ) : void {
         if ($width !== null) {
             $text = static::wrap($text, $width);
@@ -310,7 +311,7 @@ class CLI
      *
      * @return string The answer
      */
-    public static function prompt(string $question, array | string $options = null) : string
+    public static function prompt(string $question, array | string | null $options = null) : string
     {
         if ($options !== null) {
             $options = \is_array($options)
@@ -356,8 +357,8 @@ class CLI
     /**
      * Creates a well formatted table.
      *
-     * @param array<array<scalar|\Stringable>> $tbody Table body rows
-     * @param array<scalar|\Stringable> $thead Table head fields
+     * @param array<array<Stringable|scalar>> $tbody Table body rows
+     * @param array<Stringable|scalar> $thead Table head fields
      */
     public static function table(array $tbody, array $thead = []) : void
     {
