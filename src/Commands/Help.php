@@ -70,9 +70,15 @@ class Help extends Command
                 $this->console->getLanguage()->render('cli', 'options') . ': ',
                 ForegroundColor::green
             );
-            $lastKey = \array_key_last($value);
-            foreach ($value as $option => $description) {
-                CLI::write('  ' . $this->renderOption($option));
+            $newOptions = [];
+            foreach ($value as $options => $description) {
+                $options = $this->sortOptions($options);
+                $newOptions[$options] = $description;
+            }
+            \ksort($newOptions);
+            $lastKey = \array_key_last($newOptions);
+            foreach ($newOptions as $option => $description) {
+                CLI::write('  ' . $this->setColor($option));
                 CLI::write('  ' . $description);
                 if ($option !== $lastKey) {
                     CLI::newLine();
@@ -81,11 +87,17 @@ class Help extends Command
         }
     }
 
-    protected function renderOption(string $text) : string
+    protected function sortOptions(string $text) : string
     {
         $text = \trim(\preg_replace('/\s+/', '', $text));
         $text = \explode(',', $text);
         \sort($text);
+        return \implode(',', $text);
+    }
+
+    protected function setColor(string $text) : string
+    {
+        $text = \explode(',', $text);
         foreach ($text as &$item) {
             $item = CLI::style($item, ForegroundColor::yellow);
         }
