@@ -77,9 +77,25 @@ final class CLITest extends TestCase
         self::assertFalse(CLI::isWindows());
     }
 
+    /**
+     * Get terminal width.
+     * The default is 80. But windows can become wider or smaller when resized.
+     *
+     * @return int
+     */
+    protected function getTerminalWidth() : int
+    {
+        $expected = 80;
+        $width = (int) \shell_exec('tput cols');
+        if ($width) {
+            $expected = $width;
+        }
+        return $expected;
+    }
+
     public function testWidth() : void
     {
-        self::assertSame(80, CLI::getWidth());
+        self::assertSame($this->getTerminalWidth(), CLI::getWidth());
         $cli = new class() extends CLI {
             public static function isWindows() : bool
             {
@@ -91,13 +107,14 @@ final class CLITest extends TestCase
 
     public function testWrap() : void
     {
+        $width = $this->getTerminalWidth();
         $line = [];
-        $line[0] = \str_repeat('a', 80);
-        $line[1] = \str_repeat('a', 80);
-        $line[2] = \str_repeat('a', 80);
+        $line[0] = \str_repeat('a', $width);
+        $line[1] = \str_repeat('a', $width);
+        $line[2] = \str_repeat('a', $width);
         self::assertSame(
             $line[0] . \PHP_EOL . $line[1] . \PHP_EOL . $line[2],
-            CLI::wrap(\implode($line))
+            CLI::wrap(\implode($line), $width)
         );
     }
 
