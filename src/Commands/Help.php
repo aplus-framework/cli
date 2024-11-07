@@ -79,6 +79,10 @@ class Help extends Command
             $lastKey = \array_key_last($newOptions);
             foreach ($newOptions as $option => $description) {
                 CLI::write('  ' . $this->setColor($option));
+                $description = \trim($description);
+                if (!\str_ends_with($description, '.')) {
+                    $description .= '.';
+                }
                 CLI::write('  ' . $description);
                 if ($option !== $lastKey) {
                     CLI::newLine();
