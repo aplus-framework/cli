@@ -71,7 +71,7 @@ class Index extends Command
                 '  ' . CLI::style($name, ForegroundColor::green) . '  '
                 // @phpstan-ignore-next-line
                 . \str_repeat(' ', $width - $lengths[$name])
-                . $command->getDescription()
+                . $this->editDescription($command->getDescription())
             );
         }
         \ksort($groups);
@@ -84,10 +84,19 @@ class Index extends Command
                     '  ' . CLI::style($name, ForegroundColor::green) . '  '
                     // @phpstan-ignore-next-line
                     . \str_repeat(' ', $width - $lengths[$name])
-                    . $command->getDescription()
+                    . $this->editDescription($command->getDescription())
                 );
             }
         }
+    }
+
+    protected function editDescription(string $description) : string
+    {
+        $description = \trim($description);
+        if (!\str_ends_with($description, '.')) {
+            $description .= '.';
+        }
+        return $description;
     }
 
     /**
