@@ -96,7 +96,8 @@ final class CLITest extends TestCase
     public function testWidth() : void
     {
         self::assertSame($this->getTerminalWidth(), CLI::getWidth());
-        $cli = new class() extends CLI {
+        $cli = new class() extends CLI
+        {
             public static function isWindows() : bool
             {
                 return true;

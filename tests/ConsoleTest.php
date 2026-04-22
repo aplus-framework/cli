@@ -165,7 +165,8 @@ final class ConsoleTest extends TestCase
 
     public function testInactiveCommand() : void
     {
-        $inactiveCommand = new class($this->console) extends CommandMock {
+        $inactiveCommand = new class($this->console) extends CommandMock
+        {
             protected string $name = 'foo';
             protected bool $active = false;
         };
