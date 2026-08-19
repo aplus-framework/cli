@@ -62,7 +62,7 @@ class Console
             $this->setLanguage($language);
         }
         global $argv;
-        $this->prepare($argv ?? []);
+        $this->prepare($argv);
         $this->setDefaultCommands();
     }
 

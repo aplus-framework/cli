@@ -165,7 +165,7 @@ class Index extends Command
         if (!$info) {
             return $username;
         }
-        $gecos = $info['gecos'] ?? '';
+        $gecos = $info['gecos'];
         if (!$gecos) {
             return $username;
         }
