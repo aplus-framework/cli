@@ -9,8 +9,6 @@
  */
 namespace Framework\CLI\Streams;
 
-use JetBrains\PhpStorm\Pure;
-
 /**
  * Trait FilterStream.
  *
@@ -42,7 +40,6 @@ trait FilterStream
         return \PSFS_FEED_ME;
     }
 
-    #[Pure]
     public static function getContents() : string
     {
         return static::$contents;

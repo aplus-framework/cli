@@ -12,7 +12,6 @@ namespace Framework\CLI;
 use Framework\CLI\Styles\BackgroundColor;
 use Framework\CLI\Styles\ForegroundColor;
 use Framework\CLI\Styles\Format;
-use JetBrains\PhpStorm\Pure;
 use Stringable;
 use ValueError;
 
@@ -32,7 +31,6 @@ class CLI
      *
      * @return bool
      */
-    #[Pure]
     public static function isWindows() : bool
     {
         return \PHP_OS_FAMILY === 'Windows';
