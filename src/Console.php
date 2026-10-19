@@ -13,7 +13,7 @@ use Aplus\Cli\Commands\About;
 use Aplus\Cli\Commands\Help;
 use Aplus\Cli\Commands\Index;
 use Aplus\Cli\Styles\ForegroundColor;
-use Framework\Language\Language;
+use Aplus\Language\Language;
 
 /**
  * Class Console.

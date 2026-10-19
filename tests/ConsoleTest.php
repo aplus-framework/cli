@@ -12,7 +12,7 @@ namespace Tests\Cli;
 use Aplus\Cli\Command;
 use Aplus\Cli\Streams\Stderr;
 use Aplus\Cli\Streams\Stdout;
-use Framework\Language\Language;
+use Aplus\Language\Language;
 use PHPUnit\Framework\TestCase;
 
 final class ConsoleTest extends TestCase
