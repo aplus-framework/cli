@@ -7,9 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Tests\CLI;
+namespace Tests\Cli;
 
-use Framework\CLI\Console;
+use Aplus\Cli\Console;
 
 class ConsoleMock extends Console
 {

@@ -7,11 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Framework\CLI\Commands;
+namespace Aplus\Cli\Commands;
 
-use Framework\CLI\CLI;
-use Framework\CLI\Command;
-use Framework\CLI\Styles\ForegroundColor;
+use Aplus\Cli\Cli;
+use Aplus\Cli\Command;
+use Aplus\Cli\Styles\ForegroundColor;
 
 /**
  * Class Index.
@@ -61,14 +61,14 @@ class Index extends Command
             }
             $groups[$group][$name] = $command;
         }
-        CLI::write(
+        Cli::write(
             $this->console->getLanguage()->render('cli', 'availableCommands') . ':',
             ForegroundColor::yellow
         );
         [$width, $lengths] = $this->getWidthAndLengths($groupDefault);
         foreach ($groupDefault as $name => $command) {
-            CLI::write(
-                '  ' . CLI::style($name, ForegroundColor::green) . '  '
+            Cli::write(
+                '  ' . Cli::style($name, ForegroundColor::green) . '  '
                 // @phpstan-ignore-next-line
                 . \str_repeat(' ', $width - $lengths[$name])
                 . $this->editDescription($command->getDescription())
@@ -76,12 +76,12 @@ class Index extends Command
         }
         \ksort($groups);
         foreach ($groups as $groupName => $commands) {
-            CLI::newLine();
-            CLI::write(' ' . $groupName . ':', ForegroundColor::brightYellow);
+            Cli::newLine();
+            Cli::write(' ' . $groupName . ':', ForegroundColor::brightYellow);
             [$width, $lengths] = $this->getWidthAndLengths($commands);
             foreach ($commands as $name => $command) {
-                CLI::write(
-                    '  ' . CLI::style($name, ForegroundColor::green) . '  '
+                Cli::write(
+                    '  ' . Cli::style($name, ForegroundColor::green) . '  '
                     // @phpstan-ignore-next-line
                     . \str_repeat(' ', $width - $lengths[$name])
                     . $this->editDescription($command->getDescription())
@@ -128,7 +128,7 @@ class Index extends Command
                     |_|
 
             EOL;
-        CLI::write($text, ForegroundColor::green);
+        Cli::write($text, ForegroundColor::green);
     }
 
     protected function showDate() : void
@@ -137,7 +137,7 @@ class Index extends Command
         $text = \ucfirst($text) . ' - '
             . \date('H:i:s') . ' - '
             . \date_default_timezone_get() . \PHP_EOL;
-        CLI::write($text);
+        Cli::write($text);
     }
 
     protected function greet() : void
@@ -151,8 +151,8 @@ class Index extends Command
         }
         $greeting = $this->console->getLanguage()
             ->render('cli', 'greet.' . $timing, [$this->getUser()]);
-        CLI::write($greeting);
-        CLI::newLine();
+        Cli::write($greeting);
+        Cli::newLine();
     }
 
     protected function getUser() : string

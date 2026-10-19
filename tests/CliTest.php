@@ -7,17 +7,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Tests\CLI;
+namespace Tests\Cli;
 
-use Framework\CLI\CLI;
-use Framework\CLI\Streams\Stderr;
-use Framework\CLI\Streams\Stdout;
-use Framework\CLI\Styles\BackgroundColor;
-use Framework\CLI\Styles\ForegroundColor;
-use Framework\CLI\Styles\Format;
+use Aplus\Cli\Cli;
+use Aplus\Cli\Streams\Stderr;
+use Aplus\Cli\Streams\Stdout;
+use Aplus\Cli\Styles\BackgroundColor;
+use Aplus\Cli\Styles\ForegroundColor;
+use Aplus\Cli\Styles\Format;
 use PHPUnit\Framework\TestCase;
 
-final class CLITest extends TestCase
+final class CliTest extends TestCase
 {
     protected function setUp() : void
     {
@@ -31,25 +31,25 @@ final class CLITest extends TestCase
 
     public function testWrite() : void
     {
-        CLI::write('Hello!');
+        Cli::write('Hello!');
         self::assertSame("Hello!\n", Stdout::getContents());
         Stdout::reset();
-        CLI::write('Hello!', ForegroundColor::red);
+        Cli::write('Hello!', ForegroundColor::red);
         self::assertStringContainsString("\033[0;31mHello!", Stdout::getContents());
         Stdout::reset();
-        CLI::write('Hello!', null, null, 2);
+        Cli::write('Hello!', null, null, 2);
         self::assertSame("He\nll\no!\n", Stdout::getContents());
     }
 
     public function testBeep() : void
     {
-        CLI::beep(2);
+        Cli::beep(2);
         self::assertSame("\x07\x07", Stdout::getContents());
     }
 
     public function testNewLine() : void
     {
-        CLI::newLine(2);
+        Cli::newLine(2);
         self::assertSame(\PHP_EOL . \PHP_EOL, Stdout::getContents());
     }
 
@@ -62,7 +62,7 @@ final class CLITest extends TestCase
             //$progress = \str_repeat('#', $i);
             //$progress = \str_pad($progress, 10);
             $finalize = $i === 10;
-            CLI::liveLine($progress . $percent, $finalize);
+            Cli::liveLine($progress . $percent, $finalize);
             //\sleep(1);
             if ($finalize) {
                 $percent .= \PHP_EOL;
@@ -74,7 +74,7 @@ final class CLITest extends TestCase
 
     public function testIsWindows() : void
     {
-        self::assertFalse(CLI::isWindows());
+        self::assertFalse(Cli::isWindows());
     }
 
     /**
@@ -95,8 +95,8 @@ final class CLITest extends TestCase
 
     public function testWidth() : void
     {
-        self::assertSame($this->getTerminalWidth(), CLI::getWidth());
-        $cli = new class() extends CLI
+        self::assertSame($this->getTerminalWidth(), Cli::getWidth());
+        $cli = new class() extends Cli
         {
             public static function isWindows() : bool
             {
@@ -115,26 +115,26 @@ final class CLITest extends TestCase
         $line[2] = \str_repeat('a', $width);
         self::assertSame(
             $line[0] . \PHP_EOL . $line[1] . \PHP_EOL . $line[2],
-            CLI::wrap(\implode($line), $width)
+            Cli::wrap(\implode($line), $width)
         );
     }
 
     public function testClear() : void
     {
-        CLI::clear();
+        Cli::clear();
         self::assertSame("\e[H\e[2J", Stdout::getContents());
     }
 
     public function testError() : void
     {
         Stderr::init();
-        CLI::error('Whoops!', null);
+        Cli::error('Whoops!', null);
         self::assertStringContainsString('Whoops!', Stderr::getContents());
     }
 
     public function testTable() : void
     {
-        CLI::table([[1, 'John'], [2, 'Mary']]);
+        Cli::table([[1, 'John'], [2, 'Mary']]);
         $table = <<<'EOL'
             +---+------+
             | 1 | John |
@@ -144,7 +144,7 @@ final class CLITest extends TestCase
             EOL;
         self::assertSame($table, Stdout::getContents());
         Stdout::reset();
-        CLI::table([[1, 'John'], [2, 'Mary']], ['ID', 'Name']);
+        Cli::table([[1, 'John'], [2, 'Mary']], ['ID', 'Name']);
         $table = <<<'EOL'
             +----+------+
             | ID | Name |
@@ -159,33 +159,33 @@ final class CLITest extends TestCase
 
     public function testStyle() : void
     {
-        self::assertSame("foo\033[0m", CLI::style('foo'));
+        self::assertSame("foo\033[0m", Cli::style('foo'));
         self::assertSame(
             "\033[0;31mfoo\033[0m",
-            CLI::style('foo', ForegroundColor::red)
+            Cli::style('foo', ForegroundColor::red)
         );
         self::assertSame(
             "\033[0;31mfoo\033[0m",
-            CLI::style('foo', 'red')
+            Cli::style('foo', 'red')
         );
         self::assertSame(
             "\033[0;31m\033[44mfoo\033[0m",
-            CLI::style('foo', ForegroundColor::red, BackgroundColor::blue)
+            Cli::style('foo', ForegroundColor::red, BackgroundColor::blue)
         );
         self::assertSame(
             "\033[0;31m\033[44mfoo\033[0m",
-            CLI::style('foo', 'red', 'blue')
+            Cli::style('foo', 'red', 'blue')
         );
         self::assertSame(
             "\033[0;31m\033[44m\033[1m\033[3mfoo\033[0m",
-            CLI::style('foo', ForegroundColor::red, BackgroundColor::blue, [
+            Cli::style('foo', ForegroundColor::red, BackgroundColor::blue, [
                 Format::bold,
                 Format::italic,
             ])
         );
         self::assertSame(
             "\033[0;31m\033[44m\033[1m\033[3mfoo\033[0m",
-            CLI::style('foo', 'red', 'blue', [
+            Cli::style('foo', 'red', 'blue', [
                 'bold',
                 'italic',
             ])
@@ -196,32 +196,32 @@ final class CLITest extends TestCase
     {
         $this->expectException(\ValueError::class);
         $this->expectExceptionMessage(
-            '"bar" is not a valid backing value for enum Framework\CLI\Styles\ForegroundColor'
+            '"bar" is not a valid backing value for enum Aplus\Cli\Styles\ForegroundColor'
         );
-        CLI::style('foo', 'bar');
+        Cli::style('foo', 'bar');
     }
 
     public function testStyleWithInvalidBackground() : void
     {
         $this->expectException(\ValueError::class);
         $this->expectExceptionMessage(
-            '"baz" is not a valid backing value for enum Framework\CLI\Styles\BackgroundColor'
+            '"baz" is not a valid backing value for enum Aplus\Cli\Styles\BackgroundColor'
         );
-        CLI::style('foo', null, 'baz');
+        Cli::style('foo', null, 'baz');
     }
 
     public function testStyleWithInvalidFormat() : void
     {
         $this->expectException(\ValueError::class);
         $this->expectExceptionMessage(
-            '"bar" is not a valid backing value for enum Framework\CLI\Styles\Format'
+            '"bar" is not a valid backing value for enum Aplus\Cli\Styles\Format'
         );
-        CLI::style('foo', null, null, [Format::bold, 'bar']);
+        Cli::style('foo', null, null, [Format::bold, 'bar']);
     }
 
     public function testBox() : void
     {
-        CLI::box('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam'
+        Cli::box('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam'
             . ' sem lacus, rutrum vel neque eu, aliquam aliquet neque.');
         self::assertStringContainsString('Lorem', Stdout::getContents());
     }

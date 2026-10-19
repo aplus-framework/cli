@@ -50,12 +50,12 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Framework\\CLI\\": "src/"
+            "Aplus\\Cli\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\CLI\\": "tests/"
+            "Tests\\Cli\\": "tests/"
         }
     },
     "config": {

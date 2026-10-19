@@ -7,11 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Tests\CLI;
+namespace Tests\Cli;
 
-use Framework\CLI\Command;
-use Framework\CLI\Streams\Stderr;
-use Framework\CLI\Streams\Stdout;
+use Aplus\Cli\Command;
+use Aplus\Cli\Streams\Stderr;
+use Aplus\Cli\Streams\Stdout;
 use Framework\Language\Language;
 use PHPUnit\Framework\TestCase;
 

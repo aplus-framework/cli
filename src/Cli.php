@@ -7,22 +7,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Framework\CLI;
+namespace Aplus\Cli;
 
-use Framework\CLI\Styles\BackgroundColor;
-use Framework\CLI\Styles\ForegroundColor;
-use Framework\CLI\Styles\Format;
+use Aplus\Cli\Styles\BackgroundColor;
+use Aplus\Cli\Styles\ForegroundColor;
+use Aplus\Cli\Styles\Format;
 use Stringable;
 use ValueError;
 
 /**
- * Class CLI.
+ * Class Cli.
  *
  * @see https://en.wikipedia.org/wiki/ANSI_escape_code
  *
  * @package cli
  */
-class CLI
+class Cli
 {
     protected static string $reset = "\033[0m";
 

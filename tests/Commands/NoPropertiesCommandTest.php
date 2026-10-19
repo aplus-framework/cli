@@ -7,10 +7,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Tests\CLI\Commands;
+namespace Tests\Cli\Commands;
 
-use Framework\CLI\Command;
-use Framework\CLI\Console;
+use Aplus\Cli\Command;
+use Aplus\Cli\Console;
 use PHPUnit\Framework\TestCase;
 
 class NoPropertiesCommandTest extends TestCase

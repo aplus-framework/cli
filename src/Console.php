@@ -7,12 +7,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Framework\CLI;
+namespace Aplus\Cli;
 
-use Framework\CLI\Commands\About;
-use Framework\CLI\Commands\Help;
-use Framework\CLI\Commands\Index;
-use Framework\CLI\Styles\ForegroundColor;
+use Aplus\Cli\Commands\About;
+use Aplus\Cli\Commands\Help;
+use Aplus\Cli\Commands\Index;
+use Aplus\Cli\Styles\ForegroundColor;
 use Framework\Language\Language;
 
 /**
@@ -266,7 +266,7 @@ class Console
         }
         $command = $this->getCommand($this->command);
         if ($command === null) {
-            CLI::error(CLI::style(
+            Cli::error(Cli::style(
                 $this->getLanguage()->render('cli', 'commandNotFound', [$this->command]),
                 ForegroundColor::brightRed
             ), \defined('TESTING') ? null : 1);

@@ -7,11 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Framework\CLI\Commands;
+namespace Aplus\Cli\Commands;
 
-use Framework\CLI\CLI;
-use Framework\CLI\Command;
-use Framework\CLI\Styles\ForegroundColor;
+use Aplus\Cli\Cli;
+use Aplus\Cli\Command;
+use Aplus\Cli\Styles\ForegroundColor;
 
 /**
  * Class Help.
@@ -33,40 +33,40 @@ class Help extends Command
     {
         $command = $this->console->getCommand($commandName);
         if ($command === null) {
-            CLI::error(
+            Cli::error(
                 $this->console->getLanguage()->render('cli', 'commandNotFound', [$commandName]),
                 \defined('TESTING') ? null : 1
             );
             return;
         }
-        CLI::write(CLI::style(
+        Cli::write(Cli::style(
             $this->console->getLanguage()->render('cli', 'command') . ': ',
             ForegroundColor::green
         ) . $command->getName());
         $value = $command->getGroup();
         if ($value !== null) {
-            CLI::write(CLI::style(
+            Cli::write(Cli::style(
                 $this->console->getLanguage()->render('cli', 'group') . ': ',
                 ForegroundColor::green
             ) . $value);
         }
         $value = $command->getDescription();
         if ($value !== '') {
-            CLI::write(CLI::style(
+            Cli::write(Cli::style(
                 $this->console->getLanguage()->render('cli', 'description') . ': ',
                 ForegroundColor::green
             ) . $value);
         }
         $value = $command->getUsage();
         if ($value !== '') {
-            CLI::write(CLI::style(
+            Cli::write(Cli::style(
                 $this->console->getLanguage()->render('cli', 'usage') . ': ',
                 ForegroundColor::green
             ) . $value);
         }
         $value = $command->getOptions();
         if ($value) {
-            CLI::write(
+            Cli::write(
                 $this->console->getLanguage()->render('cli', 'options') . ': ',
                 ForegroundColor::green
             );
@@ -78,14 +78,14 @@ class Help extends Command
             \ksort($newOptions);
             $lastKey = \array_key_last($newOptions);
             foreach ($newOptions as $option => $description) {
-                CLI::write('  ' . $this->setColor($option));
+                Cli::write('  ' . $this->setColor($option));
                 $description = \trim($description);
                 if (!\str_ends_with($description, '.')) {
                     $description .= '.';
                 }
-                CLI::write('  ' . $description);
+                Cli::write('  ' . $description);
                 if ($option !== $lastKey) {
-                    CLI::newLine();
+                    Cli::newLine();
                 }
             }
         }
@@ -103,7 +103,7 @@ class Help extends Command
     {
         $text = \explode(',', $text);
         foreach ($text as &$item) {
-            $item = CLI::style($item, ForegroundColor::yellow);
+            $item = Cli::style($item, ForegroundColor::yellow);
         }
         return \implode(', ', $text);
     }

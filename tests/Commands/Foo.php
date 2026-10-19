@@ -7,10 +7,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Tests\CLI\Commands;
+namespace Tests\Cli\Commands;
 
-use Framework\CLI\CLI;
-use Framework\CLI\Command;
+use Aplus\Cli\Cli;
+use Aplus\Cli\Command;
 
 class Foo extends Command
 {
@@ -24,6 +24,6 @@ class Foo extends Command
 
     public function run() : void
     {
-        CLI::write(__CLASS__);
+        Cli::write(__CLASS__);
     }
 }

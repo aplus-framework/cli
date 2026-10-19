@@ -7,11 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Framework\CLI\Commands;
+namespace Aplus\Cli\Commands;
 
-use Framework\CLI\CLI;
-use Framework\CLI\Command;
-use Framework\CLI\Styles\ForegroundColor;
+use Aplus\Cli\Cli;
+use Aplus\Cli\Command;
+use Aplus\Cli\Styles\ForegroundColor;
 
 /**
  * Class About.
@@ -23,11 +23,11 @@ class About extends Command
     public function run() : void
     {
         $lang = $this->console->getLanguage();
-        CLI::write($lang->render('cli', 'about.line1'), ForegroundColor::brightGreen);
-        CLI::write($lang->render('cli', 'about.line2'));
-        CLI::write($lang->render('cli', 'about.line3'));
-        CLI::write($lang->render('cli', 'about.line4'));
-        CLI::write($lang->render('cli', 'about.line5'));
+        Cli::write($lang->render('cli', 'about.line1'), ForegroundColor::brightGreen);
+        Cli::write($lang->render('cli', 'about.line2'));
+        Cli::write($lang->render('cli', 'about.line3'));
+        Cli::write($lang->render('cli', 'about.line4'));
+        Cli::write($lang->render('cli', 'about.line5'));
     }
 
     public function getDescription() : string
