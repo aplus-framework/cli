@@ -29,7 +29,7 @@ Create a file (**cli.php**) with the following contents:
     <?php
     require __DIR__ . '/vendor/autoload.php';
 
-    use Framework\CLI\Console;
+    use Aplus\Cli\Console;
 
     $console = new Console();
     $console->run(); // void
@@ -52,8 +52,8 @@ Edit the PHP file:
 
 .. code-block:: php
 
-    use Framework\CLI\Console;
-    use Framework\Language\Language;
+    use Aplus\Cli\Console;
+    use Aplus\Language\Language;
 
     $language = new Language('pt-br');
 
@@ -81,15 +81,15 @@ Edit the PHP file:
 
 .. code-block:: php
 
-    use Framework\CLI\CLI;
-    use Framework\CLI\Command;
-    use Framework\CLI\Console;
+    use Aplus\Cli\Cli;
+    use Aplus\Cli\Command;
+    use Aplus\Cli\Console;
 
     class HelloCommand extends Command
     {
         public function run() : void
         {
-            CLI::write('Hello, Aplus!');
+            Cli::write('Hello, Aplus!');
         }
     }
 
