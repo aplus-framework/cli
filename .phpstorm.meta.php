@@ -63,37 +63,37 @@ registerArgumentsSet(
     'underline',
 );
 expectedArguments(
-    \Framework\CLI\CLI::box(),
+    \Aplus\Cli\Cli::box(),
     1,
     argumentsSet('cli_background_colors')
 );
 expectedArguments(
-    \Framework\CLI\CLI::box(),
+    \Aplus\Cli\Cli::box(),
     2,
     argumentsSet('cli_foreground_colors')
 );
 expectedArguments(
-    \Framework\CLI\CLI::write(),
+    \Aplus\Cli\Cli::write(),
     1,
     argumentsSet('cli_foreground_colors')
 );
 expectedArguments(
-    \Framework\CLI\CLI::write(),
+    \Aplus\Cli\Cli::write(),
     2,
     argumentsSet('cli_background_colors')
 );
 expectedArguments(
-    \Framework\CLI\CLI::style(),
+    \Aplus\Cli\Cli::style(),
     1,
     argumentsSet('cli_foreground_colors')
 );
 expectedArguments(
-    \Framework\CLI\CLI::style(),
+    \Aplus\Cli\Cli::style(),
     2,
     argumentsSet('cli_background_colors')
 );
 /*expectedArguments(
-    \Framework\CLI\CLI::style(),
+    \Aplus\Cli\Cli::style(),
     3,
     argumentsSet('cli_formats')
 );*/
